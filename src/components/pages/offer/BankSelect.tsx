@@ -62,7 +62,7 @@ export default function BankSelect({
             value={b.code}
             className="data-[state=checked]:bg-yellow-50 data-highlighted:bg-gray-50"
           >
-            <span className="flex items-center gap-3">
+            <span className="flex items-center gap-3 ">
               <Image
                 src={b.icon}
                 alt={b.th}
@@ -70,7 +70,7 @@ export default function BankSelect({
                 height={24}
                 className="rounded"
               />
-              <span className="text-[18px]">{b.th}</span>
+              <span className="text-[18px] leading-8">{b.th}</span>
             </span>
           </SelectItem>
         ))}

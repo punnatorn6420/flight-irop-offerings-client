@@ -2,7 +2,8 @@
 import Image from "next/image";
 
 export default function Hero({ size }: { size: "sm" | "lg" }) {
-  const src = size === "lg" ? "/images/auth_banner.png" : "/images/auth_banner_m.png";
+  const src =
+    size === "lg" ? "/images/auth_banner.png" : "/images/auth_banner_m.png";
 
   if (size === "lg") {
     return (
@@ -18,9 +19,8 @@ export default function Hero({ size }: { size: "sm" | "lg" }) {
       </div>
     );
   }
-
   return (
-    <div className="w-full max-w-[320px] mx-auto">
+    <div className="w-full mx-auto">
       <Image
         src={src}
         alt="Authentication Banner"

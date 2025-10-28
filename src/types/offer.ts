@@ -1,4 +1,5 @@
 export type CabinClass = "ECONOMY" | "PREMIUM" | "BUSINESS";
+export type PaymentMethod = "CARD" | "AGENCY" | "BANK";
 
 export interface FlightSegment {
   flightNumber: string; // DD103
@@ -24,6 +25,8 @@ export interface Passenger {
   firstName: string;
   lastName: string;
   selected?: boolean;
+  primary?: boolean;
+  email?: string;
 }
 
 export interface BenefitOption {
@@ -37,7 +40,17 @@ export interface BenefitOption {
   noteTh?: string;
 }
 
+export interface Payment {
+  method: PaymentMethod;
+  cardLast4?: string;
+  cardBrand?: string;
+  agencyName?: string;
+}
+
 export interface OfferMock {
+  pnrNumber?: string;
   trip: TripInfo;
   passengers: Passenger[];
+  payment: Payment;
+  redeemProgress: any;
 }

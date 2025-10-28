@@ -13,18 +13,53 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Landmark, CircleAlert, UserRound } from "lucide-react";
-import { BankCode } from "@/data/banks";
 import BankSelect from "@/components/pages/offer/BankSelect";
+import type { BankCode } from "@/data/banks";
+import type { PaymentMethod } from "@/types/offer";
 
-type Props = {
-  value?: BankCode;
-  onChange: (v: BankCode) => void;
-  className?: string;
-};
+// iconoir-react (แทน lucide)
+import {
+  Bank as BankIcon,
+  User as UserIcon,
+  WarningCircle,
+  HeadsetHelp,
+  MastercardCard,
+  WarningCircleSolid,
+} from "iconoir-react";
+
+// —————————————————————————————————————————————————————
+// กล่องข้อความสวย ๆ สำหรับ CARD & AGENCY
+function InfoPanel({
+  icon,
+  title,
+  bullets,
+  note,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  bullets: string[];
+  note?: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-2xl border border-yellow-200 bg-yellow-50/60 p-8">
+      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-yellow-400 bg-white text-yellow-500">
+        {icon}
+      </div>
+      <h3 className="mb-3 text-center text-[22px] font-bold">{title}</h3>
+      <ul className="mx-auto max-w-3xl list-disc space-y-2 pl-6 text-[18px] leading-7">
+        {bullets.map((b, i) => (
+          <li key={i}>{b}</li>
+        ))}
+      </ul>
+      {note ? (
+        <div className="mx-auto mt-4 max-w-3xl text-[18px]">{note}</div>
+      ) : null}
+    </div>
+  );
+}
+// —————————————————————————————————————————————————————
 
 export default function RefundPage() {
-  // จำนวนผู้โดยสาร
   const paxMax = offerMock.passengers.length;
   const [count, setCount] = useState<string>(String(paxMax));
 
@@ -37,16 +72,20 @@ export default function RefundPage() {
     []
   );
 
+  // สำหรับแบบโอนคืนเข้าบัญชี
   const [bank, setBank] = useState<BankCode | undefined>(undefined);
   const [accountName, setAccountName] = useState<string | undefined>(undefined);
   const [accountNo, setAccountNo] = useState<string>("");
 
-  const canConfirm =
+  const canConfirmBank =
     !!count && !!bank && !!accountName && accountNo.trim().length > 0;
+
+  const method: PaymentMethod = offerMock.payment.method;
 
   return (
     <main className="min-h-screen">
       <section className="mx-auto grid w-full max-w-[1120px] grid-cols-1 gap-6 px-4 pb-12 pt-6 md:grid-cols-[460px_minmax(0,1fr)] md:px-6">
+        {/* Banner ซ้าย */}
         <aside className="relative aspect-3/4 overflow-hidden rounded-md md:aspect-3/5">
           <Image
             src="/images/refund_banner.png"
@@ -56,7 +95,6 @@ export default function RefundPage() {
             priority
           />
         </aside>
-
         <section className="rounded-md py-4 md:py-6">
           <OfferPassengerCount
             max={paxMax}
@@ -64,67 +102,170 @@ export default function RefundPage() {
             onValueChange={setCount}
             className="mb-6"
           />
+          {method === "CARD" && (
+            <>
+              <section className="rounded-2xl bg-gray-50 p-4 md:p-6">
+                <div className="mx-auto mb-6 flex items-center justify-center rounded-2xl text-yellow-500">
+                  <MastercardCard width={96} height={96} />
+                </div>
+                <h3 className="text-center text-[22px] md:text-[26px] font-extrabold">
+                  ท่านได้ชำระเงินผ่านช่องทางบัตรเครดิต/เดบิต
+                </h3>
+                <p className="mx-auto mt-6 max-w-4xl text-[18px] md:text-[20px] leading-8 underline underline-offset-4">
+                  เราจะดำเนินการคืนเงินไปยังบัตรใบเดิมที่ใช้ในการชำระเงิน
+                </p>
+                <ul className="mx-auto mt-4 max-w-4xl list-disc space-y-3 pl-6 text-[18px] leading-8">
+                  <li>
+                    โดยเงินจะคืนกลับเข้าบัตรใบเดิมภายในระยะเวลา 45 วัน
+                    (ขึ้นอยู่ระยะเวลาการตัดรอบบิล)
+                  </li>
+                  <li>
+                    หากไม่ได้รับเงินคืนภายในระยะเวลาที่กำหนด
+                    กรุณาติดต่อศูนย์บริการลูกค้านกแอร์ โทร.1318
+                  </li>
+                </ul>
+                <div className="mx-auto mt-6 max-w-4xl text-[18px] font-extrabold">
+                  ต้องการขอคืนเงินเต็มจำนวน กรุณากดยืนยัน
+                </div>
+              </section>
+              <OfferFooterActions
+                confirmMode="dialog"
+                confirmDisabled={false}
+                onBack={() => history.back()}
+                onConfirm={async () => {
+                  console.log("Confirm with PNR", offerMock.pnrNumber, "");
+                }}
+                confirmDialog={{
+                  title: "ยืนยันการใช้สิทธิ์",
+                  descriptionTop:
+                    "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
+                  email: "",
+                  confirmText: "ยืนยันรับสิทธิ์",
+                  cancelText: "ยกเลิก",
+                }}
+              />
+            </>
+          )}
 
-          <div className="mb-2 ">
-            <h3 className="text-[24px] font-bold">
-              กรุณากรอกช่องทางการคืนเงิน
-            </h3>
-            <p className="text-[16px] text-gray-500 font-medium">
-              กรอกรายละเอียดเพื่อยืนยันช่องทางการโอนเงิน
-            </p>
-          </div>
+          {method === "AGENCY" && (
+            <>
+              <section className="rounded-2xl bg-gray-50 p-4 md:p-6">
+                <div className="mx-auto mb-6 flex items-center justify-center rounded-2xl text-yellow-500">
+                  <HeadsetHelp width={96} height={96} />
+                </div>
+                <h3 className="text-center text-[22px] md:text-[26px] font-extrabold">
+                  ท่านได้ซื้อตั๋วผ่านตัวแทนจำหน่าย
+                </h3>
+                <p className="mx-auto mt-6 max-w-4xl text-[18px] md:text-[20px] leading-8 underline underline-offset-4">
+                  หากต้องการขอคืนเงินเราจะดำเนินการผ่านตัวแทนจำหน่ายที่ท่านทำการจองไว้เท่านั้น
+                  โดยจะใช้ระยะเวลาดำเนินการ 60 วัน
+                </p>
+                <div className="mx-auto mt-4 max-w-4xl list-disc space-y-3 text-[18px]">
+                  กรุณาติดต่อไปยังตัวแทนจำหน่ายของท่านเพื่อดำเนินการขอคืนเงิน
+                </div>
+                <div className="mx-auto mt-4 max-w-4xl text-[18px] font-extrabold">
+                  ต้องการขอคืนเงินเต็มจำนวน กรุณากดยืนยัน
+                </div>
+              </section>
+              <OfferFooterActions
+                confirmMode="dialog"
+                confirmDisabled={false}
+                onBack={() => history.back()}
+                onConfirm={async () => {
+                  console.log("Confirm with PNR", offerMock.pnrNumber, "");
+                }}
+                confirmDialog={{
+                  title: "ยืนยันการใช้สิทธิ์",
+                  descriptionTop:
+                    "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
+                  email: "Naomill69@noknoi.com",
+                  confirmText: "ยืนยันรับสิทธิ์",
+                  cancelText: "ยกเลิก",
+                }}
+              />
+            </>
+          )}
 
-          <div className="space-y-3">
-            <div className="relative w-full">
-              <Landmark className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-500" />
-              <BankSelect value={bank} onChange={setBank} showIcon={false} />
-            </div>
-            <div className="relative w-full">
-              <UserRound className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-500" />
-              <Select value={accountName} onValueChange={setAccountName}>
-                <SelectTrigger className="[&_[data-slot=select-value]:not([data-placeholder])]:text-gray-400 cursor-pointer h-12! w-full rounded-md border border-gray-300 bg-white pl-12 text-[18px] ">
-                  <SelectValue placeholder="เลือกชื่อบัญชีผู้โดยสาร" />
-                </SelectTrigger>
-                <SelectContent className="rounded-md font-medium">
-                  {passengerOpts.map((p) => (
-                    <SelectItem key={p.id} value={p.label}>
-                      <span className="text-lg font-medium! text-black">
-                        {" "}
-                        {p.label}
-                      </span>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+          {method === "BANK" && (
+            <>
+              <div className="mb-2">
+                <h3 className="text-[24px] font-bold">
+                  กรุณากรอกช่องทางการคืนเงิน
+                </h3>
+                <p className="text-[16px] font-medium text-gray-500">
+                  กรอกรายละเอียดเพื่อยืนยันช่องทางการโอนเงิน
+                </p>
+              </div>
 
-            <Input
-              value={accountNo}
-              onChange={(e) => setAccountNo(e.target.value)}
-              placeholder="กรอกหมายเลขบัญชีธนาคาร"
-              className="[&_[data-slot=select-value]:not([data-placeholder])]:text-gray-400 cursor-pointer h-12 rounded-md border-gray-300 text-[18px]!"
-              inputMode="numeric"
-            />
-            <div className="flex items-center gap-2 bg-yellow-100 px-4 py-3 text-[18px] ">
-              <CircleAlert className="h-4 w-4 text-yellow-500" />
-              <span className="font-medium">
-                ระยะเวลาในการดำเนินคืนเงินภายใน 14 วัน
-              </span>
-            </div>
-          </div>
+              <div className="space-y-3">
+                <div className="relative w-full">
+                  <BankIcon
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-500"
+                    width={20}
+                    height={20}
+                    strokeWidth={2}
+                  />
+                  <BankSelect
+                    value={bank}
+                    onChange={setBank}
+                    showIcon={false}
+                  />
+                </div>
 
-          <OfferFooterActions
-            confirmDisabled={!canConfirm}
-            onBack={() => history.back()}
-            onConfirm={() => {
-              console.log("Refund Submit", {
-                count,
-                bank,
-                accountName,
-                accountNo,
-              });
-            }}
-          />
+                <div className="relative w-full">
+                  <UserIcon
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-500"
+                    width={20}
+                    height={20}
+                    strokeWidth={2}
+                  />
+                  <Select value={accountName} onValueChange={setAccountName}>
+                    <SelectTrigger className="[&_[data-slot=select-value][data-placeholder]]:text-gray-400 h-12! w-full rounded-md border border-gray-300 bg-white pl-12 text-[18px]">
+                      <SelectValue placeholder="เลือกชื่อบัญชีผู้โดยสาร" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-md font-medium">
+                      {passengerOpts.map((p) => (
+                        <SelectItem key={p.id} value={p.label}>
+                          <span className="text-lg">{p.label}</span>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <Input
+                  value={accountNo}
+                  onChange={(e) => setAccountNo(e.target.value)}
+                  placeholder="กรอกหมายเลขบัญชีธนาคาร"
+                  className="h-12 rounded-md border-gray-300 text-[18px]!"
+                  inputMode="numeric"
+                />
+
+                <div className="flex items-center gap-2 rounded-md bg-yellow-100 px-4 py-3 text-[18px]">
+                  <WarningCircleSolid
+                    width={18}
+                    height={18}
+                    className="text-yellow-600"
+                  />
+                  <span className="font-medium">
+                    ระยะเวลาในการดำเนินคืนเงินภายใน 14 วัน
+                  </span>
+                </div>
+              </div>
+
+              <OfferFooterActions
+                confirmDisabled={!canConfirmBank}
+                onBack={() => history.back()}
+                onConfirm={() => {
+                  console.log("Refund => BANK", {
+                    bank,
+                    accountName,
+                    accountNo,
+                  });
+                }}
+              />
+            </>
+          )}
         </section>
       </section>
     </main>

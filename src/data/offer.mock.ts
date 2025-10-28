@@ -1,6 +1,9 @@
 import { OfferMock } from "@/types/offer";
 
+export type RedeemProgress = Record<string /* passengerId */, boolean[]>;
+
 export const offerMock: OfferMock = {
+  pnrNumber: "ABC123",
   trip: {
     tripType: "ROUND_TRIP",
     cabin: "ECONOMY",
@@ -46,9 +49,22 @@ export const offerMock: OfferMock = {
     {
       id: "p3",
       title: "Ms.",
+      primary: true,
+      email: "Naomill69@noknoi.com",
       firstName: "Sarah",
       lastName: "Thompson",
       selected: true,
     },
   ],
+  payment: {
+    method: "AGENCY",
+    cardBrand: "VISA",
+    cardLast4: "1234",
+    agencyName: "Example Travel",
+  },
+  redeemProgress: <RedeemProgress>{
+    p1: [false, false],
+    p2: [true, true],
+    p3: [true, true],
+  },
 };

@@ -23,7 +23,7 @@ export default function FlightTabs({
             className={[
               "inline-flex items-center gap-2 rounded-lg border px-8 py-2 text-sm transition",
               isActive
-                ? "border-[#F6C200] bg-[#FFF6CC] text-[#9A7B00]"
+                ? "border-yellow-500 bg-yellow-50 text-yellow-900"
                 : "border-grey-200 bg-white hover:bg-grey-50",
             ].join(" ")}
           >

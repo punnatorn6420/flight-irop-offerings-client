@@ -3,14 +3,14 @@
 export default function Terms() {
   return (
     <section className="mx-auto max-w-5xl px-4 md:px-6 mt-6">
-      <h2 className="text-[20px] md:text-[24px] font-bold ">
+      <h2 className="text-[22px] md:text-[24px] font-bold leading-6">
         ข้อกำหนดและเงื่อนไขการใช้บริการ ( Terms &amp; Conditions )
       </h2>
 
-      <ol className="mt-2 text-[16px] md:text-[20px] leading-6 md:leading-7 text-text-body space-y-5 ">
+      <ol className="mt-6 md:mt-2 text-[18px] md:text-[20px] leading-6 md:leading-7 text-black space-y-5 ">
         <li>
           <p className="font-bold">1. การใช้บริการ</p>
-          <span className=" font-medium">
+          <span className="md:font-medium">
             ผู้ใช้ยินยอมว่าจะใช้ระบบของเราเพื่อวัตถุประสงค์ที่ถูกต้องตามกฎหมาย
             และไม่กระทำการใด ๆ ที่เป็นการละเมิดสิทธิของบุคคลอื่น
             หรือก่อให้เกิดความเสียหายต่อระบบ
@@ -19,7 +19,7 @@ export default function Terms() {
 
         <li>
           <p className="font-bold ">2. การจองและการชำระเงิน</p>
-          <ul className="list-disc pl-8 font-medium  ">
+          <ul className="list-disc pl-8 md:font-medium">
             <li>
               การจองจะถือว่าสำเร็จเมื่อผู้ใช้กรอกข้อมูลครบถ้วนและดำเนินการชำระเงินสำเร็จ
             </li>
@@ -33,7 +33,7 @@ export default function Terms() {
 
         <li>
           <p className="font-bold ">3. การยกเลิกและคืนเงิน</p>
-          <ul className="list-disc pl-8 font-medium  ">
+          <ul className="list-disc pl-8 md:font-medium">
             <li>
               การยกเลิกหรือขอคืนเงินขึ้นอยู่กับนโยบายของสายการบินหรือผู้ให้บริการที่เกี่ยวข้อง
             </li>
@@ -47,7 +47,7 @@ export default function Terms() {
 
         <li>
           <p className="font-bold ">4. ความเป็นส่วนตัวของข้อมูล (PDPA)</p>
-          <ul className="list-disc pl-8 font-medium  ">
+          <ul className="list-disc pl-8 md:font-medium">
             <li>
               ข้อมูลส่วนบุคคลถูกเก็บ รวบรวม ใช้
               และเปิดเผยตามวัตถุประสงค์ที่ระบุไว้อย่างชัดเจน
@@ -62,8 +62,9 @@ export default function Terms() {
 
         <li>
           <p className="font-bold ">5. การเปลี่ยนแปลงเงื่อนไข</p>
-          <span className=" font-medium">
-            บริษัทขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขการใช้บริการโดยไม่ต้องแจ้งให้ทราบล่วงหน้า โดยจะแสดงเงื่อนไขล่าสุดบนหน้าเว็บไซต์หรือ LIFF Page
+          <span className="md:font-medium">
+            บริษัทขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขการใช้บริการโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
+            โดยจะแสดงเงื่อนไขล่าสุดบนหน้าเว็บไซต์หรือ LIFF Page
           </span>
         </li>
       </ol>

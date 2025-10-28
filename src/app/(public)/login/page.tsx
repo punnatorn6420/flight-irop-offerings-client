@@ -4,22 +4,20 @@ import Brand from "@/components/pages/consent/Brand";
 import LoginForm from "@/components/pages/login/Form";
 import Hero from "@/components/pages/login/Hero";
 
-
 export default function LoginPage() {
   return (
     <main className="min-h-screen bg-grey-50">
       <div className="md:hidden mt-4">
-        <div className="max-w-screen-sm mx-auto px-4">
+        <div className="max-w-screen-sm mx-auto p-4">
           <Brand />
         </div>
       </div>
-
       <div className="max-w-5xl mx-auto px-2 md:px-4 py-4 md:py-6">
         <div className="grid md:grid-cols-[400px_1fr] gap-8 md:gap-14 items-stretch">
           <section className="hidden md:block">
             <Hero size="lg" />
           </section>
-          <section className="md:hidden">
+          <section className="md:hidden px-2">
             <Hero size="sm" />
           </section>
 
@@ -27,16 +25,15 @@ export default function LoginPage() {
             <div className="hidden md:block mt-4 mb-24">
               <Brand />
             </div>
-
-            <div className="flex-1">
-              <LoginForm/>
+            <div className="flex-1 px-2 md:px-0">
+              <LoginForm />
             </div>
-            <footer className="mt-12 md:mt-6 text-center text-[16px] text-grey-800">
-              © 2017 บริษัท สายการบินนกแอร์ จำกัด (มหาชน)
-            </footer>
           </section>
         </div>
       </div>
+      <footer className="mt-12 md:mt-6 text-center text-[16px] text-grey-800">
+        © 2017 บริษัท สายการบินนกแอร์ จำกัด (มหาชน)
+      </footer>
     </main>
   );
 }

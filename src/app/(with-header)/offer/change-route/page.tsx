@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CalendarX2, Users2 } from "lucide-react";
 import { offerMock } from "@/data/offer.mock";
 import OfferFooterActions from "@/components/pages/offer/OfferFooterActions";
 import OfferPassengerCount from "@/components/pages/offer/OfferPassengerCount";
@@ -19,6 +18,7 @@ import {
   getDaysForRoute,
   getSlotsForRoute,
 } from "@/data/offer_change_route.mock";
+import { Calendar } from "iconoir-react";
 
 // ——————————————————— mock (เดือน/วัน/สล็อต) ———————————————————
 const AVAIL_MAP: Record<string, Record<string, string[]>> = {
@@ -217,7 +217,13 @@ export default function ChangeFlightSameRoutePage() {
                 <div className="col-span-full">
                   <div className="mx-auto max-w-xl rounded-2xl border border-grey-200 bg-white p-8 text-center shadow-sm">
                     <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-grey-200">
-                      <CalendarX2 className="h-6 w-6 text-grey-500" />
+                      {/* <CalendarX2 className="h-6 w-6 text-grey-500" /> */}
+                      <Calendar
+                        width={24}
+                        height={24}
+                        strokeWidth={2}
+                        className="text-grey-500"
+                      />
                     </div>
                     <div className="text-[16px] text-grey-600">
                       ไม่พบเที่ยวบิน กรุณาเลือกเส้นทาง (และวันเดินทาง)

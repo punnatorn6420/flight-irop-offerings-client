@@ -1,7 +1,11 @@
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
 
-export default function WithHeaderLayout({children}:{children:React.ReactNode}) {
+export default function WithHeaderLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       <Header />

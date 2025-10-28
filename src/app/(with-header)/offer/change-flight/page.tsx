@@ -10,10 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronLeft, ChevronRight, CalendarX2, Users2 } from "lucide-react";
 import { offerMock } from "@/data/offer.mock";
 import OfferFooterActions from "@/components/pages/offer/OfferFooterActions";
 import OfferPassengerCount from "@/components/pages/offer/OfferPassengerCount";
+import { Calendar, NavArrowLeft, NavArrowRight } from "iconoir-react";
 
 const AVAIL_MAP: Record<string, Record<string, string[]>> = {
   "2025-10": {
@@ -152,7 +152,8 @@ export default function ChangeFlightSameRoutePage() {
                   disabled={!canSlideLeft}
                   className="h-10 w-10 cursor-pointer"
                 >
-                  <ChevronLeft className="h-5 w-5" />
+                  {/* <ChevronLeft className="h-5 w-5" /> */}
+                  <NavArrowLeft width={20} height={20} strokeWidth={2} />
                 </Button>
                 <Button
                   variant="outline"
@@ -161,7 +162,8 @@ export default function ChangeFlightSameRoutePage() {
                   disabled={!canSlideRight}
                   className="h-10 w-10 cursor-pointer"
                 >
-                  <ChevronRight className="h-5 w-5" />
+                  {/* <ChevronRight className="h-5 w-5" /> */}
+                  <NavArrowRight width={20} height={20} strokeWidth={2} />
                 </Button>
               </div>
             </div>
@@ -237,7 +239,13 @@ export default function ChangeFlightSameRoutePage() {
                 <div className="col-span-full">
                   <div className="mx-auto max-w-xl rounded-2xl border border-grey-200 bg-white p-8 text-center shadow-sm">
                     <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-grey-200">
-                      <CalendarX2 className="h-6 w-6 text-grey-500" />
+                      {/* <CalendarX2 className="h-6 w-6 text-grey-500" /> */}
+                      <Calendar
+                        width={24}
+                        height={24}
+                        strokeWidth={2}
+                        className="text-grey-500"
+                      />
                     </div>
                     <div className="text-[18px] text-grey-700">
                       ไม่พบเที่ยวบิน กรุณาเลือกวันเดินทาง

@@ -1,0 +1,12 @@
+{
+  "home": { "welcome": "Welcome", "tagline": "Flicker-free i18n project" },
+  "consent": {
+    "title": "Consent",
+    "description": "Agreement and privacy details"
+  },
+  "login": { "title": "Login", "signin": "Sign in with enterprise account" },
+  "changeFlight": {
+    "title": "Change Flight",
+    "empty": "No flights found. Please select a date."
+  }
+}

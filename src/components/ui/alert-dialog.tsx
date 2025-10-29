@@ -50,11 +50,20 @@ function AlertDialogContent({
 }: React.ComponentProps<typeof AlertDialogPrimitive.Content>) {
   return (
     <AlertDialogPortal>
-      <AlertDialogOverlay />
+      <AlertDialogOverlay
+        className="fixed inset-0 z-50 bg-black/75
+        data-[state=open]:animate-in data-[state=open]:fade-in-0
+        data-[state=closed]:animate-out data-[state=closed]:fade-out-0"
+      />
+      {/* backdrop-blur-[2px] */}
+
       <AlertDialogPrimitive.Content
         data-slot="alert-dialog-content"
         className={cn(
-          "fixed left-1/2 top-1/2 z-60 grid w-full max-w-[540px]! -translate-x-1/2 -translate-y-1/2 gap-4 rounded-3xl border border-gray-200 bg-white p-6 text-gray-900 shadow-xl duration-200",
+          "fixed top-1/2 inset-x-4 -translate-y-1/2",
+          "sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2",
+          "w-auto max-w-[640px]",
+          "z-60 grid gap-4 rounded-3xl border border-gray-200 bg-white p-6 shadow-xl duration-200",
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           className
         )}

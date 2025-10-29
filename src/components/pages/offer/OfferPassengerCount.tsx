@@ -32,15 +32,14 @@ export default function OfferPassengerCount({
       <h3 className="mb-2 text-[24px] font-bold">{title}</h3>
       <div className="flex items-center gap-2 w-full">
         <div className="relative w-full">
-          {/* <Users2 className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-600" /> */}
           <Group
             width={20}
             height={20}
             strokeWidth={2}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-600"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
           />
           <Select value={value} onValueChange={onValueChange}>
-            <SelectTrigger className="w-full h-12 rounded-md pl-12 text-[20px] font-medium border-grey-300 bg-white">
+            <SelectTrigger className="w-full h-12! rounded-md pl-12 text-[20px] font-medium border-grey-500 bg-white">
               <SelectValue placeholder={`จำนวน ${max} ท่าน`} />
             </SelectTrigger>
             <SelectContent className="rounded-xl">

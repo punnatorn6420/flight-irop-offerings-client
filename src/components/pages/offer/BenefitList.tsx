@@ -139,21 +139,21 @@ export default function BenefitList() {
         })}
       </div>
       <AlertDialog open={openDecline} onOpenChange={setOpenDecline}>
-        <AlertDialogContent className="max-w-[640px] rounded-3xl">
+        <AlertDialogContent className="max-w-[640px] rounded-4xl">
           <AlertDialogHeader>
-            <div className="mx-auto mb-2 flex h-16 w-16 items-center justify-center text-yellow-500">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center text-yellow-500">
               <WarningCircleSolid width={64} height={64} />
             </div>
             <AlertDialogTitle className="text-center text-[36px] font-extrabold">
               ยืนยันการไม่ใช้สิทธิ์
             </AlertDialogTitle>
             <AlertDialogDescription asChild>
-              <div className="mt-1 space-y-2 text-center text-[20px] leading-5 text-gray-800">
+              <div className="text-center text-[18px] leading-5 text-gray-800">
                 หากกดยืนยันไม่รับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
+          <AlertDialogFooter className="mt-2 grid gap-3 grid-cols-2">
             <AlertDialogAction
               onClick={confirmDecline}
               className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-600 text-yellow-800"

@@ -69,7 +69,7 @@ export default function LoginForm(_: Props) {
               type="submit"
               disabled={!canSubmit}
               className="
-                w-full h-12! rounded-md text-[20px] text-yellow-900 font-medium
+                w-full h-12! rounded-md text-[20px] text-yellow-900 font-medium cursor-pointer
                 bg-primary hover:bg-yellow-600 disabled:bg-gray-300 disabled:text-gray-900
                 focus-visible:ring-2 focus-visible:ring-primary
                 disabled:opacity-50 disabled:pointer-events-none

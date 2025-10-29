@@ -13,7 +13,7 @@ export default function FlightTabs({
   onChangeAction: (code: string) => Promise<void>;
 }) {
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="grid grid-cols-2 gap-3">
       {tabs.map((t) => {
         const isActive = value === t.code;
         return (
@@ -21,9 +21,10 @@ export default function FlightTabs({
             key={t.code}
             onClick={() => onChangeAction(t.code)}
             className={[
-              "inline-flex items-center gap-2 rounded-lg border px-8 py-2 text-sm transition",
+              "min-w-0 w-full flex items-center justify-center gap-2 rounded-lg border",
+              "px-7 py-2 text-[16px] sm:text-[18px] font-bold transition",
               isActive
-                ? "border-yellow-500 bg-yellow-50 text-yellow-900"
+                ? "border-yellow-500 bg-yellow-50 text-yellow-900 hover:bg-yellow-100"
                 : "border-grey-200 bg-white hover:bg-grey-50",
             ].join(" ")}
           >
@@ -32,8 +33,9 @@ export default function FlightTabs({
               alt="NOK AIR"
               width={20}
               height={20}
+              className="shrink-0"
             />
-            <span className="text-[18px] font-bold" aria-hidden>
+            <span className="text-[18px] font-bold truncate" aria-hidden>
               {t.label}
             </span>
           </button>

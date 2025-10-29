@@ -30,7 +30,7 @@ export default function BankSelect({
     <Select value={value} onValueChange={(v) => onChange(v as BankCode)}>
       <SelectTrigger
         className={cn(
-          "[&_[data-slot=select-value]:not([data-placeholder])]:text-gray-400 cursor-pointer h-12! w-full rounded-md border border-gray-300 bg-white pl-12 text-[18px] ",
+          "cursor-pointer h-12! w-full rounded-md border border-gray-300 bg-white pl-12 text-[18px] ",
           "flex items-center gap-2 pl-12",
           "[&_[data-slot=select-value][data-placeholder]]:text-gray-400",
           className
@@ -48,9 +48,7 @@ export default function BankSelect({
           )}
 
           <SelectValue placeholder="เลือกธนาคาร" className="truncate min-w-0 ">
-            <span className="font-medium! text-black">
-              {selected ? selected.th : null}
-            </span>{" "}
+            <span>{selected ? selected.th : null}</span>{" "}
           </SelectValue>
         </div>
       </SelectTrigger>

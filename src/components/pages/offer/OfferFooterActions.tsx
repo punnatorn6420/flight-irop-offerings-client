@@ -89,14 +89,14 @@ export default function OfferFooterActions({
     <>
       <div
         className={clsx(
-          "mt-20 grid grid-cols-1 gap-3 md:grid-cols-[1fr_1fr] bottom-0 left-0 right-0 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/60 p-4 md:p-0 md:bg-transparent md:backdrop-blur-0 md:supports-backdrop-filter:bg-transparent",
+          "mt-20 grid gap-3 grid-cols-[1fr_1fr] bottom-0 left-0 right-0 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/60 md:p-0 md:bg-transparent md:backdrop-blur-0 md:supports-backdrop-filter:bg-transparent",
           className
         )}
       >
         <Button
           type="button"
           variant="outline"
-          className="h-12 rounded-lg text-[18px] border-yellow-500 text-yellow-700 cursor-pointer hover:bg-yellow-50"
+          className="h-12 rounded-md text-[20px] border-yellow-500 text-yellow-900 cursor-pointer hover:bg-yellow-50"
           onClick={onBack}
         >
           {backLabel}
@@ -104,7 +104,7 @@ export default function OfferFooterActions({
 
         <Button
           type="button"
-          className="h-12 rounded-lg text-[18px] bg-primary text-primary-foreground hover:bg-yellow-600 disabled:opacity-50 cursor-pointer"
+          className="h-12 rounded-md text-[20px] bg-primary  hover:bg-yellow-600 text-yellow-900 disabled:opacity-50 cursor-pointer"
           disabled={confirmDisabled || loading}
           onClick={handleConfirmClick}
         >
@@ -115,14 +115,14 @@ export default function OfferFooterActions({
         <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
           <AlertDialogContent className="max-w-[640px] rounded-3xl">
             <AlertDialogHeader>
-              <div className="mx-auto mb-2 flex h-16 w-16 items-center justify-center text-yellow-500">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center text-yellow-500">
                 {icon ?? <WarningCircleSolid width={64} height={64} />}
               </div>
               <AlertDialogTitle className="text-center text-[36px] font-extrabold">
                 {title}
               </AlertDialogTitle>
               <AlertDialogDescription asChild>
-                <div className="mt-1 space-y-2 text-center text-[20px] leading-5 text-gray-800">
+                <div className="text-center text-[20px] leading-5 text-gray-800">
                   <p>{descriptionTop}</p>
                   {email && (
                     <p>
@@ -140,7 +140,7 @@ export default function OfferFooterActions({
               </AlertDialogDescription>
             </AlertDialogHeader>
 
-            <AlertDialogFooter className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
+            <AlertDialogFooter className="mt-2 grid gap-3 grid-cols-2">
               <AlertDialogAction
                 onClick={async () => {
                   await runConfirm();

@@ -8,7 +8,7 @@ export default function Header() {
       className="rounded-b-3xl overflow-hidden shadow-xl"
       style={{ background: "var(--color-yellow-500)" }}
     >
-      <div className="mx-auto flex w-full max-w-[1120px] items-center justify-between px-4 py-3 md:px-6 md:py-4">
+      <div className="mx-auto flex w-full max-w-[1120px] items-center justify-between px-4 py-2 md:px-6 md:py-4">
         <div className="flex items-center gap-2">
           <Image
             src="/images/logo_name.png"

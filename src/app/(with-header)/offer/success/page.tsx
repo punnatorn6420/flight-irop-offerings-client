@@ -54,14 +54,26 @@ export default function OfferRedeemSuccessPage() {
   return (
     <section className="mx-auto flex w-full max-w-[980px] flex-col items-center px-4 py-12 md:pt-24">
       <div className="relative mb-8 w-full overflow-hidden justify-items-center">
-        <Image
-          src="/images/accept_banner.png"
-          alt="ระบบรับสิทธิ์ชดเชย"
-          width={980}
-          height={280}
-          className="w-150 h-auto object-contain"
-          priority
-        />
+        <div className="md:hidden">
+          <Image
+            src="/images/accept_banner_m.png"
+            alt="ระบบรับสิทธิ์ชดเชย"
+            width={980}
+            height={280}
+            className="w-150 h-auto object-contain"
+            priority
+          />
+        </div>
+        <div className="hidden md:block">
+          <Image
+            src="/images/accept_banner.png"
+            alt="ระบบรับสิทธิ์ชดเชย"
+            width={980}
+            height={280}
+            className="w-150 h-auto object-contain"
+            priority
+          />
+        </div>
         <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/5" />
       </div>
 
@@ -78,7 +90,7 @@ export default function OfferRedeemSuccessPage() {
           ใช้สิทธิ์เรียบร้อยแล้ว!
         </h1>
       </div>
-      <p className="mt-6 max-w-[820px] text-center text-[18px] leading-7">
+      <p className="mt-6 max-w-[820px] text-center text-[20px] leading-7 px-4 md:px-0">
         เราจะดำเนินการส่งเอกสารยืนยันไปที่อีเมล{" "}
         <a
           href={`mailto:${email}`}
@@ -102,14 +114,13 @@ export default function OfferRedeemSuccessPage() {
           </button>
           {showShareBlock && (
             <>
-              <div className=" leading-4 my-6 font-medium">
+              <div className=" leading-4 my-6 font-medium text-[18px]">
                 <div className="text-center text-gray-400">หรือ</div>
                 <div className="text-center text-gray-400">
                   คัดลอกลิงก์ให้ผู้โดยสารท่านอื่นรับสิทธิ์ต่อ
                 </div>
               </div>
-
-              <InputGroup className="w-xl h-12!">
+              <InputGroup className="md:w-xl h-12!">
                 <InputGroupInput
                   readOnly
                   className="text-[20px]! "

@@ -38,29 +38,30 @@ export default function PassengerSelectCard({
         ผู้โดยสารแต่ละคนสามารถเลือกสิทธิ์ที่แตกต่างกันได้
         และสามารถทำรายการได้ทีละคน หรือพร้อมกันทั้งหมดเพื่อรับสิทธิ์เดียวกัน
       </p>
-
-      <ul className="space-y-3">
-        {list.map((p) => {
-          const inputId = `p-${p.id}`;
-          return (
-            <li key={p.id} className="flex items-center gap-3">
-              <Checkbox
-                id={inputId}
-                checked={p.checked}
-                onCheckedChange={(v) => toggleOne(p.id, Boolean(v))}
-                className="
+      <div className="overflow-y-auto pr-2 -mr-2 max-h-[29vh]">
+        <ul className="space-y-3">
+          {list.map((p) => {
+            const inputId = `p-${p.id}`;
+            return (
+              <li key={p.id} className="flex items-center gap-3">
+                <Checkbox
+                  id={inputId}
+                  checked={p.checked}
+                  onCheckedChange={(v) => toggleOne(p.id, Boolean(v))}
+                  className="
                   h-6 w-6 rounded-md ring-grey-300
                   data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground
                   data-[state=checked]:ring-primary
                 "
-              />
-              <label htmlFor={inputId} className="text-[18px] font-medium">
-                {p.name}
-              </label>
-            </li>
-          );
-        })}
-      </ul>
+                />
+                <label htmlFor={inputId} className="text-[18px] font-medium">
+                  {p.name}
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
       <div className="mt-4 flex items-center gap-3">
         <Checkbox

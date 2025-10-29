@@ -68,7 +68,7 @@ export default function LanguageSwitcher({
           variant="ghost"
           aria-label="Change language"
           className="
-            h-12 px-4 md:px-5 rounded-2xl
+            h-10 px-4 md:px-5 rounded-2xl
             bg-white hover:bg-yellow-50
             text-black font-extrabold text-[18px]
             shadow-[0_6px_16px_rgba(0,0,0,0.12)]
@@ -80,9 +80,9 @@ export default function LanguageSwitcher({
           </span>
           <span className="text-[20px]">{current.label}</span>
           {open ? (
-            <NavArrowUp className="ml-2 h-5 w-8 font-bold!" />
+            <NavArrowUp className="ml-2 h-5  font-bold!" />
           ) : (
-            <NavArrowDown className="ml-2 h-5 w-8 font-bold!" />
+            <NavArrowDown className="ml-2 h-5  font-bold!" />
           )}
         </Button>
       </DropdownMenuTrigger>
@@ -90,7 +90,7 @@ export default function LanguageSwitcher({
         align="start"
         sideOffset={10}
         className="
-          w-40 rounded-2xl border-0 p-2 space-y-1
+          w-40 rounded-2xl border-0 space-y-2
           shadow-xl
           bg-white
         "
@@ -102,7 +102,7 @@ export default function LanguageSwitcher({
               key={l.code}
               onClick={() => changeLocale(l.code)}
               className={[
-                "flex cursor-pointer items-center gap-3 rounded-xl p-2",
+                "flex cursor-pointer items-center gap-3 rounded-xl",
                 "text-[18px] font-extrabold text-grey-900",
                 active ? "bg-yellow-100" : "hover:bg-grey-50",
               ].join(" ")}
@@ -110,7 +110,7 @@ export default function LanguageSwitcher({
               <span className="relative inline-flex h-7 w-7 overflow-hidden rounded-full bg-white ring-1 ring-black/5">
                 <Image src={l.flagSrc} alt="" fill className="object-cover" />
               </span>
-              <span className="text-[20px]">{l.label}</span>
+              <span className="ml-2 text-[20px]">{l.label}</span>
             </DropdownMenuItem>
           );
         })}

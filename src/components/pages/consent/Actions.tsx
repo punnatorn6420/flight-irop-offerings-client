@@ -67,9 +67,9 @@ export default function Actions() {
           </Button>
         </div>
 
-        <div className="mt-8 md:mt-12 text-center text-[18px] text-grey-900">
+        <footer className="pt-12 text-center text-[18px] text-grey-800">
           © 2017 บริษัท สายการบินนกแอร์ จำกัด (มหาชน)
-        </div>
+        </footer>
       </div>
     </section>
   );

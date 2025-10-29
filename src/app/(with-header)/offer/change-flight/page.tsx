@@ -150,10 +150,10 @@ export default function ChangeFlightSameRoutePage() {
                     <SelectTrigger className="w-52 h-10! rounded-lg pl-3 text-[18px] font-medium border-grey-500">
                       <SelectValue placeholder="เลือกเดือน" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="round-md">
                       {monthOptions.map((opt) => (
                         <SelectItem key={opt.value} value={opt.value}>
-                          {opt.label}
+                          <span className="text-[18px]">{opt.label}</span>
                         </SelectItem>
                       ))}
                     </SelectContent>

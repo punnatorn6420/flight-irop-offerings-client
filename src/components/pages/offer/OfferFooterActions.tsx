@@ -146,12 +146,12 @@ export default function OfferFooterActions({
                   await runConfirm();
                   setOpenDialog(false);
                 }}
-                className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-600 text-yellow-800"
+                className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-600 text-yellow-800 cursor-pointer"
                 disabled={loading}
               >
                 {confirmText}
               </AlertDialogAction>
-              <AlertDialogCancel className="h-12 rounded-md border-yellow-400 text-[20px] hover:bg-yellow-50 text-yellow-800">
+              <AlertDialogCancel className="h-12 rounded-md border-yellow-400 text-[20px] hover:bg-yellow-50 text-yellow-800 cursor-pointer">
                 {cancelText}
               </AlertDialogCancel>
             </AlertDialogFooter>

@@ -103,7 +103,7 @@ export default function BenefitList() {
                 "relative overflow-hidden flex items-center justify-between gap-4 rounded-lg border p-4 md:p-5 shadow-sm outline-none transition",
                 'before:content-[""] before:absolute before:top-1/2 before:-translate-y-1/2',
                 "before:-right-20 md:before:right-[-280px]",
-                "before:w-[200px] before:h-[200px] md:before:w-[400px] md:before:h-[400px]",
+                "before:w-[200px] before:h-[200px] md:before:w-[405px] md:before:h-[200px]",
                 "before:rounded-full before:bg-yellow-50 before:pointer-events-none",
                 highlightCls,
                 isSelected ? "ring-2 ring-yellow-500" : "ring-0",

@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useMemo, useState } from 'react';
-import { Checkbox } from '@/components/ui/checkbox';
-import type { OfferMock } from '@/types/offer';
+import { useMemo, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import type { OfferMock } from "@/types/offer";
 
 export default function PassengerSelectCard({
   passengers,
 }: {
-  passengers: OfferMock['passengers'];
+  passengers: OfferMock["passengers"];
 }) {
   const [list, setList] = useState(
     passengers.map((p) => ({
@@ -32,11 +32,11 @@ export default function PassengerSelectCard({
     setList((prev) => prev.map((p) => ({ ...p, checked: next })));
 
   return (
-    <article className="bg-gray-100 p-4 md:p-5 rounded-2xl">
+    <article className="bg-gray-50 p-4 md:p-5 rounded-2xl">
       <h3 className="font-bold text-[24px]">เลือกผู้โดยสาร</h3>
       <p className="mb-3 text-[16px] text-grey-700">
-        ผู้โดยสารแต่ละคนสามารถเลือกสิทธิ์ที่แตกต่างกันได้ และสามารถทำรายการได้ทีละคน
-        หรือพร้อมกันทั้งหมดเพื่อรับสิทธิ์เดียวกัน
+        ผู้โดยสารแต่ละคนสามารถเลือกสิทธิ์ที่แตกต่างกันได้
+        และสามารถทำรายการได้ทีละคน หรือพร้อมกันทั้งหมดเพื่อรับสิทธิ์เดียวกัน
       </p>
 
       <ul className="space-y-3">
@@ -65,7 +65,7 @@ export default function PassengerSelectCard({
       <div className="mt-4 flex items-center gap-3">
         <Checkbox
           id="all"
-          checked={allChecked ? true : someChecked ? 'indeterminate' : false}
+          checked={allChecked ? true : someChecked ? "indeterminate" : false}
           onCheckedChange={(v) => toggleAll(Boolean(v))}
           className="
             h-6 w-6 rounded-md ring-grey-300

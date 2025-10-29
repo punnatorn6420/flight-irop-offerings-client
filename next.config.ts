@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
       "iconoir-react",
     ],
   },
+  devIndicators: false,
 };
 
 export default nextConfig;

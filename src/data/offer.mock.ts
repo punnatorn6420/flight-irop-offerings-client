@@ -57,14 +57,14 @@ export const offerMock: OfferMock = {
     },
   ],
   payment: {
-    method: "CARD",
+    method: "BANK",
     cardBrand: "VISA",
     cardLast4: "4421",
     agencyName: "Nok Air Web",
   },
   redeemProgress: {
-    p10: [true, false],
-    p11: [false, false],
-    p12: [false, false],
+    p10: [true, true],
+    p11: [true, true],
+    p12: [true, false],
   },
 };

@@ -6,7 +6,7 @@ import Hero from "@/components/pages/login/Hero";
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-grey-50">
+    <main className="min-h-screen">
       <div className="md:hidden mt-4">
         <div className="max-w-screen-sm mx-auto p-4">
           <Brand />

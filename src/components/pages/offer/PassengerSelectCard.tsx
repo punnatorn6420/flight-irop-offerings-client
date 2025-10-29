@@ -51,7 +51,7 @@ export default function PassengerSelectCard({
                   className="
                   h-6 w-6 rounded-md ring-grey-300
                   data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground
-                  data-[state=checked]:ring-primary
+                  data-[state=checked]:ring-primary cursor-pointer
                 "
                 />
                 <label htmlFor={inputId} className="text-[18px] font-medium">
@@ -72,7 +72,7 @@ export default function PassengerSelectCard({
             h-6 w-6 rounded-md ring-grey-300
             data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground
             data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground
-            data-[state=checked]:ring-primary data-[state=indeterminate]:ring-primary
+            data-[state=checked]:ring-primary data-[state=indeterminate]:ring-primary cursor-pointer
           "
         />
         <label htmlFor="all" className="text-[18px] font-medium">

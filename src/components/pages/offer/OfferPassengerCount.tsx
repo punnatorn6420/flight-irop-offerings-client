@@ -39,12 +39,16 @@ export default function OfferPassengerCount({
             className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
           />
           <Select value={value} onValueChange={onValueChange}>
-            <SelectTrigger className="w-full h-12! rounded-md pl-12 text-[20px] font-medium border-grey-500 bg-white">
+            <SelectTrigger className="w-full h-12! rounded-md pl-12 text-[20px] font-medium border-grey-500 bg-white cursor-pointer">
               <SelectValue placeholder={`จำนวน ${max} ท่าน`} />
             </SelectTrigger>
-            <SelectContent className="rounded-xl">
+            <SelectContent className="rounded-xl ">
               {options.map((n) => (
-                <SelectItem key={n} value={String(n)} className="text-[18px]">
+                <SelectItem
+                  key={n}
+                  value={String(n)}
+                  className="text-[18px] cursor-pointer"
+                >
                   จำนวน {n} ท่าน
                 </SelectItem>
               ))}

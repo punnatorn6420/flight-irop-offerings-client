@@ -20,10 +20,7 @@ import {
 } from "@/data/offer_change_route.mock";
 import { Calendar } from "iconoir-react";
 
-// ——————————————————— mock (เดือน/วัน/สล็อต) ———————————————————
-const AVAIL_MAP: Record<string, Record<string, string[]>> = {
-  // ปล่อยว่างไว้ก่อน ตามภาพยังไม่เลือกวัน
-};
+const AVAIL_MAP: Record<string, Record<string, string[]>> = {};
 
 // ——————————————————— util ———————————————————
 const TH_MONTHS = [
@@ -49,7 +46,6 @@ function getDaysInMonth(ym: string) {
   return new Date(y, m, 0).getDate();
 }
 
-// ——————————————————— หน้าเพจ ———————————————————
 export default function ChangeFlightSameRoutePage() {
   // ผู้โดยสาร
   const paxMax = offerMock.passengers.length;
@@ -60,8 +56,6 @@ export default function ChangeFlightSameRoutePage() {
     offerMock.passengers.find((p: any) => p.primary) ?? offerMock.passengers[0];
   const email = (primary as any)?.email || "";
 
-  // เลือกเส้นทาง (ตามภาพเป็น “จังหวัด/สนามบิน”)
-  // หมายเหตุ: ใส่รายการตัวอย่างไว้ก่อน ปรับเป็นข้อมูลจริงภายหลังได้
   const ORIGINS = [
     { code: "CNX", label: "เชียงใหม่ (เชียงใหม่)" },
     { code: "KBV", label: "กระบี่ (กระบี่)" },
@@ -76,11 +70,10 @@ export default function ChangeFlightSameRoutePage() {
   const [origin, setOrigin] = useState<string | undefined>(undefined);
   const [dest, setDest] = useState<string>("DMK");
 
-  // เดือน/วัน (ตอนนี้ยังไม่ใช้ แต่เผื่อขยายต่อ)
   const months = useMemo(() => Object.keys(AVAIL_MAP).sort(), []);
   const defaultMonth = useMemo(() => months[0] ?? "", [months]);
   const [currentYM, setCurrentYM] = useState<string>("");
-  const [selectedDay, setSelectedDay] = useState<string | null>(null); // ใช้ "02","05" แบบ string
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [slotsToday, setSlotsToday] = useState<string[]>([]);
 
@@ -177,7 +170,11 @@ export default function ChangeFlightSameRoutePage() {
                     </SelectTrigger>
                     <SelectContent className="rounded-md">
                       {ORIGINS.map((o) => (
-                        <SelectItem key={o.code} value={o.code}>
+                        <SelectItem
+                          key={o.code}
+                          value={o.code}
+                          className="cursor-pointer"
+                        >
                           <span className="text-lg cursor-pointer">
                             {o.label}
                           </span>
@@ -199,12 +196,14 @@ export default function ChangeFlightSameRoutePage() {
                     <SelectTrigger className="h-auto! w-50 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
                       <SelectValue placeholder="กรุณาเลือกจังหวัด" />
                     </SelectTrigger>
-                    <SelectContent className="rounded-md">
+                    <SelectContent className="rounded-md ">
                       {DESTS.map((d) => (
-                        <SelectItem key={d.code} value={d.code}>
-                          <span className="text-lg cursor-pointer">
-                            {d.label}
-                          </span>
+                        <SelectItem
+                          key={d.code}
+                          value={d.code}
+                          className="cursor-pointer"
+                        >
+                          <span className="text-lg ">{d.label}</span>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -230,7 +229,7 @@ export default function ChangeFlightSameRoutePage() {
                           "h-12 w-full cursor-pointer rounded-lg border text-center text-[16px] font-bold",
                           active
                             ? "border-yellow-500 bg-yellow-50 text-[#9A7B00]"
-                            : "border-yellow-500 bg-white text-yellow-700 hover:bg-grey-50",
+                            : "border-yellow-500 bg-white text-yellow-700 hover:bg-yellow-50",
                         ].join(" ")}
                       >
                         {slot}

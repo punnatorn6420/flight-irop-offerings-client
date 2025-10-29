@@ -78,7 +78,7 @@ export default function BenefitList() {
         <h3 className="text-[24px] font-bold">
           สิทธิประโยชน์ที่สายการบินรองรับ
         </h3>
-        <p className="mt-1 text-[16px] leading-4 text-grey-600">
+        <p className="mt-1 text-[16px] leading-4 text-grey-700">
           สิทธิ์ของแต่ละรายการนี้ขึ้นอยู่กับเงื่อนไขประกาศฯ
         </p>
       </div>

@@ -31,7 +31,7 @@ export default function Actions() {
         <div className="flex gap-3 items-center">
           <Checkbox
             id="consent"
-            className="cursor-pointer"
+            className="cursor-pointer h-6 w-6"
             checked={accepted}
             onCheckedChange={(v) => setAccepted(Boolean(v))}
           />
@@ -48,7 +48,7 @@ export default function Actions() {
           <Button
             onClick={submit}
             disabled={!accepted || loading}
-            className="min-w-[360px] h-14 text-[20px] bg-primary text-primary-foreground hover:bg-yellow-400 cursor-pointer [disabled]:bg-gray-100 [disabled]:text-gray-500"
+            className="min-w-[360px] h-14 text-[20px] bg-primary text-yellow-800 hover:bg-yellow-600 cursor-pointer disabled:bg-gray-300 disabled:text-gray-900"
           >
             {loading && (
               <Refresh
@@ -59,7 +59,7 @@ export default function Actions() {
                 aria-hidden="true"
               />
             )}
-            <span className="text-yellow-900 font-bold">ยินยอม</span>
+            <span className="font-bold">ยินยอม</span>
           </Button>
         </div>
       </div>

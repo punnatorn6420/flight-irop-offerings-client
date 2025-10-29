@@ -176,7 +176,6 @@ export default function ChangeFlightSameRoutePage() {
                     disabled={!canSlideRight}
                     className="h-10! w-10 cursor-pointer"
                   >
-                    {/* <ChevronRight className="h-5 w-5" /> */}
                     <NavArrowRight width={20} height={20} strokeWidth={2} />
                   </Button>
                 </div>
@@ -197,7 +196,7 @@ export default function ChangeFlightSameRoutePage() {
                         "flex h-[120px] w-[92px] shrink-0 cursor-pointer flex-col items-center rounded-xl border px-3 py-3 text-center transition",
                         disabled
                           ? "border-grey-200 bg-grey-50 text-grey-400"
-                          : "border-grey-200 bg-white hover:bg-grey-50",
+                          : "border-grey-200 bg-white hover:bg-yellow-50",
                         isActive && !disabled
                           ? "border-yellow-500 bg-yellow-50"
                           : "",
@@ -209,7 +208,7 @@ export default function ChangeFlightSameRoutePage() {
                       <div
                         className={[
                           "font-medium text-5xl",
-                          disabled ? "text-grey-400" : "text-yellow-600",
+                          disabled ? "text-grey-400 " : "text-yellow-600 ",
                         ].join(" ")}
                       >
                         {d}
@@ -239,7 +238,7 @@ export default function ChangeFlightSameRoutePage() {
                           "h-12 w-full cursor-pointer rounded-lg border text-center text-[16px] font-bold",
                           active
                             ? "border-yellow-500 bg-yellow-50 text-[#9A7B00]"
-                            : "border-yellow-500 bg-white text-yellow-700 hover:bg-grey-50",
+                            : "border-yellow-500 bg-white text-yellow-700 hover:bg-yellow-50",
                         ].join(" ")}
                       >
                         {slot}

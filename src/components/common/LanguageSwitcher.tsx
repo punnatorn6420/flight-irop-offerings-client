@@ -72,7 +72,7 @@ export default function LanguageSwitcher({
             bg-white hover:bg-yellow-50
             text-black font-extrabold text-[18px]
             shadow-[0_6px_16px_rgba(0,0,0,0.12)]
-            data-[state=open]:ring-2 data-[state=open]:ring-yellow-400
+            data-[state=open]:ring-2 data-[state=open]:ring-yellow-400 cursor-pointer
           "
         >
           <span className="relative mr-3 inline-flex h-7 w-7 overflow-hidden rounded-full bg-white/90 ring-1 ring-black/5">

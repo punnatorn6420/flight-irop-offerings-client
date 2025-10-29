@@ -207,12 +207,6 @@ export default function RefundPage() {
 
                 <div className="space-y-3">
                   <div className="relative w-full">
-                    <BankIcon
-                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-500"
-                      width={20}
-                      height={20}
-                      strokeWidth={2}
-                    />
                     <BankSelect
                       value={bank}
                       onChange={setBank}
@@ -221,19 +215,33 @@ export default function RefundPage() {
                   </div>
 
                   <div className="relative w-full">
-                    <UserIcon
-                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-500"
-                      width={20}
-                      height={20}
-                      strokeWidth={2}
-                    />
+                    {!accountName && (
+                      <UserIcon
+                        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-500"
+                        width={20}
+                        height={20}
+                        strokeWidth={2}
+                      />
+                    )}
+
                     <Select value={accountName} onValueChange={setAccountName}>
-                      <SelectTrigger className="[&_[data-slot=select-value][data-placeholder]]:text-gray-400 h-12! w-full rounded-md border border-gray-300 bg-white pl-12 text-[18px]">
+                      <SelectTrigger
+                        className={[
+                          "[&_[data-slot=select-value][data-placeholder]]:text-gray-400",
+                          "h-12! w-full rounded-md border border-gray-300 bg-white text-[18px] cursor-pointer",
+                          accountName ? "" : "pl-12",
+                        ].join(" ")}
+                      >
                         <SelectValue placeholder="เลือกชื่อบัญชีผู้โดยสาร" />
                       </SelectTrigger>
+
                       <SelectContent className="rounded-md font-medium">
                         {passengerOpts.map((p) => (
-                          <SelectItem key={p.id} value={p.label}>
+                          <SelectItem
+                            key={p.id}
+                            value={p.label}
+                            className="cursor-pointer"
+                          >
                             <span className="text-lg">{p.label}</span>
                           </SelectItem>
                         ))}
@@ -260,18 +268,6 @@ export default function RefundPage() {
                     </span>
                   </div>
                 </div>
-
-                {/* <OfferFooterActions
-                  confirmDisabled={!canConfirmBank}
-                  onBack={() => history.back()}
-                  onConfirm={() => {
-                    console.log("Refund => BANK", {
-                      bank,
-                      accountName,
-                      accountNo,
-                    });
-                  }}
-                /> */}
                 <OfferFooterActions
                   confirmMode="dialog"
                   confirmDisabled={false}

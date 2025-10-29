@@ -96,7 +96,7 @@ export default function OfferFooterActions({
         <Button
           type="button"
           variant="outline"
-          className="h-12 rounded-md text-[20px] border-yellow-500 text-yellow-900 cursor-pointer hover:bg-yellow-50"
+          className="h-12 rounded-md text-[20px] border-yellow-500 text-yellow-800 cursor-pointer hover:bg-yellow-50 hover:text-yellow-800"
           onClick={onBack}
         >
           {backLabel}
@@ -146,12 +146,12 @@ export default function OfferFooterActions({
                   await runConfirm();
                   setOpenDialog(false);
                 }}
-                className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-600 text-yellow-800 cursor-pointer"
+                className="h-12 rounded-md bg-yellow-500 text-[20px] hover:bg-yellow-600 text-yellow-800 cursor-pointer"
                 disabled={loading}
               >
                 {confirmText}
               </AlertDialogAction>
-              <AlertDialogCancel className="h-12 rounded-md border-yellow-400 text-[20px] hover:bg-yellow-50 text-yellow-800 cursor-pointer">
+              <AlertDialogCancel className="h-12 rounded-md border-yellow-400 text-[20px] hover:bg-yellow-50 hover:text-yellow-800 text-yellow-800 cursor-pointer">
                 {cancelText}
               </AlertDialogCancel>
             </AlertDialogFooter>

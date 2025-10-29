@@ -32,7 +32,7 @@ export default function PassengerSelectCard({
     setList((prev) => prev.map((p) => ({ ...p, checked: next })));
 
   return (
-    <article className="bg-gray-50 p-4 md:p-5 rounded-2xl">
+    <article className="bg-gray-100 p-4 md:p-5 rounded-2xl">
       <h3 className="font-bold text-[24px]">เลือกผู้โดยสาร</h3>
       <p className="mb-3 text-[16px] text-grey-700">
         ผู้โดยสารแต่ละคนสามารถเลือกสิทธิ์ที่แตกต่างกันได้

@@ -172,13 +172,15 @@ export default function ChangeFlightSameRoutePage() {
                 </div>
                 <div className="col-start-3 row-start-1 justify-items-end">
                   <Select value={origin} onValueChange={setOrigin}>
-                    <SelectTrigger className="h-auto! w-50 rounded-md border border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
+                    <SelectTrigger className="h-auto! w-50 rounded-md cursor-pointer border border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
                       <SelectValue placeholder="กรุณาเลือกจังหวัด" />
                     </SelectTrigger>
                     <SelectContent className="rounded-md">
                       {ORIGINS.map((o) => (
                         <SelectItem key={o.code} value={o.code}>
-                          <span className="text-lg">{o.label}</span>
+                          <span className="text-lg cursor-pointer">
+                            {o.label}
+                          </span>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -194,13 +196,15 @@ export default function ChangeFlightSameRoutePage() {
                 </div>
                 <div className="col-start-3 row-start-2 justify-items-end">
                   <Select value={dest} onValueChange={setDest}>
-                    <SelectTrigger className="h-auto! w-50 rounded-md border border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
+                    <SelectTrigger className="h-auto! w-50 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
                       <SelectValue placeholder="กรุณาเลือกจังหวัด" />
                     </SelectTrigger>
                     <SelectContent className="rounded-md">
                       {DESTS.map((d) => (
                         <SelectItem key={d.code} value={d.code}>
-                          <span className="text-lg">{d.label}</span>
+                          <span className="text-lg cursor-pointer">
+                            {d.label}
+                          </span>
                         </SelectItem>
                       ))}
                     </SelectContent>

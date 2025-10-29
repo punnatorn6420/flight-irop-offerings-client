@@ -53,7 +53,7 @@ export default function FlightInfoCard({
   ];
 
   return (
-    <article className="bg-gray-50 p-4 md:p-5 rounded-2xl">
+    <article className="bg-gray-100 p-4 md:p-5 rounded-2xl">
       <h3 className="mb-3 font-bold text-[24px]">ข้อมูลเที่ยวบิน</h3>
       <div className="space-y-2 text-[20px] leading-6">
         {rows.map(([k, v]) => (

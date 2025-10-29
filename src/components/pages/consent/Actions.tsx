@@ -48,13 +48,9 @@ export default function Actions() {
           <Button
             onClick={submit}
             disabled={!accepted || loading}
-            className="min-w-[360px] h-14 text-[20px] bg-primary text-primary-foreground hover:bg-brand-600 cursor-pointer"
+            className="min-w-[360px] h-14 text-[20px] bg-primary text-primary-foreground hover:bg-yellow-400 cursor-pointer [disabled]:bg-gray-100 [disabled]:text-gray-500"
           >
             {loading && (
-              // <Loader2
-              //   className="mr-2 h-5 w-5 animate-spin "
-              //   aria-hidden="true"
-              // />
               <Refresh
                 width={20}
                 height={20}

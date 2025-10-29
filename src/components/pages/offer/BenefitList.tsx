@@ -100,7 +100,7 @@ export default function BenefitList() {
                 (e.key === "Enter" || e.key === " ") && go(b.id)
               }
               className={[
-                "relative overflow-hidden flex items-center justify-between gap-4 rounded-lg border p-4 md:p-5 shadow-sm outline-none transition",
+                "relative overflow-hidden flex items-center justify-between gap-4 rounded-md border p-4 md:p-5 shadow-sm outline-none transition",
                 'before:content-[""] before:absolute before:top-1/2 before:-translate-y-1/2',
                 "before:-right-20 md:before:right-[-280px]",
                 "before:w-[200px] before:h-[200px] md:before:w-[405px] md:before:h-[200px]",
@@ -156,11 +156,11 @@ export default function BenefitList() {
           <AlertDialogFooter className="mt-2 grid gap-3 grid-cols-2">
             <AlertDialogAction
               onClick={confirmDecline}
-              className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-600 text-yellow-800"
+              className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-600 text-yellow-800 cursor-pointer"
             >
               ยืนยันไม่รับสิทธิ์
             </AlertDialogAction>
-            <AlertDialogCancel className="h-12 rounded-md border-yellow-400 text-[20px] hover:bg-yellow-50 text-yellow-800">
+            <AlertDialogCancel className="h-12 rounded-md border-yellow-400 text-[20px] cursor-pointer hover:bg-yellow-50 text-yellow-800">
               ยกเลิก
             </AlertDialogCancel>
           </AlertDialogFooter>

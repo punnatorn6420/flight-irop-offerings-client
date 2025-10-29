@@ -7,12 +7,12 @@ import Hero from "@/components/pages/login/Hero";
 export default function LoginPage() {
   return (
     <main className="min-h-screen">
-      <div className="md:hidden mt-4">
+      {/* <div className="md:hidden mt-4">
         <div className="max-w-screen-sm mx-auto p-4">
           <Brand />
         </div>
-      </div>
-      <div className="max-w-5xl mx-auto px-2 md:px-4 py-4 md:py-6">
+      </div> */}
+      <div className="max-w-5xl mx-auto px-2 md:px-4 pt-8 md:py-8">
         <div className="grid md:grid-cols-[400px_1fr] gap-8 md:gap-14 items-stretch">
           <section className="hidden md:block">
             <Hero size="lg" />
@@ -20,7 +20,6 @@ export default function LoginPage() {
           <section className="md:hidden px-2">
             <Hero size="sm" />
           </section>
-
           <section className="flex flex-col md:h-[640px]">
             <div className="hidden md:block mt-4 mb-24">
               <Brand />
@@ -31,9 +30,6 @@ export default function LoginPage() {
           </section>
         </div>
       </div>
-      <footer className="pt-12 text-center text-[18px] text-grey-800">
-        © 2017 บริษัท สายการบินนกแอร์ จำกัด (มหาชน)
-      </footer>
     </main>
   );
 }

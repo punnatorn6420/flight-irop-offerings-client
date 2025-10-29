@@ -24,8 +24,8 @@ export default function FlightTabs({
               "min-w-0 w-full flex items-center justify-center gap-2 rounded-lg border",
               "px-7 py-2 text-[16px] sm:text-[18px] font-bold transition cursor-pointer",
               isActive
-                ? "border-yellow-500 bg-yellow-50 text-yellow-900 hover:bg-yellow-100"
-                : "border-grey-200 bg-white hover:bg-grey-50",
+                ? "border-yellow-500 bg-yellow-50 text-yellow-800 hover:bg-yellow-50"
+                : "border-yellow-700 bg-white hover:bg-yellow-50 text-yellow-800",
             ].join(" ")}
           >
             <Image

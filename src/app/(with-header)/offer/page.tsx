@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import FlightTabs from "@/components/pages/offer/FlightTabs";
 import FlightInfoCard from "@/components/pages/offer/FlightInfoCard";
 import PassengerSelectCard from "@/components/pages/offer/PassengerSelectCard";
@@ -8,6 +8,24 @@ import BenefitList from "@/components/pages/offer/BenefitList";
 import { offerMock } from "@/data/offer.mock";
 
 export default function OfferPage() {
+  const [selectedNames, setSelectedNames] = useState<string[]>([]);
+  const [selectedCount, setSelectedCount] = useState<number>(0);
+
+  useEffect(() => {
+    const ssNames =
+      typeof window !== "undefined"
+        ? sessionStorage.getItem("offer:selectedPassengerNames")
+        : null;
+    const initialNames = ssNames
+      ? JSON.parse(ssNames)
+      : offerMock.passengers
+          .filter((p) => p.selected)
+          .map((p) => `${p.title} ${p.firstName} ${p.lastName}`.trim());
+
+    setSelectedNames(initialNames);
+    setSelectedCount(initialNames.length);
+  }, []);
+
   const segments = offerMock.trip.segments;
   const tabs = useMemo(
     () =>
@@ -42,7 +60,13 @@ export default function OfferPage() {
             segment={activeSegment}
             originalSegment={segments[0]}
           />
-          <PassengerSelectCard passengers={offerMock.passengers} />
+          <PassengerSelectCard
+            passengers={offerMock.passengers}
+            onChange={({ names, count }) => {
+              setSelectedNames(names);
+              setSelectedCount(count);
+            }}
+          />
         </div>
 
         <div className="mt-6 md:mt-8">

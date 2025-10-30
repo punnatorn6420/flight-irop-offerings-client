@@ -1,61 +1,88 @@
 "use client";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useMemo } from "react";
 import { cn } from "@/lib/utils";
-import { Group } from "iconoir-react";
+import { Group, NavArrowDown } from "iconoir-react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 
 type Props = {
-  max: number;
-  value: string;
-  onValueChange: (v: string) => void;
+  names: string[];
+  value?: string; // ใช้เป็น fallback ถ้า names ว่าง
   title?: string;
   className?: string;
+  defaultOpen?: boolean; // true = เริ่มเปิด
 };
 
 export default function OfferPassengerCount({
-  max,
+  names,
   value,
-  onValueChange,
   title = "ผู้โดยสารที่ต้องการใช้สิทธิ์นี้",
   className,
+  defaultOpen = true,
 }: Props) {
-  const options = Array.from({ length: Math.max(0, max) }, (_, i) => i + 1);
+  const count = useMemo(() => {
+    if (Array.isArray(names) && names.length > 0) return names.length;
+    const n = Number(value ?? 0);
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  }, [names, value]);
+
+  const headerText = `จำนวน ${count} ท่าน`;
 
   return (
-    <div className={cn(className)}>
-      <h3 className="mb-2 text-[24px] font-bold">{title}</h3>
-      <div className="flex items-center gap-2 w-full">
-        <div className="relative w-full">
-          <Group
-            width={20}
-            height={20}
-            strokeWidth={2}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
-          />
-          <Select value={value} onValueChange={onValueChange}>
-            <SelectTrigger className="w-full h-12! rounded-md pl-12 text-[20px] font-medium border-grey-500 bg-white cursor-pointer">
-              <SelectValue placeholder={`จำนวน ${max} ท่าน`} />
-            </SelectTrigger>
-            <SelectContent className="rounded-xl ">
-              {options.map((n) => (
-                <SelectItem
-                  key={n}
-                  value={String(n)}
-                  className="text-[18px] cursor-pointer"
-                >
-                  จำนวน {n} ท่าน
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-    </div>
+    <section
+      className={cn("rounded-md border border-grey-200 bg-white", className)}
+    >
+      <Accordion
+        type="single"
+        collapsible
+        defaultValue={defaultOpen ? "item-1" : undefined}
+        className="w-full"
+      >
+        <AccordionItem value="item-1" className="border-none ">
+          <AccordionTrigger
+            className={cn(
+              "px-4 md:px-5 py-2 rounded-lg",
+              "hover:no-underline [&>svg]:ml-auto cursor-pointer"
+            )}
+          >
+            <div className="flex w-full items-center gap-3 text-left ">
+              <Group
+                width={24}
+                height={24}
+                strokeWidth={2}
+                className="shrink-0"
+              />
+              <div className="flex-1 font-bold text-[20px] md:text-[22px]">
+                {headerText}
+              </div>
+            </div>
+          </AccordionTrigger>
+
+          <AccordionContent className="px-4 md:px-5 pb-4">
+            {count > 0 ? (
+              <ul className="space-y-3">
+                {names.map((n, idx) => (
+                  <li
+                    key={`${n}-${idx}`}
+                    className="text-[18px] md:text-[20px] font-semibold text-yellow-700"
+                  >
+                    {n}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="py-2 text-[16px] text-grey-600">
+                ไม่พบรายชื่อผู้โดยสารที่เลือก
+              </div>
+            )}
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </section>
   );
 }

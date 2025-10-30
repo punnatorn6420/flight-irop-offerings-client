@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import OfferFooterActions from "@/components/pages/offer/OfferFooterActions";
 import OfferPassengerCount from "@/components/pages/offer/OfferPassengerCount";
@@ -59,6 +59,18 @@ function InfoPanel({
 export default function RefundPage() {
   const paxMax = offerMock.passengers.length;
   const [count, setCount] = useState<string>(String(paxMax));
+  const [selectedNames, setSelectedNames] = useState<string[]>([]);
+
+  useEffect(() => {
+    const namesStr = sessionStorage.getItem("offer:selectedPassengerNames");
+    const initialNames = namesStr
+      ? (JSON.parse(namesStr) as string[])
+      : offerMock.passengers
+          .filter((p) => p.selected)
+          .map((p) => `${p.title} ${p.firstName} ${p.lastName}`.trim());
+
+    setSelectedNames(initialNames);
+  }, []);
 
   const passengerOpts = useMemo(
     () =>
@@ -73,7 +85,6 @@ export default function RefundPage() {
     offerMock.passengers.find((p: any) => p.primary) ?? offerMock.passengers[0];
   const email = (primary as any)?.email || "";
 
-  // สำหรับแบบโอนคืนเข้าบัญชี
   const [bank, setBank] = useState<BankCode | undefined>(undefined);
   const [accountName, setAccountName] = useState<string | undefined>(undefined);
   const [accountNo, setAccountNo] = useState<string>("");
@@ -90,7 +101,7 @@ export default function RefundPage() {
           <aside className="relative overflow-hidden rounded-2xl">
             <div className="relative aspect-361/200 md:hidden">
               <Image
-                src="/images/refund_banner_m.png"
+                src="/images/refund_banner_m.svg"
                 alt="ขอคืนเงินเต็มจำนวน"
                 fill
                 className="object-cover"
@@ -99,7 +110,7 @@ export default function RefundPage() {
             </div>
             <div className="relative aspect-3/5 hidden md:block">
               <Image
-                src="/images/refund_banner.png"
+                src="/images/refund_banner.svg"
                 alt="ขอคืนเงินเต็มจำนวน"
                 fill
                 className="object-contain object-left md:object-center"
@@ -109,10 +120,9 @@ export default function RefundPage() {
           </aside>
           <section className="rounded-md py-4 md:py-6">
             <OfferPassengerCount
-              max={paxMax}
-              value={count}
-              onValueChange={setCount}
+              names={selectedNames}
               className="mb-6"
+              defaultOpen={false}
             />
             {method === "CARD" && (
               <>

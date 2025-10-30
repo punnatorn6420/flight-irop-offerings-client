@@ -15,8 +15,8 @@ import { NavArrowDown, NavArrowUp } from "iconoir-react";
 type Locale = "th" | "en";
 
 const LOCALES: { code: Locale; label: string; flagSrc: string }[] = [
-  { code: "th", label: "ภาษาไทย", flagSrc: "/icons/th.png" },
-  { code: "en", label: "English", flagSrc: "/icons/en.png" },
+  { code: "th", label: "ภาษาไทย", flagSrc: "/icons/th.svg" },
+  { code: "en", label: "English", flagSrc: "/icons/gb.svg" },
 ];
 
 export default function LanguageSwitcher({

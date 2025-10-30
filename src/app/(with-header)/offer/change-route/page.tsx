@@ -49,6 +49,7 @@ function getDaysInMonth(ym: string) {
 export default function ChangeFlightSameRoutePage() {
   // ผู้โดยสาร
   const paxMax = offerMock.passengers.length;
+  const [selectedNames, setSelectedNames] = useState<string[]>([]);
 
   const [count, setCount] = useState<string>(String(paxMax));
 
@@ -93,6 +94,17 @@ export default function ChangeFlightSameRoutePage() {
   }, [origin, dest]);
 
   useEffect(() => {
+    const namesStr = sessionStorage.getItem("offer:selectedPassengerNames");
+    const initialNames = namesStr
+      ? (JSON.parse(namesStr) as string[])
+      : offerMock.passengers
+          .filter((p) => p.selected)
+          .map((p) => `${p.title} ${p.firstName} ${p.lastName}`.trim());
+
+    setSelectedNames(initialNames);
+  }, []);
+
+  useEffect(() => {
     if (!currentYM || !selectedDay) {
       setSlotsToday([]);
       setSelectedSlot(null);
@@ -110,19 +122,10 @@ export default function ChangeFlightSameRoutePage() {
     <main className="min-h-screen flex flex-col">
       <section className="mx-auto w-full max-w-[1120px] flex-1 px-4 md:px-6 pt-4 md:pt-6 pb-24 md:pb-10">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-[460px_minmax(0,1fr)]">
-          {/* <aside className="relative aspect-3/4 overflow-hidden rounded-2xl md:aspect-3/5">
-            <Image
-              src="/images/change_route_free_banner.png"
-              alt="เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
-              fill
-              className="object-contain object-left md:object-center"
-              priority
-            />
-          </aside> */}
           <aside className="relative overflow-hidden rounded-2xl">
             <div className="relative aspect-361/200 md:hidden">
               <Image
-                src="/images/change_route_free_banner_m.png"
+                src="/images/change_route_free_banner_m.svg"
                 alt="เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
                 fill
                 className="object-cover"
@@ -131,7 +134,7 @@ export default function ChangeFlightSameRoutePage() {
             </div>
             <div className="relative aspect-3/5 hidden md:block">
               <Image
-                src="/images/change_route_free_banner.png"
+                src="/images/change_route_free_banner.svg"
                 alt="เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
                 fill
                 className="object-contain object-left md:object-center"
@@ -141,15 +144,14 @@ export default function ChangeFlightSameRoutePage() {
           </aside>
           <section className="rounded-2xl py-4 md:py-6">
             <OfferPassengerCount
-              max={paxMax}
-              value={count}
-              onValueChange={setCount}
+              names={selectedNames}
               className="mb-6"
+              defaultOpen={false}
             />
 
             <section>
               <h3 className="mb-3 text-[24px] font-bold">เลือกเส้นทาง</h3>
-              <div className="grid grid-cols-[44px_128px_minmax(0,1fr)] gap-x-4 gap-y-6 items-center!">
+              <div className="grid gap-x-4 gap-y-6 items-center grid-cols-1 md:grid-cols-[44px_128px_minmax(0,1fr)] min-w-0">
                 <div className="relative col-start-1 row-span-2 min-h-24">
                   <div className="absolute left-1/2 -translate-x-1/2 top-3.5 bottom-3.5 w-1 rounded bg-[#F6C200]" />
                   <span className="absolute left-1/2 -translate-x-1/2 top-0 h-7 w-7 rounded-full border-[3px] border-[#F6C200] bg-white" />
@@ -163,9 +165,9 @@ export default function ChangeFlightSameRoutePage() {
                     (ในภูมิภาคเดียวกันเท่านั้น)
                   </div>
                 </div>
-                <div className="col-start-3 row-start-1 justify-items-end">
+                <div className="md:col-start-3 md:row-start-1 justify-self-stretch min-w-0">
                   <Select value={origin} onValueChange={setOrigin}>
-                    <SelectTrigger className="h-auto! w-50 rounded-md cursor-pointer border border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
+                    <SelectTrigger className="h-12! w-full min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium truncate data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
                       <SelectValue placeholder="กรุณาเลือกจังหวัด" />
                     </SelectTrigger>
                     <SelectContent className="rounded-md">
@@ -191,9 +193,9 @@ export default function ChangeFlightSameRoutePage() {
                     (สามารถเลือกได้)
                   </div>
                 </div>
-                <div className="col-start-3 row-start-2 justify-items-end">
+                <div className="md:col-start-3 md:row-start-2 justify-self-stretch min-w-0">
                   <Select value={dest} onValueChange={setDest}>
-                    <SelectTrigger className="h-auto! w-50 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
+                    <SelectTrigger className="h-12! w-full min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40 truncate">
                       <SelectValue placeholder="กรุณาเลือกจังหวัด" />
                     </SelectTrigger>
                     <SelectContent className="rounded-md ">

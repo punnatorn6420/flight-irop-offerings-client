@@ -56,7 +56,7 @@ export default function OfferRedeemSuccessPage() {
       <div className="relative mb-8 w-full overflow-hidden justify-items-center">
         <div className="md:hidden">
           <Image
-            src="/images/accept_banner_m.png"
+            src="/images/accept_banner_m.svg"
             alt="ระบบรับสิทธิ์ชดเชย"
             width={980}
             height={280}
@@ -66,7 +66,7 @@ export default function OfferRedeemSuccessPage() {
         </div>
         <div className="hidden md:block">
           <Image
-            src="/images/accept_banner.png"
+            src="/images/accept_banner.svg"
             alt="ระบบรับสิทธิ์ชดเชย"
             width={980}
             height={280}
@@ -120,7 +120,7 @@ export default function OfferRedeemSuccessPage() {
                   คัดลอกลิงก์ให้ผู้โดยสารท่านอื่นรับสิทธิ์ต่อ
                 </div>
               </div>
-              <InputGroup className="md:w-xl h-12!">
+              <InputGroup className="w-96 md:w-xl h-12!">
                 <InputGroupInput
                   readOnly
                   className="text-[20px]! "

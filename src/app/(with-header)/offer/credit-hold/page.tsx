@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import OfferFooterActions from "@/components/pages/offer/OfferFooterActions";
 import { offerMock } from "@/data/offer.mock";
@@ -9,6 +9,18 @@ import OfferPassengerCount from "@/components/pages/offer/OfferPassengerCount";
 export default function CreditHoldPage() {
   const paxMax = offerMock.passengers.length;
   const [count, setCount] = useState<string>(String(paxMax));
+  const [selectedNames, setSelectedNames] = useState<string[]>([]);
+
+  useEffect(() => {
+    const namesStr = sessionStorage.getItem("offer:selectedPassengerNames");
+    const initialNames = namesStr
+      ? (JSON.parse(namesStr) as string[])
+      : offerMock.passengers
+          .filter((p) => p.selected)
+          .map((p) => `${p.title} ${p.firstName} ${p.lastName}`.trim());
+
+    setSelectedNames(initialNames);
+  }, []);
 
   const primary =
     offerMock.passengers.find((p: any) => p.primary) ?? offerMock.passengers[0];
@@ -21,7 +33,7 @@ export default function CreditHoldPage() {
           <aside className="relative overflow-hidden rounded-2xl">
             <div className="relative aspect-361/200 md:hidden">
               <Image
-                src="/images/credit_hold_banner_m.png"
+                src="/images/credit_hold_banner_m.svg"
                 alt="เก็บวงเงินไว้ใช้ภายใน 365 วัน (หากมีส่วนต่างค่โดยสารต้องชำระเพิ่ม)"
                 fill
                 className="object-cover"
@@ -30,7 +42,7 @@ export default function CreditHoldPage() {
             </div>
             <div className="relative aspect-3/5 hidden md:block">
               <Image
-                src="/images/credit_hold_banner.png"
+                src="/images/credit_hold_banner.svg"
                 alt="เก็บวงเงินไว้ใช้ภายใน 365 วัน (หากมีส่วนต่างค่โดยสารต้องชำระเพิ่ม)"
                 fill
                 className="object-contain object-left md:object-center"
@@ -40,10 +52,9 @@ export default function CreditHoldPage() {
           </aside>
           <section className="rounded-2xl py-4 md:py-6">
             <OfferPassengerCount
-              max={paxMax}
-              value={count}
-              onValueChange={setCount}
+              names={selectedNames}
               className="mb-6"
+              defaultOpen={false}
             />
             <div>
               <h2 className="text-[24px] font-bold">

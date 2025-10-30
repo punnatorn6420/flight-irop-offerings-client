@@ -8,11 +8,11 @@ export type BankMeta = {
 };
 
 export const BANKS_META: BankMeta[] = [
-  { code: "KBANK", th: "ธนาคารกสิกรไทย", icon: "/images/KBANK.png" },
-  { code: "BBL", th: "ธนาคารกรุงเทพ", icon: "/images/BBL.png" },
-  { code: "KTB", th: "ธนาคารกรุงไทย", icon: "/images/KTB.png" },
-  { code: "BAY", th: "ธนาคารกรุงศรี", icon: "/images/BAY.png" },
-  { code: "GSB", th: "ธนาคารออมสิน", icon: "/images/GSB.png" },
+  { code: "KBANK", th: "ธนาคารกสิกรไทย", icon: "/images/KBANK.svg" },
+  { code: "BBL", th: "ธนาคารกรุงเทพ", icon: "/images/BBL.svg" },
+  { code: "KTB", th: "ธนาคารกรุงไทย", icon: "/images/KTB.svg" },
+  { code: "BAY", th: "ธนาคารกรุงศรี", icon: "/images/BAY.svg" },
+  { code: "GSB", th: "ธนาคารออมสิน", icon: "/images/GSB.svg" },
 ];
 
 export const findBank = (code?: BankCode) =>

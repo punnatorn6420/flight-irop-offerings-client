@@ -29,7 +29,7 @@ export default function FlightTabs({
             ].join(" ")}
           >
             <Image
-              src="/images/ph_airplane-in-flight.png"
+              src="/images/ph_airplane-in-flight.svg"
               alt="NOK AIR"
               width={20}
               height={20}

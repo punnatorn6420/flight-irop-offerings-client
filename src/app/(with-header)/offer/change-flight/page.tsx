@@ -57,7 +57,15 @@ function dayOfWeek(ym: string, dd: number) {
 export default function ChangeFlightSameRoutePage() {
   const paxMax = offerMock.passengers.length;
 
+  const [selectedNames, setSelectedNames] = useState<string[]>([]);
+  const [selectedCount, setSelectedCount] = useState<number>(0);
+  const [mounted, setMounted] = useState(false);
+
   const [count, setCount] = useState<string>(String(paxMax));
+
+  // useEffect(() => {
+
+  // }, []);
 
   const months = useMemo(() => Object.keys(AVAIL_MAP).sort(), []);
   const defaultMonth = useMemo(() => {
@@ -86,6 +94,17 @@ export default function ChangeFlightSameRoutePage() {
       .sort((a, b) => a - b);
     setSelectedDay(daysWithFlight[0] ?? null);
     setSelectedSlot(null);
+    setMounted(true);
+    const namesStr = sessionStorage.getItem("offer:selectedPassengerNames");
+
+    const initialNames = namesStr
+      ? (JSON.parse(namesStr) as string[])
+      : offerMock.passengers
+          .filter((p) => p.selected)
+          .map((p) => `${p.title} ${p.firstName} ${p.lastName}`.trim());
+
+    setSelectedNames(initialNames);
+    setSelectedCount(initialNames.length);
   }, [currentYM]);
 
   const slotsToday =
@@ -115,7 +134,7 @@ export default function ChangeFlightSameRoutePage() {
           <aside className="relative overflow-hidden rounded-2xl">
             <div className="relative aspect-361/200 md:hidden">
               <Image
-                src="/images/change_flight_free_banner_m.png"
+                src="/images/change_flight_free_banner_m.svg"
                 alt="เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม"
                 fill
                 className="object-cover"
@@ -124,7 +143,7 @@ export default function ChangeFlightSameRoutePage() {
             </div>
             <div className="relative aspect-3/5 hidden md:block">
               <Image
-                src="/images/change_flight_free_banner.png"
+                src="/images/change_flight_free_banner.svg"
                 alt="เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม"
                 fill
                 className="object-contain object-left md:object-center"
@@ -135,25 +154,37 @@ export default function ChangeFlightSameRoutePage() {
           <section className="rounded-2xl py-4 md:py-6">
             <div>
               <OfferPassengerCount
-                max={paxMax}
-                value={count}
-                onValueChange={setCount}
+                names={selectedNames}
                 className="mb-6"
+                defaultOpen={false}
               />
               <h3 className="mb-3 text-[24px] font-bold">เลือกวันเดินทาง</h3>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <div>
                   <Select
                     value={currentYM}
                     onValueChange={(v) => setCurrentYM(v)}
                   >
-                    <SelectTrigger className="w-52 h-10! rounded-lg pl-3 text-[18px] font-medium border-grey-500">
+                    <SelectTrigger
+                      className="
+                        relative h-12! w-64 rounded-md border border-grey-500
+                        pl-12 font-medium cursor-pointer
+                      "
+                    >
+                      <Calendar
+                        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-500 size-5"
+                        strokeWidth={2}
+                      />
                       <SelectValue placeholder="เลือกเดือน" />
                     </SelectTrigger>
                     <SelectContent className="round-md">
                       {monthOptions.map((opt) => (
-                        <SelectItem key={opt.value} value={opt.value}>
-                          <span className="text-[18px]">{opt.label}</span>
+                        <SelectItem
+                          key={opt.value}
+                          value={opt.value}
+                          className="cursor-pointer"
+                        >
+                          <span className="text-[22px]">{opt.label}</span>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -198,7 +229,7 @@ export default function ChangeFlightSameRoutePage() {
                           ? "border-grey-200 bg-grey-50 text-grey-400"
                           : "border-grey-200 bg-white hover:bg-yellow-50",
                         isActive && !disabled
-                          ? "border-yellow-500 bg-yellow-50"
+                          ? "border-yellow-500 bg-yellow-50 text-yellow-800"
                           : "",
                       ].join(" ")}
                     >

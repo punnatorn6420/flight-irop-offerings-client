@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Hero({ size }: { size: "sm" | "lg" }) {
   const src =
-    size === "lg" ? "/images/auth_banner.png" : "/images/auth_banner_m.png";
+    size === "lg" ? "/images/auth_banner.svg" : "/images/auth_banner_m.svg";
 
   if (size === "lg") {
     return (

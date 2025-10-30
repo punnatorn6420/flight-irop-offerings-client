@@ -19,7 +19,7 @@ export default function EligibilityExpiredPage() {
         <div className="w-full max-w-[880px] text-center">
           <div className="relative mx-auto w-[120px] h-[120px] md:w-36 md:h-36">
             <Image
-              src="/icons/timer-remove.png"
+              src="/icons/timer-remove.svg"
               alt="การรับสิทธิ์เกินกำหนดเวลา"
               fill
               className="object-contain"

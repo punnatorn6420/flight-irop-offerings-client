@@ -1,13 +1,17 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { OfferMock } from "@/types/offer";
 
+type OnChangePayload = { ids: string[]; names: string[]; count: number };
+
 export default function PassengerSelectCard({
   passengers,
+  onChange,
 }: {
   passengers: OfferMock["passengers"];
+  onChange?: (p: OnChangePayload) => void;
 }) {
   const [list, setList] = useState(
     passengers.map((p) => ({
@@ -22,6 +26,29 @@ export default function PassengerSelectCard({
     () => list.some((x) => x.checked) && !allChecked,
     [list, allChecked]
   );
+
+  // 🔴 สำคัญ: emit หลัง render เท่านั้น
+  useEffect(() => {
+    const sel = list.filter((x) => x.checked);
+    const payload: OnChangePayload = {
+      ids: sel.map((x) => x.id),
+      names: sel.map((x) => x.name),
+      count: sel.length,
+    };
+    onChange?.(payload);
+    sessionStorage.setItem(
+      "offer:selectedPassengerIds",
+      JSON.stringify(payload.ids)
+    );
+    sessionStorage.setItem(
+      "offer:selectedPassengerNames",
+      JSON.stringify(payload.names)
+    );
+    sessionStorage.setItem(
+      "offer:selectedPassengerCount",
+      String(payload.count)
+    );
+  }, [list, onChange]);
 
   const toggleOne = (id: string, next?: boolean) =>
     setList((prev) =>
@@ -66,8 +93,9 @@ export default function PassengerSelectCard({
       <div className="mt-4 flex items-center gap-3">
         <Checkbox
           id="all"
-          checked={allChecked ? true : someChecked ? "indeterminate" : false}
-          onCheckedChange={(v) => toggleAll(Boolean(v))}
+          checked={allChecked}
+          aria-checked={allChecked ? "true" : someChecked ? "mixed" : "false"}
+          onCheckedChange={() => toggleAll(!allChecked)}
           className="
             h-6 w-6 rounded-md ring-grey-300
             data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground

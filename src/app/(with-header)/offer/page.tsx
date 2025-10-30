@@ -36,6 +36,14 @@ export default function OfferPage() {
     [segments]
   );
 
+  const usedIds = useMemo(
+    () =>
+      Object.entries(offerMock.redeemProgress)
+        .filter(([, arr]) => Array.isArray(arr) && arr.every(Boolean)) // ใช้ครบทุกเซกเมนต์
+        .map(([pid]) => pid),
+    []
+  );
+
   const [activeFlight, setActiveFlight] = useState<string>(tabs[0]?.code ?? "");
   const activeSegment = useMemo(
     () => segments.find((s) => s.flightNumber === activeFlight) ?? segments[0],
@@ -62,6 +70,7 @@ export default function OfferPage() {
           />
           <PassengerSelectCard
             passengers={offerMock.passengers}
+            usedIds={usedIds}
             onChange={({ names, count }) => {
               setSelectedNames(names);
               setSelectedCount(count);

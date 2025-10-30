@@ -224,12 +224,12 @@ export default function ChangeFlightSameRoutePage() {
                       type="button"
                       onClick={() => !disabled && setSelectedDay(d)}
                       className={[
-                        "flex h-[120px] w-[92px] shrink-0 cursor-pointer flex-col items-center rounded-xl border px-3 py-3 text-center transition",
+                        "flex h-[130px] w-[92px] shrink-0 cursor-pointer flex-col items-center rounded-md  border-2 px-3 py-4 text-center transition",
                         disabled
-                          ? "border-grey-200 bg-grey-50 text-grey-400"
-                          : "border-grey-200 bg-white hover:bg-yellow-50",
+                          ? "border-grey-200 bg-grey-50 text-grey-600"
+                          : "border-grey-200 bg-white  hover:bg-yellow-50 hover:border-yellow-200",
                         isActive && !disabled
-                          ? "border-yellow-500 bg-yellow-50 text-yellow-800"
+                          ? "border-yellow-500 bg-yellow-200 text-yellow-800"
                           : "",
                       ].join(" ")}
                     >
@@ -239,7 +239,7 @@ export default function ChangeFlightSameRoutePage() {
                       <div
                         className={[
                           "font-medium text-5xl",
-                          disabled ? "text-grey-400 " : "text-yellow-600 ",
+                          disabled ? "text-grey-600 " : "text-yellow-600 ",
                         ].join(" ")}
                       >
                         {d}

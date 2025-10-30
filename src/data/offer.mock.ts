@@ -64,7 +64,7 @@ export const offerMock: OfferMock = {
   },
   redeemProgress: {
     p10: [true, true],
-    p11: [true, true],
-    p12: [true, false],
+    p11: [true, false],
+    p12: [false, false],
   },
 };

@@ -3,14 +3,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { OfferMock } from "@/types/offer";
+import { Minus } from "iconoir-react";
 
 type OnChangePayload = { ids: string[]; names: string[]; count: number };
 
 export default function PassengerSelectCard({
   passengers,
+  usedIds = [],
   onChange,
 }: {
   passengers: OfferMock["passengers"];
+  usedIds?: string[];
   onChange?: (p: OnChangePayload) => void;
 }) {
   const [list, setList] = useState(
@@ -18,18 +21,31 @@ export default function PassengerSelectCard({
       id: p.id,
       name: `${p.title} ${p.firstName} ${p.lastName}`.trim(),
       checked: !!p.selected,
+      disabled: usedIds.includes(p.id),
     }))
   );
 
-  const allChecked = useMemo(() => list.every((x) => x.checked), [list]);
+  useEffect(() => {
+    setList((prev) =>
+      prev.map((x) => ({
+        ...x,
+        disabled: usedIds.includes(x.id),
+        checked: usedIds.includes(x.id) ? false : x.checked,
+      }))
+    );
+  }, [usedIds]);
+
+  const allChecked = useMemo(
+    () => list.every((x) => x.disabled || x.checked),
+    [list]
+  );
   const someChecked = useMemo(
-    () => list.some((x) => x.checked) && !allChecked,
+    () => list.some((x) => !x.disabled && x.checked) && !allChecked,
     [list, allChecked]
   );
 
-  // 🔴 สำคัญ: emit หลัง render เท่านั้น
   useEffect(() => {
-    const sel = list.filter((x) => x.checked);
+    const sel = list.filter((x) => !x.disabled && x.checked);
     const payload: OnChangePayload = {
       ids: sel.map((x) => x.id),
       names: sel.map((x) => x.name),
@@ -52,11 +68,19 @@ export default function PassengerSelectCard({
 
   const toggleOne = (id: string, next?: boolean) =>
     setList((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, checked: next ?? !p.checked } : p))
+      prev.map((p) =>
+        p.id === id
+          ? p.disabled
+            ? p // ห้ามแตะ
+            : { ...p, checked: next ?? !p.checked }
+          : p
+      )
     );
 
   const toggleAll = (next: boolean) =>
-    setList((prev) => prev.map((p) => ({ ...p, checked: next })));
+    setList((prev) =>
+      prev.map((p) => (p.disabled ? p : { ...p, checked: next }))
+    );
 
   return (
     <article className="bg-gray-100 p-4 md:p-5 rounded-2xl">
@@ -71,16 +95,22 @@ export default function PassengerSelectCard({
             const inputId = `p-${p.id}`;
             return (
               <li key={p.id} className="flex items-center gap-3">
-                <Checkbox
-                  id={inputId}
-                  checked={p.checked}
-                  onCheckedChange={(v) => toggleOne(p.id, Boolean(v))}
-                  className="
+                {p.disabled ? (
+                  <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-grey-300/70">
+                    <Minus width={24} height={24} className="text-grey-600" />
+                  </span>
+                ) : (
+                  <Checkbox
+                    id={inputId}
+                    checked={p.checked}
+                    onCheckedChange={(v) => toggleOne(p.id, Boolean(v))}
+                    className="
                   h-6 w-6 rounded-md ring-grey-300
                   data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground
                   data-[state=checked]:ring-primary cursor-pointer
                 "
-                />
+                  />
+                )}
                 <label htmlFor={inputId} className="text-[18px] font-medium">
                   {p.name}
                 </label>

@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/input-group";
 
 export default function OfferRedeemSuccessPage() {
-  // หา primary + email
   const primary =
     offerMock.passengers.find((p: any) => p.primary) ?? offerMock.passengers[0];
   const email = (primary as any)?.email || "";
@@ -23,7 +22,6 @@ export default function OfferRedeemSuccessPage() {
   const totalPassengers = offerMock.passengers.length;
   const totalTasks = totalSegments * totalPassengers;
 
-  // นับงานที่สำเร็จจาก redeemProgress
   let doneTasks = 0;
   for (const pid of Object.keys(offerMock.redeemProgress || {})) {
     const arr = offerMock.redeemProgress[pid] || [];
@@ -90,24 +88,24 @@ export default function OfferRedeemSuccessPage() {
         </h1>
       </div>
       <p className="mt-6 max-w-[820px] text-center text-[20px] leading-7 px-4 md:px-0">
-        เราจะดำเนินการส่งเอกสารยืนยันไปที่อีเมล{" "}
+        เราจะดำเนินการส่งเอกสารยืนยันไปที่อีเมล
         <a
           href={`mailto:${email}`}
           className="font-semibold underline decoration-yellow-500 underline-offset-2"
         >
           {email}
         </a>
-        <div>
+        <span className="block">
           ภายใน 1–2 วันทำการ หากมีข้อสงสัยเพิ่มเติม
           สามารถติดต่อศูนย์บริการลูกค้านกแอร์ โทร.1318
-        </div>
+        </span>
       </p>
       {isPartial && (
         <>
           <button
             type="button"
             onClick={() => history.back()}
-            className="mt-6 px-4 h-12 w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
+            className="mt-6 h-12 w-full md:w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
           >
             รับสิทธิ์ต่อ
           </button>
@@ -119,7 +117,7 @@ export default function OfferRedeemSuccessPage() {
                   คัดลอกลิงก์ให้ผู้โดยสารท่านอื่นรับสิทธิ์ต่อ
                 </div>
               </div>
-              <InputGroup className="w-96 md:w-xl h-12! px-4">
+              <InputGroup className="w-full md:w-xl h-12! ">
                 <InputGroupInput
                   readOnly
                   className="text-[20px]! "
@@ -153,7 +151,7 @@ export default function OfferRedeemSuccessPage() {
         <button
           type="button"
           onClick={() => location.assign("https://www.nokair.com")}
-          className="mt-8 h-12 w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
+          className="mt-8 h-12 w-full md:w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
         >
           ไปยังหน้าแรกนกแอร์
         </button>

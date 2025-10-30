@@ -151,7 +151,11 @@ export default function ChangeFlightSameRoutePage() {
 
             <section>
               <h3 className="mb-3 text-[24px] font-bold">เลือกเส้นทาง</h3>
-              <div className="grid gap-x-4 gap-y-6 items-center grid-cols-1 md:grid-cols-[44px_128px_minmax(0,1fr)] min-w-0">
+              <div
+                className="grid items-center gap-x-4 gap-y-6 min-w-0
+                  grid-cols-[44px_1fr_auto]
+                  md:grid-cols-[44px_128px_minmax(0,1fr)]"
+              >
                 <div className="relative col-start-1 row-span-2 min-h-24">
                   <div className="absolute left-1/2 -translate-x-1/2 top-3.5 bottom-3.5 w-1 rounded bg-[#F6C200]" />
                   <span className="absolute left-1/2 -translate-x-1/2 top-0 h-7 w-7 rounded-full border-[3px] border-[#F6C200] bg-white" />
@@ -161,13 +165,13 @@ export default function ChangeFlightSameRoutePage() {
                   <div className="text-[20px] font-semibold text-[#1f2937]">
                     ต้นทาง :
                   </div>
-                  <div className="text-[16px] leading-4 text-grey-800 font-medium">
+                  <div className="text-[12px] md:text-[16px] leading-4 text-grey-800 font-medium">
                     (ในภูมิภาคเดียวกันเท่านั้น)
                   </div>
                 </div>
-                <div className="md:col-start-3 md:row-start-1 justify-self-stretch min-w-0">
+                <div className="md:col-start-3 md:row-start-1 justify-self-end min-w-0">
                   <Select value={origin} onValueChange={setOrigin}>
-                    <SelectTrigger className="h-12! w-full min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium truncate data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
+                    <SelectTrigger className="h-12! w-40 md:w-50 min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium truncate data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
                       <SelectValue placeholder="กรุณาเลือกจังหวัด" />
                     </SelectTrigger>
                     <SelectContent className="rounded-md">
@@ -189,13 +193,13 @@ export default function ChangeFlightSameRoutePage() {
                   <div className="text-[20px] font-semibold text-[#1f2937]">
                     ปลายทาง :
                   </div>
-                  <div className="text-[16px] leading-4 text-grey-800 font-medium">
+                  <div className="text-[12px] md:text-[16px] leading-4 text-grey-800 font-medium">
                     (สามารถเลือกได้)
                   </div>
                 </div>
-                <div className="md:col-start-3 md:row-start-2 justify-self-stretch min-w-0">
+                <div className="md:col-start-3 md:row-start-2 justify-self-end min-w-0">
                   <Select value={dest} onValueChange={setDest}>
-                    <SelectTrigger className="h-12! w-full min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40 truncate">
+                    <SelectTrigger className="h-12! w-40 md:w-50 min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40 truncate">
                       <SelectValue placeholder="กรุณาเลือกจังหวัด" />
                     </SelectTrigger>
                     <SelectContent className="rounded-md ">

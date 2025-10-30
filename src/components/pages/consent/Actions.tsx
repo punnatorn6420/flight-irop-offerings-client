@@ -47,18 +47,9 @@ export default function Actions() {
         <div className="mt-5 md:mt-7 flex justify-center">
           <Button
             onClick={submit}
-            disabled={!accepted || loading}
+            disabled={!accepted}
             className="min-w-[360px] h-14 text-[20px] bg-primary text-yellow-800 hover:bg-yellow-600 cursor-pointer disabled:bg-gray-300 disabled:text-gray-900"
           >
-            {loading && (
-              <Refresh
-                width={20}
-                height={20}
-                strokeWidth={2}
-                className="mr-2 animate-spin"
-                aria-hidden="true"
-              />
-            )}
             <span className="font-bold">ยินยอม</span>
           </Button>
         </div>

@@ -77,7 +77,6 @@ export default function OfferRedeemSuccessPage() {
         <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/5" />
       </div>
 
-      {/* หัวเรื่อง */}
       <div className="flex items-center gap-3">
         <span className="flex h-9 w-9 items-center justify-center">
           <CheckCircleSolid
@@ -108,7 +107,7 @@ export default function OfferRedeemSuccessPage() {
           <button
             type="button"
             onClick={() => history.back()}
-            className="mt-6 h-12 w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
+            className="mt-6 px-4 h-12 w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
           >
             รับสิทธิ์ต่อ
           </button>
@@ -120,7 +119,7 @@ export default function OfferRedeemSuccessPage() {
                   คัดลอกลิงก์ให้ผู้โดยสารท่านอื่นรับสิทธิ์ต่อ
                 </div>
               </div>
-              <InputGroup className="w-96 md:w-xl h-12!">
+              <InputGroup className="w-96 md:w-xl h-12! px-4">
                 <InputGroupInput
                   readOnly
                   className="text-[20px]! "

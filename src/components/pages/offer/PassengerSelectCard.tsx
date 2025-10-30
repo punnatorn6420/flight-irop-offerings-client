@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { OfferMock } from "@/types/offer";
 import { Minus } from "iconoir-react";
+import { cn } from "@/lib/utils";
 
 type OnChangePayload = { ids: string[]; names: string[]; count: number };
 
@@ -96,8 +97,8 @@ export default function PassengerSelectCard({
             return (
               <li key={p.id} className="flex items-center gap-3">
                 {p.disabled ? (
-                  <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-grey-300/70">
-                    <Minus width={24} height={24} className="text-grey-600" />
+                  <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-grey-500">
+                    <Minus width={24} height={24} className="text-white" />
                   </span>
                 ) : (
                   <Checkbox
@@ -111,7 +112,13 @@ export default function PassengerSelectCard({
                 "
                   />
                 )}
-                <label htmlFor={inputId} className="text-[18px] font-medium">
+                <label
+                  htmlFor={inputId}
+                  className={cn(
+                    "text-[18px] font-medium",
+                    p.disabled && "text-gray-400"
+                  )}
+                >
                   {p.name}
                 </label>
               </li>

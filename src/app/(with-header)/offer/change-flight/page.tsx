@@ -128,190 +128,188 @@ export default function ChangeFlightSameRoutePage() {
     setWinStart((s) => Math.min(daysArray.length - WINDOW, s + 1));
 
   return (
-    <main className="min-h-screen flex flex-col">
-      <section className="mx-auto w-full max-w-[1120px] flex-1 px-4 md:px-6 pt-4 md:pt-6 pb-24 md:pb-10">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-[460px_minmax(0,1fr)]">
-          <aside className="relative overflow-hidden rounded-2xl">
-            <div className="relative aspect-361/200 md:hidden">
-              <Image
-                src="/images/change_flight_free_banner_m.svg"
-                alt="เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-            <div className="relative aspect-3/5 hidden md:block">
-              <Image
-                src="/images/change_flight_free_banner.svg"
-                alt="เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม"
-                fill
-                className="object-contain object-left md:object-center"
-                priority
-              />
-            </div>
-          </aside>
-          <section className="rounded-2xl py-4 md:py-6">
-            <div>
-              <OfferPassengerCount
-                names={selectedNames}
-                className="mb-6"
-                defaultOpen={false}
-              />
-              <h3 className="mb-3 text-[24px] font-bold">เลือกวันเดินทาง</h3>
-              <div className="flex items-center gap-4">
-                <div>
-                  <Select
-                    value={currentYM}
-                    onValueChange={(v) => setCurrentYM(v)}
-                  >
-                    <SelectTrigger
-                      className="
+    <section>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[460px_minmax(0,1fr)]">
+        <aside className="relative overflow-hidden rounded-2xl">
+          <div className="relative aspect-361/200 lg:hidden">
+            <Image
+              src="/images/change_flight_free_banner_m.svg"
+              alt="เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="relative aspect-3/5 hidden lg:block">
+            <Image
+              src="/images/change_flight_free_banner.svg"
+              alt="เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม"
+              fill
+              className="object-contain object-left lg:object-center"
+              priority
+            />
+          </div>
+        </aside>
+        <section className="rounded-2xl py-4 lg:py-6">
+          <div>
+            <OfferPassengerCount
+              names={selectedNames}
+              className="mb-6"
+              defaultOpen={false}
+            />
+            <h3 className="mb-3 text-[24px] font-bold">เลือกวันเดินทาง</h3>
+            <div className="flex items-center gap-4">
+              <div>
+                <Select
+                  value={currentYM}
+                  onValueChange={(v) => setCurrentYM(v)}
+                >
+                  <SelectTrigger
+                    className="
                         relative h-12! w-64 rounded-md border border-grey-500
                         pl-12 font-medium cursor-pointer
                       "
-                    >
-                      <Calendar
-                        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-500 size-5"
-                        strokeWidth={2}
-                      />
-                      <SelectValue placeholder="เลือกเดือน" />
-                    </SelectTrigger>
-                    <SelectContent className="round-md">
-                      {monthOptions.map((opt) => (
-                        <SelectItem
-                          key={opt.value}
-                          value={opt.value}
-                          className="cursor-pointer"
-                        >
-                          <span className="text-[22px]">{opt.label}</span>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="ml-auto flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={slideLeft}
-                    disabled={!canSlideLeft}
-                    className="h-10! w-10 cursor-pointer"
                   >
-                    <NavArrowLeft width={20} height={20} strokeWidth={2} />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={slideRight}
-                    disabled={!canSlideRight}
-                    className="h-10! w-10 cursor-pointer"
-                  >
-                    <NavArrowRight width={20} height={20} strokeWidth={2} />
-                  </Button>
-                </div>
+                    <Calendar
+                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-500 size-5"
+                      strokeWidth={2}
+                    />
+                    <SelectValue placeholder="เลือกเดือน" />
+                  </SelectTrigger>
+                  <SelectContent className="round-md">
+                    {monthOptions.map((opt) => (
+                      <SelectItem
+                        key={opt.value}
+                        value={opt.value}
+                        className="cursor-pointer"
+                      >
+                        <span className="text-[22px]">{opt.label}</span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-              <div className="mt-4 flex gap-3 overflow-x-auto hide-scrollbar scroll-smooth snap-x snap-mandatory pb-2">
-                {visibleDays.map((d) => {
-                  const dd = String(d).padStart(2, "0");
-                  const flights = AVAIL_MAP[currentYM]?.[dd]?.length ?? 0;
-                  const disabled = flights === 0;
-                  const isActive = selectedDay === d;
+              <div className="ml-auto flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={slideLeft}
+                  disabled={!canSlideLeft}
+                  className="h-10! w-10 bg-white! hover:bg-yellow-50! hover:border-yellow-700"
+                >
+                  <NavArrowLeft width={20} height={20} strokeWidth={2} />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={slideRight}
+                  disabled={!canSlideRight}
+                  className="h-10! w-10 bg-white! hover:bg-yellow-50! hover:border-yellow-700"
+                >
+                  <NavArrowRight width={20} height={20} strokeWidth={2} />
+                </Button>
+              </div>
+            </div>
+            <div className="mt-4 flex gap-3 overflow-x-auto hide-scrollbar scroll-smooth snap-x snap-mandatory pb-2">
+              {visibleDays.map((d) => {
+                const dd = String(d).padStart(2, "0");
+                const flights = AVAIL_MAP[currentYM]?.[dd]?.length ?? 0;
+                const disabled = flights === 0;
+                const isActive = selectedDay === d;
 
-                  return (
-                    <button
-                      key={d}
-                      type="button"
-                      onClick={() => !disabled && setSelectedDay(d)}
+                return (
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => !disabled && setSelectedDay(d)}
+                    className={[
+                      "flex h-[130px] w-[92px] shrink-0 cursor-pointer flex-col items-center rounded-md  border-2 px-3 py-4 text-center transition",
+                      disabled
+                        ? "border-grey-200 bg-grey-50 text-grey-600"
+                        : "border-grey-200 bg-white  hover:bg-yellow-50 hover:border-yellow-200",
+                      isActive && !disabled
+                        ? "border-yellow-500 bg-yellow-200 text-yellow-800"
+                        : "",
+                    ].join(" ")}
+                  >
+                    <div className="text-[18px] font-bold">
+                      {TH_DOW[dayOfWeek(currentYM, d)]}
+                    </div>
+                    <div
                       className={[
-                        "flex h-[130px] w-[92px] shrink-0 cursor-pointer flex-col items-center rounded-md  border-2 px-3 py-4 text-center transition",
-                        disabled
-                          ? "border-grey-200 bg-grey-50 text-grey-600"
-                          : "border-grey-200 bg-white  hover:bg-yellow-50 hover:border-yellow-200",
-                        isActive && !disabled
-                          ? "border-yellow-500 bg-yellow-200 text-yellow-800"
-                          : "",
+                        "font-medium text-5xl",
+                        disabled ? "text-grey-600 " : "text-yellow-600 ",
                       ].join(" ")}
                     >
-                      <div className="text-[18px] font-bold">
-                        {TH_DOW[dayOfWeek(currentYM, d)]}
-                      </div>
-                      <div
-                        className={[
-                          "font-medium text-5xl",
-                          disabled ? "text-grey-600 " : "text-yellow-600 ",
-                        ].join(" ")}
-                      >
-                        {d}
-                      </div>
-                      <div className="mt-1 text-[18px] font-bold">
-                        {disabled ? "-" : `${flights} เที่ยวบิน`}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+                      {d}
+                    </div>
+                    <div className="mt-1 text-[18px] font-bold">
+                      {disabled ? "-" : `${flights} เที่ยวบิน`}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
-            <div className="mt-6">
-              <h3 className="mb-3 text-[24px] font-bold">เลือกเวลาเที่ยวบิน</h3>
+          </div>
+          <div className="mt-6">
+            <h3 className="mb-3 text-[24px] font-bold">เลือกเวลาเที่ยวบิน</h3>
 
-              <div role="radiogroup" className="grid gap-3 grid-cols-3">
-                {slotsToday.length > 0 ? (
-                  slotsToday.map((slot) => {
-                    const active = selectedSlot === slot;
-                    return (
-                      <button
-                        key={slot}
-                        type="button"
-                        onClick={() => setSelectedSlot(slot)}
-                        aria-pressed={active}
-                        className={[
-                          "h-12 w-full cursor-pointer rounded-lg border text-center text-[16px] font-bold",
-                          active
-                            ? "border-yellow-500 bg-yellow-50 text-[#9A7B00]"
-                            : "border-yellow-500 bg-white text-yellow-700 hover:bg-yellow-50",
-                        ].join(" ")}
-                      >
-                        {slot}
-                      </button>
-                    );
-                  })
-                ) : (
-                  <div className="col-span-full">
-                    <div className="mx-auto max-w-xl rounded-2xl border border-grey-200 bg-white p-8 text-center shadow-sm">
-                      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-grey-200">
-                        <Calendar
-                          width={24}
-                          height={24}
-                          strokeWidth={2}
-                          className="text-grey-500"
-                        />
-                      </div>
-                      <div className="text-[18px] text-grey-700">
-                        ไม่พบเที่ยวบิน กรุณาเลือกวันเดินทาง
-                      </div>
+            <div role="radiogroup" className="grid gap-3 grid-cols-3">
+              {slotsToday.length > 0 ? (
+                slotsToday.map((slot) => {
+                  const active = selectedSlot === slot;
+                  return (
+                    <Button
+                      key={slot}
+                      type="button"
+                      onClick={() => setSelectedSlot(slot)}
+                      aria-pressed={active}
+                      className={[
+                        "h-12! w-full  border text-center text-[18px]! font-bold!",
+                        active
+                          ? "border-yellow-500! bg-yellow-100! text-yellow-800!"
+                          : "border-yellow-500! bg-white! text-yellow-700! hover:bg-yellow-50!",
+                      ].join(" ")}
+                    >
+                      {slot}
+                    </Button>
+                  );
+                })
+              ) : (
+                <div className="col-span-full">
+                  <div className="mx-auto max-w-xl rounded-2xl border border-grey-200 bg-white p-8 text-center shadow-sm">
+                    <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-grey-200">
+                      <Calendar
+                        width={24}
+                        height={24}
+                        strokeWidth={2}
+                        className="text-grey-500"
+                      />
+                    </div>
+                    <div className="text-[18px] text-grey-700">
+                      ไม่พบเที่ยวบิน กรุณาเลือกวันเดินทาง
                     </div>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
-            <OfferFooterActions
-              confirmMode="dialog"
-              confirmDisabled={false}
-              onBack={() => history.back()}
-              onConfirm={async () => {}}
-              confirmDialog={{
-                title: "ยืนยันการใช้สิทธิ์",
-                descriptionTop:
-                  "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
-                email: email,
-                confirmText: "ยืนยันรับสิทธิ์",
-                cancelText: "ยกเลิก",
-              }}
-            />
-          </section>
-        </div>
-      </section>
-    </main>
+          </div>
+          <OfferFooterActions
+            confirmMode="dialog"
+            confirmDisabled={false}
+            onBack={() => history.back()}
+            onConfirm={async () => {}}
+            confirmDialog={{
+              title: "ยืนยันการใช้สิทธิ์",
+              descriptionTop:
+                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
+              email: email,
+              confirmText: "ยืนยันรับสิทธิ์",
+              cancelText: "ยกเลิก",
+            }}
+          />
+        </section>
+      </div>
+    </section>
   );
 }

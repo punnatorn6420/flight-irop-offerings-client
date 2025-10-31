@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import type { OfferMock } from "@/types/offer";
 
 function formatThaiDate(iso: string) {
@@ -25,10 +26,12 @@ function formatThaiDate(iso: string) {
 export default function FlightInfoCard({
   tripType,
   segment,
+  className,
   originalSegment,
 }: {
   tripType: OfferMock["trip"]["tripType"];
   segment: OfferMock["trip"]["segments"][number];
+  className?: string;
   originalSegment?: OfferMock["trip"]["segments"][number];
 }) {
   const rows: [string, string][] = [
@@ -53,7 +56,7 @@ export default function FlightInfoCard({
   ];
 
   return (
-    <article className="bg-gray-100 p-4 md:p-5 rounded-2xl">
+    <article className={cn("bg-gray-100 p-4 md:p-5 rounded-2xl", className)}>
       <h3 className="mb-3 font-bold text-[24px]">ข้อมูลเที่ยวบิน</h3>
       <div className="space-y-2 text-[20px] leading-6">
         {rows.map(([k, v]) => (

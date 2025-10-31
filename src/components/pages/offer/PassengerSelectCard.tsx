@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import type { OfferMock } from "@/types/offer";
 import { Minus } from "iconoir-react";
 import { cn } from "@/lib/utils";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 type OnChangePayload = { ids: string[]; names: string[]; count: number };
 
@@ -26,6 +27,9 @@ export default function PassengerSelectCard({
     }))
   );
 
+  const selectable = useMemo(() => list.filter((x) => !x.disabled), [list]);
+  const selectableCount = selectable.length;
+
   useEffect(() => {
     setList((prev) =>
       prev.map((x) => ({
@@ -37,12 +41,12 @@ export default function PassengerSelectCard({
   }, [usedIds]);
 
   const allChecked = useMemo(
-    () => list.every((x) => x.disabled || x.checked),
-    [list]
+    () => selectableCount > 0 && selectable.every((x) => x.checked),
+    [selectable, selectableCount]
   );
   const someChecked = useMemo(
-    () => list.some((x) => !x.disabled && x.checked) && !allChecked,
-    [list, allChecked]
+    () => selectable.some((x) => x.checked) && !allChecked,
+    [selectable, allChecked]
   );
 
   useEffect(() => {
@@ -84,14 +88,35 @@ export default function PassengerSelectCard({
     );
 
   return (
-    <article className="bg-gray-100 p-4 md:p-5 rounded-2xl">
+    <article className="bg-gray-100 p-4 lg:p-5 rounded-2xl">
       <h3 className="font-bold text-[24px]">เลือกผู้โดยสาร</h3>
       <p className="mb-3 text-[16px] text-grey-700">
         ผู้โดยสารแต่ละคนสามารถเลือกสิทธิ์ที่แตกต่างกันได้
         และสามารถทำรายการได้ทีละคน หรือพร้อมกันทั้งหมดเพื่อรับสิทธิ์เดียวกัน
       </p>
-      <div className="overflow-y-auto pr-2 -mr-2 max-h-[29vh]">
-        <ul className="space-y-3">
+      {selectableCount > 1 && (
+        <div className="mb-3 flex items-center gap-3">
+          <Checkbox
+            id="all"
+            checked={allChecked ? true : someChecked ? "indeterminate" : false}
+            onCheckedChange={(v) => {
+              const next = v === true || (v === "indeterminate" && !allChecked);
+              toggleAll(next);
+            }}
+            className="
+              h-6 w-6 rounded-md ring-grey-300
+              data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground
+              data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground
+              data-[state=checked]:ring-primary data-[state=indeterminate]:ring-primary cursor-pointer
+      "
+          />
+          <label htmlFor="all" className="text-[18px] font-medium">
+            เลือกทั้งหมด เพื่อรับสิทธิ์เดียวกัน
+          </label>
+        </div>
+      )}
+      <ScrollArea type="auto" className="h-46">
+        <ul className="space-y-3 pr-3">
           {list.map((p) => {
             const inputId = `p-${p.id}`;
             return (
@@ -125,25 +150,8 @@ export default function PassengerSelectCard({
             );
           })}
         </ul>
-      </div>
-
-      <div className="mt-4 flex items-center gap-3">
-        <Checkbox
-          id="all"
-          checked={allChecked}
-          aria-checked={allChecked ? "true" : someChecked ? "mixed" : "false"}
-          onCheckedChange={() => toggleAll(!allChecked)}
-          className="
-            h-6 w-6 rounded-md ring-grey-300
-            data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground
-            data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground
-            data-[state=checked]:ring-primary data-[state=indeterminate]:ring-primary cursor-pointer
-          "
-        />
-        <label htmlFor="all" className="text-[18px] font-medium">
-          เลือกทั้งหมด เพื่อรับสิทธิ์เดียวกัน
-        </label>
-      </div>
+        <ScrollBar orientation="vertical" forceMount />
+      </ScrollArea>
     </article>
   );
 }

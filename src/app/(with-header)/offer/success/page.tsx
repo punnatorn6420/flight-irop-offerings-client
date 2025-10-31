@@ -44,15 +44,13 @@ export default function OfferRedeemSuccessPage() {
       await navigator.clipboard.writeText(shareLink);
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      // no-op
-    }
+    } catch {}
   };
 
   return (
-    <section className="mx-auto flex w-full max-w-[980px] flex-col items-center px-4 py-12 md:pt-24">
+    <section className="flex flex-col items-center ">
       <div className="relative mb-8 w-full overflow-hidden justify-items-center">
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <Image
             src="/images/accept_banner_m.svg"
             alt="ระบบรับสิทธิ์ชดเชย"
@@ -62,7 +60,7 @@ export default function OfferRedeemSuccessPage() {
             priority
           />
         </div>
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Image
             src="/images/accept_banner.svg"
             alt="ระบบรับสิทธิ์ชดเชย"
@@ -74,7 +72,6 @@ export default function OfferRedeemSuccessPage() {
         </div>
         <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/5" />
       </div>
-
       <div className="flex items-center gap-3">
         <span className="flex h-9 w-9 items-center justify-center">
           <CheckCircleSolid
@@ -83,12 +80,12 @@ export default function OfferRedeemSuccessPage() {
             height={36}
           />
         </span>
-        <h1 className="text-center text-[24px] font-extrabold md:text-[28px]">
+        <h1 className="text-center text-[24px] font-extrabold lg:text-[28px]">
           ใช้สิทธิ์เรียบร้อยแล้ว!
         </h1>
       </div>
-      <p className="mt-6 max-w-[820px] text-center text-[20px] leading-7 px-4 md:px-0">
-        เราจะดำเนินการส่งเอกสารยืนยันไปที่อีเมล
+      <p className="mt-6 max-w-[820px] text-center text-[20px] leading-7 px-4 lg:px-0">
+        เราจะดำเนินการส่งเอกสารยืนยันไปที่อีเมล{" "}
         <a
           href={`mailto:${email}`}
           className="font-semibold underline decoration-yellow-500 underline-offset-2"
@@ -105,19 +102,19 @@ export default function OfferRedeemSuccessPage() {
           <button
             type="button"
             onClick={() => history.back()}
-            className="mt-6 h-12 w-full md:w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
+            className="mt-6 h-12 w-full lg:w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
           >
             รับสิทธิ์ต่อ
           </button>
           {showShareBlock && (
             <>
-              <div className=" leading-4 my-6 font-medium text-[18px]">
+              <div className=" leading-4 my-6  text-[18px]">
                 <div className="text-center text-gray-400">หรือ</div>
                 <div className="text-center text-gray-400">
                   คัดลอกลิงก์ให้ผู้โดยสารท่านอื่นรับสิทธิ์ต่อ
                 </div>
               </div>
-              <InputGroup className="w-full md:w-xl h-12! ">
+              <InputGroup className="w-full lg:w-xl h-12! ">
                 <InputGroupInput
                   readOnly
                   className="text-[20px]! "
@@ -127,7 +124,7 @@ export default function OfferRedeemSuccessPage() {
                   <InputGroupButton
                     type="button"
                     onClick={handleCopy}
-                    className="bg-yellow-500 text-yellow-900 py-4! px-2! rounded-md"
+                    className="bg-yellow-500 text-yellow-900 py-4! px-2! rounded-md h-10!"
                   >
                     {copied ? (
                       <>
@@ -151,7 +148,7 @@ export default function OfferRedeemSuccessPage() {
         <button
           type="button"
           onClick={() => location.assign("https://www.nokair.com")}
-          className="mt-8 h-12 w-full md:w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
+          className="mt-8 h-12 w-full lg:w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
         >
           ไปยังหน้าแรกนกแอร์
         </button>

@@ -83,7 +83,7 @@ export default function BenefitList() {
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         {BENEFITS.map((b) => {
           const isSelected = selectedId === b.id;
           const highlightCls = b.highlight
@@ -100,10 +100,10 @@ export default function BenefitList() {
                 (e.key === "Enter" || e.key === " ") && go(b.id)
               }
               className={[
-                "relative overflow-hidden flex items-center justify-between gap-4 rounded-md border p-4 md:p-5 shadow-sm outline-none transition",
+                "relative overflow-hidden flex items-center justify-between gap-4 rounded-md border p-4 lg:p-5 shadow-sm outline-none transition",
                 'before:content-[""] before:absolute before:top-1/2 before:-translate-y-1/2',
-                "before:-right-20 md:before:right-[-280px]",
-                "before:w-[200px] before:h-[200px] md:before:w-[405px] md:before:h-[200px]",
+                "before:-right-20 lg:before:right-[-280px]",
+                "before:w-[200px] before:h-32 lg:before:w-[405px] lg:before:h-40",
                 "before:rounded-full before:bg-yellow-50 before:pointer-events-none",
                 highlightCls,
                 isSelected ? "ring-2 ring-yellow-500" : "ring-0",
@@ -117,7 +117,6 @@ export default function BenefitList() {
                   <p className="mt-1 text-[12px] text-grey-600">{b.note}</p>
                 )}
               </div>
-
               <Button
                 type="button"
                 onClick={(e) => {
@@ -126,10 +125,7 @@ export default function BenefitList() {
                 }}
                 className="
                   relative z-1
-                  rounded-lg text-[18px] font-bold px-4 h-10
-                  bg-primary text-yellow-900 hover:bg-yellow-600
-                  focus-visible:ring-2 focus-visible:ring-primary
-                  cursor-pointer
+                  rounded-lg text-[18px]! font-bold! h-10!
                 "
               >
                 เลือกสิทธิ์
@@ -139,7 +135,7 @@ export default function BenefitList() {
         })}
       </div>
       <AlertDialog open={openDecline} onOpenChange={setOpenDecline}>
-        <AlertDialogContent className="max-w-[640px] rounded-4xl">
+        <AlertDialogContent>
           <AlertDialogHeader>
             <div className="mx-auto flex h-16 w-16 items-center justify-center text-yellow-500">
               <WarningCircleSolid width={64} height={64} />
@@ -156,7 +152,7 @@ export default function BenefitList() {
           <AlertDialogFooter className="mt-2 grid gap-3 grid-cols-2">
             <AlertDialogAction
               onClick={confirmDecline}
-              className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-600 text-yellow-800 cursor-pointer"
+              className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-400 text-yellow-800 cursor-pointer"
             >
               ยืนยันไม่รับสิทธิ์
             </AlertDialogAction>

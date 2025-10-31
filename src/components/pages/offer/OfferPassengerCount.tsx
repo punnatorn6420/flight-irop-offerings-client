@@ -48,7 +48,7 @@ export default function OfferPassengerCount({
           <AccordionItem value="item-1" className="border-none ">
             <AccordionTrigger
               className={cn(
-                "px-4 md:px-5 py-2 rounded-lg",
+                "px-4 lg:px-5 py-2 rounded-lg",
                 "hover:no-underline [&>svg]:ml-auto cursor-pointer"
               )}
             >
@@ -59,19 +59,19 @@ export default function OfferPassengerCount({
                   strokeWidth={2}
                   className="shrink-0"
                 />
-                <div className="flex-1 font-bold text-[20px] md:text-[22px]">
+                <div className="flex-1 font-bold text-[20px] lg:text-[22px]">
                   {headerText}
                 </div>
               </div>
             </AccordionTrigger>
 
-            <AccordionContent className="px-4 md:px-5 pb-4">
+            <AccordionContent className="px-4 lg:px-5 pb-4">
               {count > 0 ? (
                 <ul className="space-y-1 pl-9">
                   {names.map((n, idx) => (
                     <li
                       key={`${n}-${idx}`}
-                      className="text-[18px] md:text-[20px] font-medium text-yellow-700"
+                      className="text-[18px] lg:text-[20px] font-medium text-yellow-700"
                     >
                       {n}
                     </li>

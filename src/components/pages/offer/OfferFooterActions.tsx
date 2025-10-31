@@ -89,14 +89,14 @@ export default function OfferFooterActions({
     <>
       <div
         className={clsx(
-          "mt-20 grid gap-3 grid-cols-[1fr_1fr] bottom-0 left-0 right-0 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/60 md:p-0 md:bg-transparent md:backdrop-blur-0 md:supports-backdrop-filter:bg-transparent",
+          "mt-20 grid gap-3 grid-cols-[1fr_1fr] bottom-0 left-0 right-0 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/60 lg:p-0 lg:bg-transparent lg:backdrop-blur-0 lg:supports-backdrop-filter:bg-transparent",
           className
         )}
       >
         <Button
           type="button"
           variant="outline"
-          className="h-12 rounded-md text-[20px] border-yellow-500 text-yellow-700 cursor-pointer hover:bg-yellow-50 hover:text-yellow-800"
+          className="border-yellow-500! bg-white! hover:bg-yellow-50!"
           onClick={onBack}
         >
           {backLabel}
@@ -104,7 +104,7 @@ export default function OfferFooterActions({
 
         <Button
           type="button"
-          className="h-12 rounded-md text-[20px] bg-primary  hover:bg-yellow-600 text-yellow-900 disabled:opacity-50 cursor-pointer"
+          className=""
           disabled={confirmDisabled || loading}
           onClick={handleConfirmClick}
         >
@@ -113,7 +113,7 @@ export default function OfferFooterActions({
       </div>
       {confirmMode === "dialog" && (
         <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
-          <AlertDialogContent className="max-w-[640px] rounded-3xl">
+          <AlertDialogContent>
             <AlertDialogHeader>
               <div className="mx-auto flex h-16 w-16 items-center justify-center text-yellow-500">
                 {icon ?? <WarningCircleSolid width={64} height={64} />}
@@ -139,19 +139,18 @@ export default function OfferFooterActions({
                 </div>
               </AlertDialogDescription>
             </AlertDialogHeader>
-
             <AlertDialogFooter className="mt-2 grid gap-3 grid-cols-2">
               <AlertDialogAction
                 onClick={async () => {
                   await runConfirm();
                   setOpenDialog(false);
                 }}
-                className="h-12 rounded-md bg-yellow-500 text-[20px] hover:bg-yellow-600 text-yellow-700 cursor-pointer"
+                className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-400 text-yellow-800 cursor-pointer"
                 disabled={loading}
               >
                 {confirmText}
               </AlertDialogAction>
-              <AlertDialogCancel className="h-12 rounded-md border-yellow-400 text-[20px] hover:bg-yellow-50 hover:text-yellow-900 text-yellow-800 cursor-pointer">
+              <AlertDialogCancel className="h-12 rounded-md border-yellow-400 text-[20px] cursor-pointer hover:bg-yellow-50 text-yellow-800">
                 {cancelText}
               </AlertDialogCancel>
             </AlertDialogFooter>

@@ -4,10 +4,12 @@ import Terms from "@/components/pages/consent/Terms";
 
 export default function ConsentPage() {
   return (
-    <main className="min-h-screen">
-      <Brand />
-      <Terms />
+    <div>
+      <div className="pb-[calc(160px+env(safe-area-inset-bottom))]">
+        <Brand />
+        <Terms />
+      </div>
       <Actions />
-    </main>
+    </div>
   );
 }

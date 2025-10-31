@@ -29,11 +29,10 @@ export default function LoginForm(_: Props) {
         <h2 className="text-center text-[32px] font-bold">
           กรุณากรอกข้อมูลเที่ยวบินของท่าน
         </h2>
-        <p className="mt-1 text-center text-[18px] text-grey-700">
+        <p className="mt-1 text-center text-[20px] text-grey-600">
           โปรดกรอกรหัสการจองและนามสกุลของท่าน เพื่อยืนยันตัวตน
         </p>
-
-        <form onSubmit={onSubmit} className="mt-4 md:mt-6 space-y-3">
+        <form onSubmit={onSubmit} className="mt-4 lg:mt-6 space-y-3">
           <div className="flex flex-col gap-2">
             <Label htmlFor="pnr" className="sr-only">
               รหัสการจอง (PNR)
@@ -43,7 +42,7 @@ export default function LoginForm(_: Props) {
               value={pnr}
               onChange={(e) => setPnr(e.target.value.toUpperCase())}
               placeholder="กรอกรหัสการจอง (PNR)"
-              className="h-11 rounded-md text-lg!"
+              className="h-12! rounded-md text-lg!"
               autoComplete="off"
               inputMode="text"
               maxLength={8}
@@ -59,22 +58,13 @@ export default function LoginForm(_: Props) {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="กรอกนามสกุล (ไทย/อังกฤษ)"
-              className="h-11 rounded-md text-lg!"
+              className="h-12! rounded-md text-lg!"
               autoComplete="family-name"
             />
           </div>
 
           <div className="pt-2">
-            <Button
-              type="submit"
-              disabled={!canSubmit}
-              className="
-                w-full h-12! rounded-md text-[20px] text-yellow-900 font-medium cursor-pointer
-                bg-primary hover:bg-yellow-600 disabled:bg-gray-300 disabled:text-gray-900
-                focus-visible:ring-2 focus-visible:ring-primary
-                disabled:opacity-50 disabled:pointer-events-none
-              "
-            >
+            <Button type="submit" disabled={!canSubmit} className="w-full">
               ยืนยัน
             </Button>
           </div>

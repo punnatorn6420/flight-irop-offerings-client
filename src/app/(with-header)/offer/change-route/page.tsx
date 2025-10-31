@@ -119,166 +119,164 @@ export default function ChangeFlightSameRoutePage() {
     !count || !origin || !dest || !selectedDay || !selectedSlot;
 
   return (
-    <main className="min-h-screen flex flex-col">
-      <section className="mx-auto w-full max-w-[1120px] flex-1 px-4 md:px-6 pt-4 md:pt-6 pb-24 md:pb-10">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-[460px_minmax(0,1fr)]">
-          <aside className="relative overflow-hidden rounded-2xl">
-            <div className="relative aspect-361/200 md:hidden">
-              <Image
-                src="/images/change_route_free_banner_m.svg"
-                alt="เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-            <div className="relative aspect-3/5 hidden md:block">
-              <Image
-                src="/images/change_route_free_banner.svg"
-                alt="เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
-                fill
-                className="object-contain object-left md:object-center"
-                priority
-              />
-            </div>
-          </aside>
-          <section className="rounded-2xl py-4 md:py-6">
-            <OfferPassengerCount
-              names={selectedNames}
-              className="mb-6"
-              defaultOpen={false}
+    <section>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[460px_minmax(0,1fr)]">
+        <aside className="relative overflow-hidden rounded-2xl">
+          <div className="relative aspect-361/200 lg:hidden">
+            <Image
+              src="/images/change_route_free_banner_m.svg"
+              alt="เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
+              fill
+              className="object-cover"
+              priority
             />
+          </div>
+          <div className="relative aspect-3/5 hidden lg:block">
+            <Image
+              src="/images/change_route_free_banner.svg"
+              alt="เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
+              fill
+              className="object-contain object-left lg:object-center"
+              priority
+            />
+          </div>
+        </aside>
+        <section className="rounded-2xl py-4 lg:py-6">
+          <OfferPassengerCount
+            names={selectedNames}
+            className="mb-6"
+            defaultOpen={false}
+          />
 
-            <section>
-              <h3 className="mb-3 text-[24px] font-bold">เลือกเส้นทาง</h3>
-              <div
-                className="grid items-center gap-x-4 gap-y-6 min-w-0
+          <section>
+            <h3 className="mb-3 text-[24px] font-bold">เลือกเส้นทาง</h3>
+            <div
+              className="grid items-center gap-x-4 gap-y-6 min-w-0
                   grid-cols-[44px_1fr_auto]
-                  md:grid-cols-[44px_128px_minmax(0,1fr)]"
-              >
-                <div className="relative col-start-1 row-span-2 min-h-24">
-                  <div className="absolute left-1/2 -translate-x-1/2 top-3.5 bottom-3.5 w-1 rounded bg-[#F6C200]" />
-                  <span className="absolute left-1/2 -translate-x-1/2 top-0 h-7 w-7 rounded-full border-[3px] border-[#F6C200] bg-white" />
-                  <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-7 w-7 rounded-full border-[3px] border-[#F6C200] bg-white" />
+                  lg:grid-cols-[44px_128px_minmax(0,1fr)]"
+            >
+              <div className="relative col-start-1 row-span-2 min-h-24">
+                <div className="absolute left-1/2 -translate-x-1/2 top-3.5 bottom-3.5 w-1 rounded bg-[#F6C200]" />
+                <span className="absolute left-1/2 -translate-x-1/2 top-0 h-7 w-7 rounded-full border-[3px] border-[#F6C200] bg-white" />
+                <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-7 w-7 rounded-full border-[3px] border-[#F6C200] bg-white" />
+              </div>
+              <div className="col-start-2 row-start-1">
+                <div className="text-[20px] font-semibold text-[#1f2937]">
+                  ต้นทาง :
                 </div>
-                <div className="col-start-2 row-start-1">
-                  <div className="text-[20px] font-semibold text-[#1f2937]">
-                    ต้นทาง :
-                  </div>
-                  <div className="text-[12px] md:text-[16px] leading-4 text-grey-800 font-medium">
-                    (ในภูมิภาคเดียวกันเท่านั้น)
-                  </div>
-                </div>
-                <div className="md:col-start-3 md:row-start-1 justify-self-end min-w-0">
-                  <Select value={origin} onValueChange={setOrigin}>
-                    <SelectTrigger className="h-12! w-40 md:w-50 min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium truncate data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
-                      <SelectValue placeholder="กรุณาเลือกจังหวัด" />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-md">
-                      {ORIGINS.map((o) => (
-                        <SelectItem
-                          key={o.code}
-                          value={o.code}
-                          className="cursor-pointer"
-                        >
-                          <span className="text-lg cursor-pointer">
-                            {o.label}
-                          </span>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="col-start-2 row-start-2">
-                  <div className="text-[20px] font-semibold text-[#1f2937]">
-                    ปลายทาง :
-                  </div>
-                  <div className="text-[12px] md:text-[16px] leading-4 text-grey-800 font-medium">
-                    (สามารถเลือกได้)
-                  </div>
-                </div>
-                <div className="md:col-start-3 md:row-start-2 justify-self-end min-w-0">
-                  <Select value={dest} onValueChange={setDest}>
-                    <SelectTrigger className="h-12! w-40 md:w-50 min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40 truncate">
-                      <SelectValue placeholder="กรุณาเลือกจังหวัด" />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-md ">
-                      {DESTS.map((d) => (
-                        <SelectItem
-                          key={d.code}
-                          value={d.code}
-                          className="cursor-pointer"
-                        >
-                          <span className="text-lg ">{d.label}</span>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                <div className="text-[12px] lg:text-[16px] leading-4 text-grey-800 font-medium">
+                  (ในภูมิภาคเดียวกันเท่านั้น)
                 </div>
               </div>
-            </section>
-
-            <div className="mt-6">
-              <h3 className="mb-3 text-[24px] font-bold">เลือกเวลาเที่ยวบิน</h3>
-
-              <div role="radiogroup" className="grid gap-3 grid-cols-3">
-                {slotsToday.length > 0 ? (
-                  slotsToday.map((slot) => {
-                    const active = selectedSlot === slot;
-                    return (
-                      <button
-                        key={slot}
-                        type="button"
-                        onClick={() => setSelectedSlot(slot)}
-                        aria-pressed={active}
-                        className={[
-                          "h-12 w-full cursor-pointer rounded-lg border text-center text-[16px] font-bold",
-                          active
-                            ? "border-yellow-500 bg-yellow-50 text-[#9A7B00]"
-                            : "border-yellow-500 bg-white text-yellow-700 hover:bg-yellow-50",
-                        ].join(" ")}
+              <div className="lg:col-start-3 lg:row-start-1 justify-self-end min-w-0">
+                <Select value={origin} onValueChange={setOrigin}>
+                  <SelectTrigger className="h-12! w-40 lg:w-50 min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium truncate data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
+                    <SelectValue placeholder="กรุณาเลือกจังหวัด" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-md">
+                    {ORIGINS.map((o) => (
+                      <SelectItem
+                        key={o.code}
+                        value={o.code}
+                        className="cursor-pointer"
                       >
-                        {slot}
-                      </button>
-                    );
-                  })
-                ) : (
-                  <div className="col-span-full">
-                    <div className="mx-auto max-w-xl rounded-2xl border border-grey-200 bg-white p-8 text-center shadow-sm">
-                      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-grey-200">
-                        {/* <CalendarX2 className="h-6 w-6 text-grey-500" /> */}
-                        <Calendar
-                          width={24}
-                          height={24}
-                          strokeWidth={2}
-                          className="text-grey-500"
-                        />
-                      </div>
-                      <div className="text-[16px] text-grey-600">
-                        ไม่พบเที่ยวบิน กรุณาเลือกเส้นทาง (และวันเดินทาง)
-                      </div>
+                        <span className="text-lg cursor-pointer">
+                          {o.label}
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="col-start-2 row-start-2">
+                <div className="text-[20px] font-semibold text-[#1f2937]">
+                  ปลายทาง :
+                </div>
+                <div className="text-[12px] lg:text-[16px] leading-4 text-grey-800 font-medium">
+                  (สามารถเลือกได้)
+                </div>
+              </div>
+              <div className="lg:col-start-3 lg:row-start-2 justify-self-end min-w-0">
+                <Select value={dest} onValueChange={setDest}>
+                  <SelectTrigger className="h-12! w-40 lg:w-50 min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40 truncate">
+                    <SelectValue placeholder="กรุณาเลือกจังหวัด" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-md ">
+                    {DESTS.map((d) => (
+                      <SelectItem
+                        key={d.code}
+                        value={d.code}
+                        className="cursor-pointer"
+                      >
+                        <span className="text-lg ">{d.label}</span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </section>
+
+          <div className="mt-6">
+            <h3 className="mb-3 text-[24px] font-bold">เลือกเวลาเที่ยวบิน</h3>
+
+            <div role="radiogroup" className="grid gap-3 grid-cols-3">
+              {slotsToday.length > 0 ? (
+                slotsToday.map((slot) => {
+                  const active = selectedSlot === slot;
+                  return (
+                    <button
+                      key={slot}
+                      type="button"
+                      onClick={() => setSelectedSlot(slot)}
+                      aria-pressed={active}
+                      className={[
+                        "h-12 w-full cursor-pointer rounded-lg border text-center text-[16px] font-bold",
+                        active
+                          ? "border-yellow-500 bg-yellow-50 text-[#9A7B00]"
+                          : "border-yellow-500 bg-white text-yellow-700 hover:bg-yellow-50",
+                      ].join(" ")}
+                    >
+                      {slot}
+                    </button>
+                  );
+                })
+              ) : (
+                <div className="col-span-full">
+                  <div className="mx-auto max-w-xl rounded-2xl border border-grey-200 bg-white p-8 text-center shadow-sm">
+                    <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-grey-200">
+                      {/* <CalendarX2 className="h-6 w-6 text-grey-500" /> */}
+                      <Calendar
+                        width={24}
+                        height={24}
+                        strokeWidth={2}
+                        className="text-grey-500"
+                      />
+                    </div>
+                    <div className="text-[16px] text-grey-600">
+                      ไม่พบเที่ยวบิน กรุณาเลือกเส้นทาง (และวันเดินทาง)
                     </div>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
-            <OfferFooterActions
-              confirmMode="dialog"
-              confirmDisabled={false}
-              onBack={() => history.back()}
-              onConfirm={async () => {}}
-              confirmDialog={{
-                title: "ยืนยันการใช้สิทธิ์",
-                descriptionTop:
-                  "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
-                email: email,
-                confirmText: "ยืนยันรับสิทธิ์",
-                cancelText: "ยกเลิก",
-              }}
-            />
-          </section>
-        </div>
-      </section>
-    </main>
+          </div>
+          <OfferFooterActions
+            confirmMode="dialog"
+            confirmDisabled={false}
+            onBack={() => history.back()}
+            onConfirm={async () => {}}
+            confirmDialog={{
+              title: "ยืนยันการใช้สิทธิ์",
+              descriptionTop:
+                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
+              email: email,
+              confirmText: "ยืนยันรับสิทธิ์",
+              cancelText: "ยกเลิก",
+            }}
+          />
+        </section>
+      </div>
+    </section>
   );
 }

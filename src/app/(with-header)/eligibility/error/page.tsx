@@ -51,40 +51,38 @@ export default function EligibilityErrorPage() {
   }, [router]);
 
   return (
-    <main className="min-h-screen flex flex-col bg-white text-grey-900">
-      <section className="flex-1 flex items-center justify-center px-6 py-10">
-        <div className="w-full max-w-[920px] text-center">
-          <div className="mx-auto flex h-[140px] w-[140px] items-center justify-center">
-            <WindowXmark width={140} height={140} className="text-yellow-500" />
-          </div>
-          <h1 className="mt-6 text-[22px] md:text-[28px] font-extrabold text-black">
-            {copy.title}
-          </h1>
-          <p className="mx-auto mt-2 max-w-[720px] text-[16px] md:text-[18px] text-grey-600">
-            {copy.desc}
-          </p>
-          <div className="mt-8 flex justify-center">
-            <Button
-              type="button"
-              onClick={onRetry}
-              className="
-                h-12 md:h-12 w-[420px] max-w-[82vw]
+    <section className="flex-1 flex items-center justify-center px-6 py-10">
+      <div className="w-full max-w-[920px] text-center">
+        <div className="mx-auto flex h-[140px] w-[140px] items-center justify-center">
+          <WindowXmark width={140} height={140} className="text-yellow-500" />
+        </div>
+        <h1 className="mt-6 text-[22px] lg:text-[28px] font-extrabold text-black">
+          {copy.title}
+        </h1>
+        <p className="mx-auto mt-2 max-w-[720px] text-[16px] lg:text-[18px] text-grey-600">
+          {copy.desc}
+        </p>
+        <div className="mt-8 flex justify-center">
+          <Button
+            type="button"
+            onClick={onRetry}
+            className="
+                h-12 lg:h-12 w-[420px] max-w-[82vw]
                 rounded-md text-[20px] font-semibold
                 bg-primary text-yellow-900 hover:bg-yellow-500
                 shadow-sm cursor-pointer
               "
-            >
-              <Refresh
-                width={24}
-                height={24}
-                strokeWidth={2}
-                className="mr-2 -mt-0.5"
-              />
-              ลองอีกครั้ง
-            </Button>
-          </div>
+          >
+            <Refresh
+              width={24}
+              height={24}
+              strokeWidth={2}
+              className="mr-2 -mt-0.5"
+            />
+            ลองอีกครั้ง
+          </Button>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }

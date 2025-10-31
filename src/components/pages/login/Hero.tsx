@@ -7,7 +7,8 @@ export default function Hero({ size }: { size: "sm" | "lg" }) {
 
   if (size === "lg") {
     return (
-      <div className="w-[380px] md:w-[380px] md:h-[640px]">
+      <div className="h-full">
+        {" "}
         <Image
           src={src}
           alt="Authentication Banner"

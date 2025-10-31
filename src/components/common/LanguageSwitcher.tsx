@@ -68,10 +68,10 @@ export default function LanguageSwitcher({
           variant="ghost"
           aria-label="Change language"
           className="
-            h-10 px-4 md:px-5 rounded-2xl
-            bg-white hover:bg-yellow-50
-            text-black font-extrabold text-[18px]
-            shadow-[0_6px_16px_rgba(0,0,0,0.12)]
+            h-10! px-4 lg:px-5 rounded-xl
+            bg-white! hover:bg-yellow-50!
+            text-black! font-bold
+            shadow-md
             data-[state=open]:ring-2 data-[state=open]:ring-yellow-400 cursor-pointer
           "
         >

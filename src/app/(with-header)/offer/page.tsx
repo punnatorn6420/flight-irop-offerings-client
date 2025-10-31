@@ -6,6 +6,7 @@ import FlightInfoCard from "@/components/pages/offer/FlightInfoCard";
 import PassengerSelectCard from "@/components/pages/offer/PassengerSelectCard";
 import BenefitList from "@/components/pages/offer/BenefitList";
 import { offerMock } from "@/data/offer.mock";
+import { cn } from "@/lib/utils";
 
 export default function OfferPage() {
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
@@ -25,6 +26,9 @@ export default function OfferPage() {
     setSelectedNames(initialNames);
     setSelectedCount(initialNames.length);
   }, []);
+
+  const passengers = offerMock.passengers;
+  const hasPassengerSelect = passengers.length > 1;
 
   const segments = offerMock.trip.segments;
   const tabs = useMemo(
@@ -51,23 +55,24 @@ export default function OfferPage() {
   );
 
   return (
-    <main className="min-h-screen">
-      <section className="mx-auto w-full max-w-[1120px] px-4 md:px-6 pb-12">
-        <div className="mt-8 md:mt-12 justify-items-center md:justify-items-start">
-          <FlightTabs
-            tabs={tabs}
-            value={activeFlight}
-            onChangeAction={async (code: string) => {
-              setActiveFlight(code);
-            }}
-          />
-        </div>
-        <div className="mt-4 grid gap-4 md:mt-6 md:grid-cols-2">
-          <FlightInfoCard
-            tripType={offerMock.trip.tripType}
-            segment={activeSegment}
-            originalSegment={segments[0]}
-          />
+    <section>
+      <div className="justify-items-center lg:justify-items-start">
+        <FlightTabs
+          tabs={tabs}
+          value={activeFlight}
+          onChangeAction={async (code: string) => {
+            setActiveFlight(code);
+          }}
+        />
+      </div>
+      <div className="mt-4 grid gap-4 lg:mt-6 lg:grid-cols-2">
+        <FlightInfoCard
+          tripType={offerMock.trip.tripType}
+          segment={activeSegment}
+          originalSegment={segments[0]}
+          className={cn(!hasPassengerSelect && "lg:col-span-2")}
+        />
+        {passengers.length > 1 && (
           <PassengerSelectCard
             passengers={offerMock.passengers}
             usedIds={usedIds}
@@ -76,12 +81,12 @@ export default function OfferPage() {
               setSelectedCount(count);
             }}
           />
-        </div>
+        )}
+      </div>
 
-        <div className="mt-6 md:mt-8">
-          <BenefitList />
-        </div>
-      </section>
-    </main>
+      <div className="mt-6 lg:mt-8">
+        <BenefitList />
+      </div>
+    </section>
   );
 }

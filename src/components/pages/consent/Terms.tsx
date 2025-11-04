@@ -1,72 +1,42 @@
 "use client";
 
+import { useT } from "@/lib/i18n";
+
 export default function Terms() {
+  const t = useT("consent.terms");
+
+  const title = t(
+    "title",
+    "ข้อกำหนดและเงื่อนไขการใช้บริการ ( Terms & Conditions )"
+  );
+  const sections = t<
+    { heading: string; items?: string[]; paragraph?: string }[]
+  >("sections", []);
+
   return (
     <section className="mt-6">
       <h2 className="text-[22px] lg:text-[24px] font-bold leading-6">
-        ข้อกำหนดและเงื่อนไขการใช้บริการ ( Terms &amp; Conditions )
+        {title}
       </h2>
 
-      <ol className="mt-6 lg:mt-2 text-[18px] lg:text-[20px] leading-6 lg:leading-7 text-black space-y-5 ">
-        <li>
-          <p className="font-bold">1. การใช้บริการ</p>
-          <span className="lg:font-medium">
-            ผู้ใช้ยินยอมว่าจะใช้ระบบของเราเพื่อวัตถุประสงค์ที่ถูกต้องตามกฎหมาย
-            และไม่กระทำการใด ๆ ที่เป็นการละเมิดสิทธิของบุคคลอื่น
-            หรือก่อให้เกิดความเสียหายต่อระบบ
-          </span>
-        </li>
+      <ol className="mt-6 lg:mt-2 text-[18px] lg:text-[20px] leading-6 lg:leading-7 text-black space-y-5">
+        {sections.map((sec, idx) => (
+          <li key={idx}>
+            <p className="font-bold">{`${idx + 1}. ${sec.heading}`}</p>
 
-        <li>
-          <p className="font-bold ">2. การจองและการชำระเงิน</p>
-          <ul className="list-disc pl-8 lg:font-medium">
-            <li>
-              การจองจะถือว่าสำเร็จเมื่อผู้ใช้กรอกข้อมูลครบถ้วนและดำเนินการชำระเงินสำเร็จ
-            </li>
-            <li>
-              ระบบจะส่งหมายเลขรายการจองและรายละเอียดผ่าน LINE หรืออีเมลภายใน 5
-              นาทีหลังยืนยันการชำระเงิน
-            </li>
-            <li>หากไม่ได้รับการยืนยัน กรุณาติดต่อทีมงานภายใน 24 ชั่วโมง</li>
-          </ul>
-        </li>
+            {sec.paragraph && (
+              <span className="lg:font-medium">{sec.paragraph}</span>
+            )}
 
-        <li>
-          <p className="font-bold ">3. การยกเลิกและคืนเงิน</p>
-          <ul className="list-disc pl-8 lg:font-medium">
-            <li>
-              การยกเลิกหรือขอคืนเงินขึ้นอยู่กับนโยบายของสายการบินหรือผู้ให้บริการที่เกี่ยวข้อง
-            </li>
-            <li>
-              ทุกคำขอที่ดำเนินการ
-              จะค่าธรรมเนียมเป็นตามที่ปรากฏในรายละเอียดการจอง
-            </li>
-            <li>บางประเภทรายการอาจไม่สามารถคืนเงินได้</li>
-          </ul>
-        </li>
-
-        <li>
-          <p className="font-bold ">4. ความเป็นส่วนตัวของข้อมูล (PDPA)</p>
-          <ul className="list-disc pl-8 lg:font-medium">
-            <li>
-              ข้อมูลส่วนบุคคลถูกเก็บ รวบรวม ใช้
-              และเปิดเผยตามวัตถุประสงค์ที่ระบุไว้อย่างชัดเจน
-            </li>
-            <li>
-              ผู้ใช้สามารถเพิกถอนความยินยอมได้
-              โดยอาจมีผลต่อการให้บริการบางประการ
-            </li>
-            <li>อ่านนโยบายฉบับเต็มได้ในหน้า นโยบายความเป็นส่วนตัว</li>
-          </ul>
-        </li>
-
-        <li>
-          <p className="font-bold ">5. การเปลี่ยนแปลงเงื่อนไข</p>
-          <span className="lg:font-medium">
-            บริษัทขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไขการใช้บริการโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
-            โดยจะแสดงเงื่อนไขล่าสุดบนหน้าเว็บไซต์หรือ LIFF Page
-          </span>
-        </li>
+            {sec.items && sec.items.length > 0 && (
+              <ul className="list-disc pl-8 lg:font-medium">
+                {sec.items.map((it, i) => (
+                  <li key={i}>{it}</li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
       </ol>
     </section>
   );

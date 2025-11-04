@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Refresh } from "iconoir-react";
 import Footer from "@/components/common/Footer";
+import { useT } from "@/lib/i18n";
 
 export default function Actions() {
+  const t = useT("consent.actions");
   const [accepted, setAccepted] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function Actions() {
     try {
       await new Promise((r) => setTimeout(r, 500));
       localStorage.setItem("consentAccepted", "true");
-      toast.success("ยืนยันแล้ว");
+      toast.success(t("toast_confirmed", "ยืนยันแล้ว"));
       router.replace("/login");
     } finally {
       setLoading(false);
@@ -41,8 +42,10 @@ export default function Actions() {
               htmlFor="consent"
               className="text-[18px] lg:text-[20px] leading-5 lg:leading-8 font-medium pt-1"
             >
-              ข้าพเจ้าได้อ่านและเข้าใจข้อกำหนดและเงื่อนไขในการเก็บรวบรวมใช้และเปิดเผยข้อมูลส่วนบุคคล
-              และยินยอมตามที่ระบุไว้ข้างต้น
+              {t(
+                "consent_label",
+                "ข้าพเจ้าได้อ่านและเข้าใจข้อกำหนดและเงื่อนไขในการเก็บรวบรวมใช้และเปิดเผยข้อมูลส่วนบุคคล และยินยอมตามที่ระบุไว้ข้างต้น"
+              )}
             </label>
           </div>
 
@@ -52,7 +55,7 @@ export default function Actions() {
               disabled={!accepted}
               className="min-w-[360px]"
             >
-              ยินยอม
+              {t("agree_btn", "ยินยอม")}
             </Button>
           </div>
         </section>
@@ -74,8 +77,10 @@ export default function Actions() {
               htmlFor="consent"
               className="text-[18px] lg:text-[20px] leading-5 lg:leading-8 font-medium pt-1"
             >
-              ข้าพเจ้าได้อ่านและเข้าใจข้อกำหนดและเงื่อนไขในการเก็บรวบรวมใช้และเปิดเผยข้อมูลส่วนบุคคล
-              และยินยอมตามที่ระบุไว้ข้างต้น
+              {t(
+                "consent_label",
+                "ข้าพเจ้าได้อ่านและเข้าใจข้อกำหนดและเงื่อนไขในการเก็บรวบรวมใช้และเปิดเผยข้อมูลส่วนบุคคล และยินยอมตามที่ระบุไว้ข้างต้น"
+              )}
             </label>
           </div>
 
@@ -85,7 +90,7 @@ export default function Actions() {
               disabled={!accepted}
               className="min-w-full"
             >
-              ยินยอม
+              {t("agree_btn", "ยินยอม")}
             </Button>
           </div>
         </section>

@@ -7,8 +7,11 @@ import PassengerSelectCard from "@/components/pages/offer/PassengerSelectCard";
 import BenefitList from "@/components/pages/offer/BenefitList";
 import { offerMock } from "@/data/offer.mock";
 import { cn } from "@/lib/utils";
+import { useT } from "@/lib/i18n";
 
 export default function OfferPage() {
+  const t = useT("offer");
+
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
   const [selectedCount, setSelectedCount] = useState<number>(0);
 
@@ -35,15 +38,15 @@ export default function OfferPage() {
     () =>
       segments.map((s) => ({
         code: s.flightNumber,
-        label: `เที่ยวบิน ${s.flightNumber}`,
+        label: `${t("flight", "เที่ยวบิน")} ${s.flightNumber}`,
       })),
-    [segments]
+    [segments, t]
   );
 
   const usedIds = useMemo(
     () =>
       Object.entries(offerMock.redeemProgress)
-        .filter(([, arr]) => Array.isArray(arr) && arr.every(Boolean)) // ใช้ครบทุกเซกเมนต์
+        .filter(([, arr]) => Array.isArray(arr) && arr.every(Boolean))
         .map(([pid]) => pid),
     []
   );

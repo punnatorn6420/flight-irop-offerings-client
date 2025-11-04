@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import clsx from "clsx";
 import { WarningCircleSolid } from "iconoir-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useT } from "@/lib/i18n";
 
 export type OfferFooterActionsProps = {
   backLabel?: string;
   confirmLabel?: string;
   onBack?: () => void;
-  /** ฟังก์ชันที่จะรันจริง ๆ เมื่อยืนยัน */
   onConfirm?: () => void | Promise<void>;
   confirmDisabled?: boolean;
   confirmLoading?: boolean;
@@ -38,8 +38,8 @@ export type OfferFooterActionsProps = {
 };
 
 export default function OfferFooterActions({
-  backLabel = "ย้อนกลับ",
-  confirmLabel = "ยืนยัน",
+  backLabel,
+  confirmLabel,
   onBack,
   onConfirm,
   confirmDisabled,
@@ -48,20 +48,25 @@ export default function OfferFooterActions({
   confirmMode = "direct",
   confirmDialog,
 }: OfferFooterActionsProps) {
+  const t = useT("offer.footerActions");
+  const router = useRouter();
+
   const [internalLoading, setInternalLoading] = useState(false);
   const loading = confirmLoading ?? internalLoading;
-
   const [openDialog, setOpenDialog] = useState(false);
 
   const runConfirm = async () => {
-    if (!onConfirm) return;
+    if (!onConfirm) {
+      router.replace("/offer/success");
+      return;
+    }
     try {
-      redirect("/offer/success");
-      // const ret = onConfirm();
-      // if (ret instanceof Promise) {
-      //   setInternalLoading(true);
-      //   await ret;
-      // }
+      const ret = onConfirm();
+      if (ret instanceof Promise) {
+        setInternalLoading(true);
+        await ret;
+      }
+      router.replace("/offer/success");
     } finally {
       setInternalLoading(false);
     }
@@ -75,15 +80,24 @@ export default function OfferFooterActions({
     }
   };
 
-  const {
-    title = "ยืนยันการใช้สิทธิ์",
-    descriptionTop = <>หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้</>,
-    email,
-    note,
-    confirmText = "ยืนยันรับสิทธิ์",
-    cancelText = "ยกเลิก",
-    icon,
-  } = confirmDialog || {};
+  const { title, descriptionTop, email, note, confirmText, cancelText, icon } =
+    confirmDialog || {};
+
+  const backText = backLabel ?? t("back", "ย้อนกลับ");
+  const confirmBtnText = confirmLabel ?? t("confirm", "ยืนยัน");
+  const dialogTitle = title ?? t("dialog.title", "ยืนยันการใช้สิทธิ์");
+  const dialogDescTop =
+    descriptionTop ??
+    t(
+      "dialog.descriptionTop",
+      "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+    );
+  const dialogConfirmText =
+    confirmText ?? t("dialog.confirmText", "ยืนยันรับสิทธิ์");
+  const dialogCancelText = cancelText ?? t("dialog.cancelText", "ยกเลิก");
+  const dialogEmailLine =
+    email &&
+    t("dialog.emailLine", "และจะได้รับเอกสารยืนยันการใช้สิทธิ์ที่อีเมล");
 
   return (
     <>
@@ -99,7 +113,7 @@ export default function OfferFooterActions({
           className="border-yellow-500! bg-white! hover:bg-yellow-50!"
           onClick={onBack}
         >
-          {backLabel}
+          {backText}
         </Button>
 
         <Button
@@ -108,7 +122,7 @@ export default function OfferFooterActions({
           disabled={confirmDisabled || loading}
           onClick={handleConfirmClick}
         >
-          {loading ? "กำลังดำเนินการ..." : confirmLabel}
+          {loading ? t("processing", "กำลังดำเนินการ...") : confirmBtnText}
         </Button>
       </div>
       {confirmMode === "dialog" && (
@@ -119,14 +133,14 @@ export default function OfferFooterActions({
                 {icon ?? <WarningCircleSolid width={64} height={64} />}
               </div>
               <AlertDialogTitle className="text-center text-[36px] font-extrabold">
-                {title}
+                {dialogTitle}
               </AlertDialogTitle>
               <AlertDialogDescription asChild>
                 <div className="text-center text-[20px] leading-5 text-gray-800">
                   <p>{descriptionTop}</p>
                   {email && (
                     <p>
-                      และจะได้รับเอกสารยืนยันการใช้สิทธิ์ที่อีเมล{" "}
+                      {dialogEmailLine}{" "}
                       <a
                         href={`mailto:${email}`}
                         className="font-bold text-black underline decoration-black underline-offset-2"
@@ -148,10 +162,10 @@ export default function OfferFooterActions({
                 className="h-12 rounded-md bg-primary text-[20px] hover:bg-yellow-400 text-yellow-800 cursor-pointer"
                 disabled={loading}
               >
-                {confirmText}
+                {dialogConfirmText}
               </AlertDialogAction>
               <AlertDialogCancel className="h-12 rounded-md border-yellow-400 text-[20px] cursor-pointer hover:bg-yellow-50 text-yellow-800">
-                {cancelText}
+                {dialogCancelText}
               </AlertDialogCancel>
             </AlertDialogFooter>
           </AlertDialogContent>

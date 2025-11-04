@@ -15,5 +15,7 @@ export const BANKS_META: BankMeta[] = [
   { code: "GSB", th: "ธนาคารออมสิน", icon: "/images/GSB.svg" },
 ];
 
-export const findBank = (code?: BankCode) =>
-  BANKS_META.find((b) => b.code === code);
+export function findBank(code?: BankCode) {
+  if (!code) return undefined;
+  return BANKS_META.find((b) => b.code === code);
+}

@@ -11,8 +11,10 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { NavArrowDown, NavArrowUp } from "iconoir-react";
+import { useLocale } from "@/lib/i18n";
 
 type Locale = "th" | "en";
+const COOKIE = "APP_LOCALE";
 
 const LOCALES: { code: Locale; label: string; flagSrc: string }[] = [
   { code: "th", label: "ภาษาไทย", flagSrc: "/icons/th.svg" },
@@ -27,39 +29,21 @@ export default function LanguageSwitcher({
   onChange?: (next: Locale) => void;
 }) {
   const [open, setOpen] = React.useState(false);
-  const [locale, setLocale] = React.useState<Locale>(value ?? "th");
-
-  React.useEffect(() => {
-    if (value) return;
-    const m = document.cookie.match(/(?:^|;\s*)lang=(th|en)/);
-    if (m) setLocale(m[1] as Locale);
-  }, [value]);
-
-  React.useEffect(() => {
-    if (value && value !== locale) setLocale(value);
-  }, [value]);
-
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const current = useLocale(); // "th" | "en"
+  const currentDef = LOCALES.find((l) => l.code === current) ?? LOCALES[0];
 
-  const current = LOCALES.find((l) => l.code === locale) ?? LOCALES[0];
+  function setCookie(next: Locale) {
+    // ใส่ Secure เมื่อรันบน https จริง
+    document.cookie = `${COOKIE}=${next}; Path=/; Max-Age=31536000; SameSite=Lax`;
+  }
 
-  const setLangCookie = (next: Locale) => {
-    const expires = new Date();
-    expires.setFullYear(expires.getFullYear() + 1);
-    document.cookie = `lang=${next}; path=/; expires=${expires.toUTCString()}`;
-  };
-
-  const changeLocale = (next: Locale) => {
-    setLangCookie(next);
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("lang", next);
-    router.replace(`${pathname}?${params.toString()}`);
-    setLocale(next);
-    onChange?.(next);
+  function changeLocale(next: Locale) {
+    if (next === current) return;
+    setCookie(next);
+    router.refresh(); // ให้ server อ่านคุกกี้ใหม่ แล้ว re-render
     setOpen(false);
-  };
+  }
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -76,9 +60,14 @@ export default function LanguageSwitcher({
           "
         >
           <span className="relative mr-3 inline-flex h-7 w-7 overflow-hidden rounded-full bg-white/90 ring-1 ring-black/5">
-            <Image src={current.flagSrc} alt="" fill className="object-cover" />
+            <Image
+              src={currentDef.flagSrc}
+              alt=""
+              fill
+              className="object-cover"
+            />
           </span>
-          <span className="text-[20px]">{current.label}</span>
+          <span className="text-[20px]">{currentDef.label}</span>
           {open ? (
             <NavArrowUp className="ml-2 h-5  font-bold!" />
           ) : (
@@ -96,7 +85,7 @@ export default function LanguageSwitcher({
         "
       >
         {LOCALES.map((l) => {
-          const active = l.code === current.code;
+          const active = l.code === currentDef.code;
           return (
             <DropdownMenuItem
               key={l.code}

@@ -1,19 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { Check, CheckCircle, CheckCircleSolid, Copy } from "iconoir-react";
+import { Check, CheckCircleSolid, Copy } from "iconoir-react";
 import { offerMock } from "@/data/offer.mock";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useMemo, useState } from "react";
 import {
   InputGroup,
   InputGroupInput,
   InputGroupAddon,
   InputGroupButton,
 } from "@/components/ui/input-group";
+import { useT } from "@/lib/i18n";
 
 export default function OfferRedeemSuccessPage() {
+  const t = useT("offer.redeemSuccess");
+
   const primary =
     offerMock.passengers.find((p: any) => p.primary) ?? offerMock.passengers[0];
   const email = (primary as any)?.email || "";
@@ -22,11 +23,14 @@ export default function OfferRedeemSuccessPage() {
   const totalPassengers = offerMock.passengers.length;
   const totalTasks = totalSegments * totalPassengers;
 
-  let doneTasks = 0;
-  for (const pid of Object.keys(offerMock.redeemProgress || {})) {
-    const arr = offerMock.redeemProgress[pid] || [];
-    doneTasks += arr.filter(Boolean).length;
-  }
+  const doneTasks = useMemo(() => {
+    let n = 0;
+    for (const pid of Object.keys(offerMock.redeemProgress || {})) {
+      const arr = offerMock.redeemProgress[pid] || [];
+      n += arr.filter(Boolean).length;
+    }
+    return n;
+  }, []);
   const allDone = doneTasks >= totalTasks;
 
   const shareLink =
@@ -53,7 +57,7 @@ export default function OfferRedeemSuccessPage() {
         <div className="lg:hidden">
           <Image
             src="/images/accept_banner_m.svg"
-            alt="ระบบรับสิทธิ์ชดเชย"
+            alt={t("bannerAlt", "ระบบรับสิทธิ์ชดเชย")}
             width={980}
             height={280}
             className="w-150 h-auto object-contain"
@@ -63,7 +67,7 @@ export default function OfferRedeemSuccessPage() {
         <div className="hidden lg:block">
           <Image
             src="/images/accept_banner.svg"
-            alt="ระบบรับสิทธิ์ชดเชย"
+            alt={t("bannerAlt", "ระบบรับสิทธิ์ชดเชย")}
             width={980}
             height={280}
             className="w-150 h-auto object-contain"
@@ -81,11 +85,11 @@ export default function OfferRedeemSuccessPage() {
           />
         </span>
         <h1 className="text-center text-[24px] font-extrabold lg:text-[28px]">
-          ใช้สิทธิ์เรียบร้อยแล้ว!
+          {t("title", "ใช้สิทธิ์เรียบร้อยแล้ว!")}
         </h1>
       </div>
       <p className="mt-6 max-w-[820px] text-center text-[20px] leading-7 px-4 lg:px-0">
-        เราจะดำเนินการส่งเอกสารยืนยันไปที่อีเมล{" "}
+        {t("emailLine1", "เราจะดำเนินการส่งเอกสารยืนยันไปที่อีเมล")}{" "}
         <a
           href={`mailto:${email}`}
           className="font-semibold underline decoration-yellow-500 underline-offset-2"
@@ -93,8 +97,10 @@ export default function OfferRedeemSuccessPage() {
           {email}
         </a>
         <span className="block">
-          ภายใน 1–2 วันทำการ หากมีข้อสงสัยเพิ่มเติม
-          สามารถติดต่อศูนย์บริการลูกค้านกแอร์ โทร.1318
+          {t(
+            "emailLine2",
+            "ภายใน 1–2 วันทำการ หากมีข้อสงสัยเพิ่มเติม สามารถติดต่อศูนย์บริการลูกค้านกแอร์ โทร.1318"
+          )}
         </span>
       </p>
       {isPartial && (
@@ -104,14 +110,19 @@ export default function OfferRedeemSuccessPage() {
             onClick={() => history.back()}
             className="mt-6 h-12 w-full lg:w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
           >
-            รับสิทธิ์ต่อ
+            {t("continueBtn", "รับสิทธิ์ต่อ")}
           </button>
           {showShareBlock && (
             <>
               <div className=" leading-4 my-6  text-[18px]">
-                <div className="text-center text-gray-400">หรือ</div>
                 <div className="text-center text-gray-400">
-                  คัดลอกลิงก์ให้ผู้โดยสารท่านอื่นรับสิทธิ์ต่อ
+                  {t("or", "หรือ")}
+                </div>
+                <div className="text-center text-gray-400">
+                  {t(
+                    "shareHint",
+                    "คัดลอกลิงก์ให้ผู้โดยสารท่านอื่นรับสิทธิ์ต่อ"
+                  )}
                 </div>
               </div>
               <InputGroup className="w-full lg:w-xl h-12! ">
@@ -119,6 +130,7 @@ export default function OfferRedeemSuccessPage() {
                   readOnly
                   className="text-[20px]! "
                   value={shareLink}
+                  aria-label={t("shareInputLabel", "ลิงก์สำหรับแชร์")}
                 />
                 <InputGroupAddon align="inline-end" className="">
                   <InputGroupButton
@@ -129,12 +141,17 @@ export default function OfferRedeemSuccessPage() {
                     {copied ? (
                       <>
                         <Check width={24} height={24} />
-                        <span className="text-[20px]! py-2!">คัดลอกแล้ว</span>
+                        <span className="text-[20px]! py-2!">
+                          {" "}
+                          {t("copied", "คัดลอกแล้ว")}
+                        </span>
                       </>
                     ) : (
                       <>
                         <Copy width={24} height={24} />
-                        <span className=" text-[20px]!">คัดลอก</span>
+                        <span className=" text-[20px]!">
+                          {t("copy", "คัดลอก")}
+                        </span>
                       </>
                     )}
                   </InputGroupButton>
@@ -150,7 +167,7 @@ export default function OfferRedeemSuccessPage() {
           onClick={() => location.assign("https://www.nokair.com")}
           className="mt-8 h-12 w-full lg:w-96 rounded-md bg-yellow-500 text-[20px] font-semibold text-yellow-800 hover:bg-yellow-500 cursor-pointer"
         >
-          ไปยังหน้าแรกนกแอร์
+          {t("goHome", "ไปยังหน้าแรกนกแอร์")}
         </button>
       )}
     </section>

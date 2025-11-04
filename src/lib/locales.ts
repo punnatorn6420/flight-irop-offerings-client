@@ -1,3 +1,4 @@
+import "server-only";
 import { cookies, headers } from "next/headers";
 
 export type Locale = "th" | "en";
@@ -7,16 +8,17 @@ export const DEFAULT_LOCALE: Locale = "th";
 
 export function normalizeLocale(input?: string | null): Locale {
   const v = (input || "").toLowerCase();
-  if (v.includes("th")) return "th";
-  return "en";
+  return v.includes("th") ? "th" : "en";
 }
 
 export async function getServerLocale(): Promise<Locale> {
-  const cookieStore = await cookies();
-  const c = cookieStore.get(LOCALE_COOKIE)?.value;
-  if (c && SUPPORTED.includes(c as Locale)) return c as Locale;
-
-  const hdrs = await headers();
-  const accept = hdrs.get("accept-language");
+  const c = (await cookies()).get(LOCALE_COOKIE)?.value as Locale | undefined;
+  if (c && SUPPORTED.includes(c)) return c;
+  const accept = (await headers()).get("accept-language");
   return normalizeLocale(accept);
+}
+
+export async function loadMessages(locale: Locale) {
+  const mod = await import(`@/lib/i18n/${locale}.json`);
+  return mod.default as Record<string, any>;
 }

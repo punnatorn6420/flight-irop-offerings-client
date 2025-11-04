@@ -9,33 +9,43 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import { useT, useLocale } from "@/lib/i18n";
 
 type Props = {
   names: string[];
-  value?: string; // ใช้เป็น fallback ถ้า names ว่าง
+  value?: string;
   title?: string;
   className?: string;
-  defaultOpen?: boolean; // true = เริ่มเปิด
+  defaultOpen?: boolean;
 };
 
 export default function OfferPassengerCount({
   names,
   value,
-  title = "ผู้โดยสารที่ต้องการใช้สิทธิ์นี้",
+  title,
   className,
   defaultOpen = true,
 }: Props) {
+  const t = useT("offer.passengerCount");
+  const locale = useLocale();
+  const nf = new Intl.NumberFormat(locale === "th" ? "th-TH" : "en-US");
+
   const count = useMemo(() => {
     if (Array.isArray(names) && names.length > 0) return names.length;
     const n = Number(value ?? 0);
     return Number.isFinite(n) && n > 0 ? n : 0;
   }, [names, value]);
 
-  const headerText = `จำนวน ${count} ท่าน`;
+  const headerText = t(
+    "header",
+    locale === "th" ? "จำนวน {count} ท่าน" : "Passengers selected: {count}"
+  ).replace("{count}", nf.format(count));
 
   return (
     <>
-      <h3 className="mb-2 text-[24px] font-bold">{title}</h3>
+      <h3 className="mb-2 text-[24px] font-bold">
+        {t("title", "ไม่พบรายชื่อผู้โดยสารที่เลือก")}
+      </h3>
       <section
         className={cn("rounded-md border border-grey-200 bg-white", className)}
       >
@@ -79,7 +89,7 @@ export default function OfferPassengerCount({
                 </ul>
               ) : (
                 <div className="py-2 text-[16px] text-grey-600">
-                  ไม่พบรายชื่อผู้โดยสารที่เลือก
+                  {t("empty", "ไม่พบรายชื่อผู้โดยสารที่เลือก")}
                 </div>
               )}
             </AccordionContent>

@@ -14,6 +14,7 @@ import { offerMock } from "@/data/offer.mock";
 import OfferFooterActions from "@/components/pages/offer/OfferFooterActions";
 import OfferPassengerCount from "@/components/pages/offer/OfferPassengerCount";
 import { Calendar, NavArrowLeft, NavArrowRight } from "iconoir-react";
+import { useT, useLocale } from "@/lib/i18n";
 
 const AVAIL_MAP: Record<string, Record<string, string[]>> = {
   "2025-10": {
@@ -25,47 +26,41 @@ const AVAIL_MAP: Record<string, Record<string, string[]>> = {
   },
 };
 
-const TH_MONTHS = [
-  "มกราคม",
-  "กุมภาพันธ์",
-  "มีนาคม",
-  "เมษายน",
-  "พฤษภาคม",
-  "มิถุนายน",
-  "กรกฎาคม",
-  "สิงหาคม",
-  "กันยายน",
-  "ตุลาคม",
-  "พฤศจิกายน",
-  "ธันวาคม",
-];
-const TH_DOW = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
-
-function ymLabel(ym: string) {
+function ymLabel(ym: string, locale: "th" | "en") {
   const [y, m] = ym.split("-").map(Number);
-  return `${TH_MONTHS[(m ?? 1) - 1]} ${y}`;
+  const dt = new Date(y, (m ?? 1) - 1, 1);
+  const fmt = new Intl.DateTimeFormat(locale === "th" ? "th-TH" : "en-US", {
+    month: "long",
+    year: "numeric",
+  });
+  return fmt.format(dt);
 }
+
 function getDaysInMonth(ym: string) {
   const [y, m] = ym.split("-").map(Number);
   return new Date(y, m, 0).getDate();
 }
 function dayOfWeek(ym: string, dd: number) {
   const [y, m] = ym.split("-").map(Number);
-  return new Date(y, (m ?? 1) - 1, dd).getDay();
+  return new Date(y, (m ?? 1) - 1, dd).getDay(); // 0..6
+}
+function dowShortLabel(ym: string, dd: number, locale: "th" | "en") {
+  const [y, m] = ym.split("-").map(Number);
+  const d = new Date(y, (m ?? 1) - 1, dd);
+  return new Intl.DateTimeFormat(locale === "th" ? "th-TH" : "en-US", {
+    weekday: "short",
+  }).format(d);
 }
 
 export default function ChangeFlightSameRoutePage() {
+  const t = useT("offer.changeFlightSameRoute");
+  const locale = useLocale();
+
   const paxMax = offerMock.passengers.length;
 
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
   const [selectedCount, setSelectedCount] = useState<number>(0);
-  const [mounted, setMounted] = useState(false);
-
   const [count, setCount] = useState<string>(String(paxMax));
-
-  // useEffect(() => {
-
-  // }, []);
 
   const months = useMemo(() => Object.keys(AVAIL_MAP).sort(), []);
   const defaultMonth = useMemo(() => {
@@ -94,8 +89,10 @@ export default function ChangeFlightSameRoutePage() {
       .sort((a, b) => a - b);
     setSelectedDay(daysWithFlight[0] ?? null);
     setSelectedSlot(null);
-    setMounted(true);
-    const namesStr = sessionStorage.getItem("offer:selectedPassengerNames");
+    const namesStr =
+      typeof window !== "undefined"
+        ? sessionStorage.getItem("offer:selectedPassengerNames")
+        : null;
 
     const initialNames = namesStr
       ? (JSON.parse(namesStr) as string[])
@@ -116,7 +113,14 @@ export default function ChangeFlightSameRoutePage() {
     offerMock.passengers.find((p: any) => p.primary) ?? offerMock.passengers[0];
   const email = (primary as any)?.email || "";
 
-  const monthOptions = months.map((ym) => ({ label: ymLabel(ym), value: ym }));
+  const monthOptions = useMemo(
+    () =>
+      months.map((ym) => ({
+        label: ymLabel(ym, locale),
+        value: ym,
+      })),
+    [months, locale]
+  );
 
   const visibleDays = daysArray.slice(winStart, winStart + WINDOW);
   const canSlideLeft = winStart > 0;
@@ -134,7 +138,7 @@ export default function ChangeFlightSameRoutePage() {
           <div className="relative aspect-361/200 lg:hidden">
             <Image
               src="/images/change_flight_free_banner_m.svg"
-              alt="เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม"
+              alt={t("bannerAltMobile", "เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม")}
               fill
               className="object-cover"
               priority
@@ -143,7 +147,7 @@ export default function ChangeFlightSameRoutePage() {
           <div className="relative aspect-3/5 hidden lg:block">
             <Image
               src="/images/change_flight_free_banner.svg"
-              alt="เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม"
+              alt={t("bannerAltDesktop", "เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม")}
               fill
               className="object-contain object-left lg:object-center"
               priority
@@ -157,7 +161,9 @@ export default function ChangeFlightSameRoutePage() {
               className="mb-6"
               defaultOpen={false}
             />
-            <h3 className="mb-3 text-[24px] font-bold">เลือกวันเดินทาง</h3>
+            <h3 className="mb-3 text-[24px] font-bold">
+              {t("pickTravelDate", "เลือกวันเดินทาง")}
+            </h3>
             <div className="flex items-center gap-4">
               <div>
                 <Select
@@ -174,7 +180,7 @@ export default function ChangeFlightSameRoutePage() {
                       className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-grey-500 size-5"
                       strokeWidth={2}
                     />
-                    <SelectValue placeholder="เลือกเดือน" />
+                    <SelectValue placeholder={t("pickMonth", "เลือกเดือน")} />
                   </SelectTrigger>
                   <SelectContent className="round-md">
                     {monthOptions.map((opt) => (
@@ -196,6 +202,7 @@ export default function ChangeFlightSameRoutePage() {
                   onClick={slideLeft}
                   disabled={!canSlideLeft}
                   className="h-10! w-10 bg-white! hover:bg-yellow-50! hover:border-yellow-700"
+                  aria-label={t("prevDays", "ก่อนหน้า")}
                 >
                   <NavArrowLeft width={20} height={20} strokeWidth={2} />
                 </Button>
@@ -205,6 +212,7 @@ export default function ChangeFlightSameRoutePage() {
                   onClick={slideRight}
                   disabled={!canSlideRight}
                   className="h-10! w-10 bg-white! hover:bg-yellow-50! hover:border-yellow-700"
+                  aria-label={t("nextDays", "ถัดไป")}
                 >
                   <NavArrowRight width={20} height={20} strokeWidth={2} />
                 </Button>
@@ -216,6 +224,12 @@ export default function ChangeFlightSameRoutePage() {
                 const flights = AVAIL_MAP[currentYM]?.[dd]?.length ?? 0;
                 const disabled = flights === 0;
                 const isActive = selectedDay === d;
+                const flightsLabel = disabled
+                  ? "-"
+                  : t("dayCard.flights", "{n} เที่ยวบิน").replace(
+                      "{n}",
+                      String(flights)
+                    );
 
                 return (
                   <button
@@ -231,9 +245,11 @@ export default function ChangeFlightSameRoutePage() {
                         ? "border-yellow-500 bg-yellow-200 text-yellow-800"
                         : "",
                     ].join(" ")}
+                    aria-pressed={isActive && !disabled}
+                    aria-disabled={disabled}
                   >
                     <div className="text-[18px] font-bold">
-                      {TH_DOW[dayOfWeek(currentYM, d)]}
+                      {dowShortLabel(currentYM, d, locale)}
                     </div>
                     <div
                       className={[
@@ -244,7 +260,7 @@ export default function ChangeFlightSameRoutePage() {
                       {d}
                     </div>
                     <div className="mt-1 text-[18px] font-bold">
-                      {disabled ? "-" : `${flights} เที่ยวบิน`}
+                      {flightsLabel}
                     </div>
                   </button>
                 );
@@ -252,7 +268,9 @@ export default function ChangeFlightSameRoutePage() {
             </div>
           </div>
           <div className="mt-6">
-            <h3 className="mb-3 text-[24px] font-bold">เลือกเวลาเที่ยวบิน</h3>
+            <h3 className="mb-3 text-[24px] font-bold">
+              {t("pickTime", "เลือกเวลาเที่ยวบิน")}
+            </h3>
 
             <div role="radiogroup" className="grid gap-3 grid-cols-3">
               {slotsToday.length > 0 ? (
@@ -287,7 +305,7 @@ export default function ChangeFlightSameRoutePage() {
                       />
                     </div>
                     <div className="text-[18px] text-grey-700">
-                      ไม่พบเที่ยวบิน กรุณาเลือกวันเดินทาง
+                      {t("emptyDay", "ไม่พบเที่ยวบิน กรุณาเลือกวันเดินทาง")}
                     </div>
                   </div>
                 </div>
@@ -300,12 +318,14 @@ export default function ChangeFlightSameRoutePage() {
             onBack={() => history.back()}
             onConfirm={async () => {}}
             confirmDialog={{
-              title: "ยืนยันการใช้สิทธิ์",
-              descriptionTop:
-                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
+              title: t("dialog.title", "ยืนยันการใช้สิทธิ์"),
+              descriptionTop: t(
+                "dialog.descriptionTop",
+                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+              ),
               email: email,
-              confirmText: "ยืนยันรับสิทธิ์",
-              cancelText: "ยกเลิก",
+              confirmText: t("dialog.confirmText", "ยืนยันรับสิทธิ์"),
+              cancelText: t("dialog.cancelText", "ยกเลิก"),
             }}
           />
         </section>

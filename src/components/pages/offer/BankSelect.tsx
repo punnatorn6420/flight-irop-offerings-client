@@ -12,12 +12,13 @@ import {
 import { cn } from "@/lib/utils";
 
 import { Bank as BankIcon } from "iconoir-react";
+import { useT } from "@/lib/i18n";
 
 type Props = {
   value?: BankCode;
   onChange: (v: BankCode) => void;
   className?: string;
-  showIcon?: boolean; // ถ้าใช้ Landmark ด้านนอก ให้ false
+  showIcon?: boolean;
 };
 
 export default function BankSelect({
@@ -26,7 +27,16 @@ export default function BankSelect({
   className,
   showIcon = false,
 }: Props) {
+  const t = useT("offer.bankSelect");
   const selected = findBank(value);
+
+  const bankLabel = (code?: BankCode) => {
+    if (!code) return "";
+    const i18nName = t(`banks.${code}`, "");
+    if (i18nName && typeof i18nName === "string") return i18nName;
+    const meta = findBank(code);
+    return meta?.th ?? code;
+  };
 
   return (
     <Select value={value} onValueChange={(v) => onChange(v as BankCode)}>
@@ -57,8 +67,11 @@ export default function BankSelect({
               className="h-6 w-6 shrink-0 object-contain rounded"
             />
           )}
-          <SelectValue placeholder="เลือกธนาคาร" className="truncate min-w-0">
-            <span>{selected ? selected.th : null}</span>{" "}
+          <SelectValue
+            placeholder={t("placeholder", "เลือกธนาคาร")}
+            className="truncate min-w-0"
+          >
+            <span>{bankLabel(value)}</span>
           </SelectValue>
         </div>
       </SelectTrigger>
@@ -73,12 +86,14 @@ export default function BankSelect({
             <span className="flex items-center gap-3 ">
               <Image
                 src={b.icon}
-                alt={b.th}
+                alt={bankLabel(b.code)}
                 width={24}
                 height={24}
                 className="rounded"
               />
-              <span className="text-[18px] leading-8 ">{b.th}</span>
+              <span className="text-[18px] leading-8 ">
+                {bankLabel(b.code)}
+              </span>
             </span>
           </SelectItem>
         ))}

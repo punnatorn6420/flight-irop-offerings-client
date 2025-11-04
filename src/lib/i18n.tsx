@@ -10,8 +10,12 @@ const I18nCtx = createContext<Ctx | null>(null);
 export function I18nProvider({
   locale,
   messages,
-  children
-}: { locale: "th"|"en"; messages: Messages; children: React.ReactNode }) {
+  children,
+}: {
+  locale: "th" | "en";
+  messages: Messages;
+  children: React.ReactNode;
+}) {
   const value = useMemo(() => ({ locale, messages }), [locale, messages]);
   return <I18nCtx.Provider value={value}>{children}</I18nCtx.Provider>;
 }

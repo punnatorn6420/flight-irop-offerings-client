@@ -1,12 +1,250 @@
 {
-  "home": { "welcome": "Welcome", "tagline": "Flicker-free i18n project" },
+  "footer": "© 2024 Nok Air. All rights reserved.",
   "consent": {
-    "title": "Consent",
-    "description": "Agreement and privacy details"
+    "terms": {
+      "title": "Terms & Conditions",
+      "sections": [
+        {
+          "heading": "Use of Service",
+          "paragraph": "You agree to use our system for lawful purposes only, and not to infringe others' rights or cause system damage."
+        },
+        {
+          "heading": "Booking and Payment",
+          "items": [
+            "A booking is completed once all information is provided and payment is successful.",
+            "The booking reference and details will be sent via LINE or email within 5 minutes after payment confirmation.",
+            "If no confirmation is received, please contact our team within 24 hours."
+          ]
+        },
+        {
+          "heading": "Cancellation and Refunds",
+          "items": [
+            "Cancellations or refunds are subject to the airline's or service provider's policy.",
+            "Processing fees may apply as specified in the booking details.",
+            "Some items may be non-refundable."
+          ]
+        },
+        {
+          "heading": "Privacy (PDPA)",
+          "items": [
+            "Personal data is collected, used, and disclosed for specified purposes only.",
+            "You may withdraw consent, which may affect some services.",
+            "See the full policy on the Privacy Policy page."
+          ]
+        },
+        {
+          "heading": "Changes to Terms",
+          "paragraph": "We reserve the right to change the Terms without prior notice. The latest terms will be displayed on the website or LIFF page."
+        }
+      ]
+    },
+    "actions": {
+      "consent_label": "I have read and agree to the Terms & Conditions and the processing of personal data.",
+      "agree_btn": "Agree",
+      "toast_confirmed": "Confirmed"
+    }
   },
-  "login": { "title": "Login", "signin": "Sign in with enterprise account" },
-  "changeFlight": {
-    "title": "Change Flight",
-    "empty": "No flights found. Please select a date."
+  "login": {
+    "title": "Enter your booking details",
+    "subtitle": "Please provide your booking reference and last name to verify.",
+    "pnr": {
+      "label": "Booking reference (PNR)",
+      "placeholder": "Enter your PNR",
+      "error": "Invalid PNR format"
+    },
+    "last": {
+      "label": "Last name",
+      "placeholder": "Enter your last name",
+      "error": "Please enter your last name"
+    },
+    "submit": "Continue"
+  },
+  "offer": {
+    "flight": "flight",
+    "passengerSelect": {
+      "title": "Select passengers",
+      "subtitle": "Each passenger may choose different benefits. You can proceed individually or select all to apply the same benefit.",
+      "selectAll": "Select all to use the same benefit"
+    },
+    "flightInfo": {
+      "title": "Flight information",
+      "tripType": {
+        "label": "Trip type",
+        "roundTripOutbound": "Round trip (outbound)",
+        "oneWay": "One way"
+      },
+      "flightNumber": "Flight",
+      "route": "Route",
+      "travelDate": "Travel date",
+      "originalTime": "Original time",
+      "newTime": "New time",
+      "status": "Flight status"
+    },
+    "passengerCount": {
+      "title": "Passengers applying this benefit",
+      "header": "Passengers selected: {count}",
+      "empty": "No selected passengers"
+    },
+    "benefits": {
+      "title": "Supported benefits by the airline",
+      "subtitle": "Eligibility of each option depends on the official announcement.",
+      "select": "Select",
+      "decline": {
+        "title": "Confirm no benefit",
+        "desc": "After you confirm, you won’t be able to modify or cancel.",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+      },
+      "items": {
+        "sameFlight": {
+          "title": "Change to another flight on the same route (1 free change)"
+        },
+        "nearProvince": {
+          "title": "Change to a nearby province (same-day travel) for free"
+        },
+        "keepCredit": {
+          "title": "Keep the credit for up to 365 days (fare difference may apply)"
+        },
+        "refund": { "title": "Full refund" },
+        "noBenefit": { "title": "No benefit" }
+      }
+    },
+    "changeFlightSameRoute": {
+      "bannerAltMobile": "Change flight for free — same route",
+      "bannerAltDesktop": "Change flight for free — same route",
+      "pickTravelDate": "Select travel date",
+      "pickMonth": "Select month",
+      "prevDays": "Previous",
+      "nextDays": "Next",
+      "dayCard": {
+        "flights": "{n} flights"
+      },
+      "pickTime": "Select flight time",
+      "emptyDay": "No flights found. Please choose a travel date.",
+      "dialog": {
+        "title": "Confirm redemption",
+        "descriptionTop": "After confirming, you won’t be able to modify or cancel.",
+        "confirmText": "Confirm",
+        "cancelText": "Cancel",
+        "emailLine": "You will receive a confirmation document at your email."
+      }
+    },
+    "footerActions": {
+      "back": "Back",
+      "confirm": "Confirm",
+      "processing": "Processing...",
+      "backAria": "Back to previous page",
+      "confirmAria": "Confirm action",
+      "dialog": {
+        "title": "Confirm redemption",
+        "descriptionTop": "After confirming, you won’t be able to modify or cancel.",
+        "confirmText": "Confirm",
+        "cancelText": "Cancel",
+        "emailLine": "You will receive a confirmation document at your email."
+      }
+    },
+    "changeRoute": {
+      "bannerAltMobile": "Change to a nearby province (same-day travel) — free",
+      "bannerAltDesktop": "Change to a nearby province (same-day travel) — free",
+      "pickRoute": "Select route",
+      "origin": {
+        "label": "Origin:",
+        "note": "( must be in the same region )",
+        "placeholder": "Select province"
+      },
+      "dest": {
+        "label": "Destination:",
+        "note": "( you can choose any )",
+        "placeholder": "Select province"
+      },
+      "pickTime": "Select flight time",
+      "emptySlots": "No flights found. Please select route (and date).",
+      "dialog": {
+        "title": "Confirm redemption",
+        "descriptionTop": "After confirming, you won’t be able to modify or cancel.",
+        "confirmText": "Confirm",
+        "cancelText": "Cancel"
+      }
+    },
+    "creditHold": {
+      "bannerAltMobile": "Keep ticket value as Credit Shell (valid for 365 days; fare difference may apply)",
+      "bannerAltDesktop": "Keep ticket value as Credit Shell (valid for 365 days; fare difference may apply)",
+      "title": "Credit Shell details",
+      "detail": {
+        "1": "Nok Air will keep your ticket value in a Credit Shell account.",
+        "2": "Usable within 365 days from the flight cancellation date."
+      },
+      "conditions": {
+        "title": "Terms & Conditions",
+        "1": "Request must be confirmed on your original travel date.",
+        "2": "Credit can be used for any route.",
+        "3": "If the new fare is higher, you must pay the difference.",
+        "4": "If the new fare is lower, the difference is non-refundable.",
+        "5": "If purchased via another channel or paid before online cancellation, please proceed via that original channel."
+      },
+      "contact": {
+        "line1": "If you wish to use the Credit Shell, please confirm and email a screenshot of this page to",
+        "email": "Naomill69@noknoi.com"
+      },
+      "dialog": {
+        "title": "Confirm redemption",
+        "descriptionTop": "After confirming, you won’t be able to modify or cancel.",
+        "confirmText": "Confirm",
+        "cancelText": "Cancel"
+      }
+    },
+    "refund": {
+      "bannerAlt": "Full refund",
+      "card": {
+        "title": "You paid with a credit/debit card",
+        "line1": "We will refund to the same card used for payment.",
+        "bullet1": "Refund will be returned to the original card within 45 days (depends on billing cycle).",
+        "bullet2": "If you do not receive the refund within the timeframe, please contact Nok Air Call Center at 1318.",
+        "ctaNote": "If you want a full refund, please press Confirm."
+      },
+      "agency": {
+        "title": "Your ticket was purchased via an agency",
+        "line1": "Refunds must be processed through your booking agency only and may take up to 60 days.",
+        "contact": "Please contact your agency to request the refund.",
+        "ctaNote": "If you want a full refund, please press Confirm."
+      },
+      "bank": {
+        "title": "Please provide your refund channel",
+        "subtitle": "Fill in the details to confirm the bank transfer method.",
+        "placeholderName": "Select passenger account name",
+        "placeholderNo": "Enter bank account number",
+        "sla": "Refund processing time is within 14 days."
+      },
+      "dialog": {
+        "title": "Confirm redemption",
+        "descriptionTop": "After confirming, you won’t be able to modify or cancel.",
+        "confirmText": "Confirm",
+        "cancelText": "Cancel"
+      }
+    },
+    "bankSelect": {
+      "placeholder": "Select bank",
+      "banks": {
+        "KBANK": "Kasikornbank",
+        "BBL": "Bangkok Bank",
+        "KTB": "Krungthai Bank",
+        "BAY": "Krungsri",
+        "GSB": "Government Savings Bank",
+        "SCB": "Siam Commercial Bank"
+      }
+    },
+    "redeemSuccess": {
+      "bannerAlt": "Compensation Benefits Portal",
+      "title": "Benefit redeemed successfully!",
+      "emailLine1": "We will send the confirmation to",
+      "emailLine2": "within 1–2 business days. For any inquiries, please contact Nok Air Call Center at 1318.",
+      "continueBtn": "Redeem another",
+      "or": "or",
+      "shareHint": "Copy the link so other passengers can redeem",
+      "shareInputLabel": "Shareable link",
+      "copy": "Copy",
+      "copied": "Copied",
+      "goHome": "Go to Nok Air home"
+    }
   }
 }

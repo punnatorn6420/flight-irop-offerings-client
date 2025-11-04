@@ -5,7 +5,7 @@ import Terms from "@/components/pages/consent/Terms";
 export default function ConsentPage() {
   return (
     <div>
-      <div className="pb-[calc(160px+env(safe-area-inset-bottom))]">
+      <div className="pb-[calc(160px+env(safe-area-inset-bottom))] lg:pb-0">
         <Brand />
         <Terms />
       </div>

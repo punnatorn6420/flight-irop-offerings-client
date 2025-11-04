@@ -6,6 +6,7 @@ import type { OfferMock } from "@/types/offer";
 import { Minus } from "iconoir-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useT } from "@/lib/i18n";
 
 type OnChangePayload = { ids: string[]; names: string[]; count: number };
 
@@ -18,7 +19,9 @@ export default function PassengerSelectCard({
   usedIds?: string[];
   onChange?: (p: OnChangePayload) => void;
 }) {
-  const [list, setList] = useState(
+  const t = useT("offer.passengerSelect");
+
+  const [list, setList] = useState(() =>
     passengers.map((p) => ({
       id: p.id,
       name: `${p.title} ${p.firstName} ${p.lastName}`.trim(),
@@ -27,18 +30,19 @@ export default function PassengerSelectCard({
     }))
   );
 
-  const selectable = useMemo(() => list.filter((x) => !x.disabled), [list]);
-  const selectableCount = selectable.length;
-
   useEffect(() => {
-    setList((prev) =>
-      prev.map((x) => ({
-        ...x,
-        disabled: usedIds.includes(x.id),
-        checked: usedIds.includes(x.id) ? false : x.checked,
+    setList(
+      passengers.map((p) => ({
+        id: p.id,
+        name: `${p.title} ${p.firstName} ${p.lastName}`.trim(),
+        checked: !!p.selected && !usedIds.includes(p.id),
+        disabled: usedIds.includes(p.id),
       }))
     );
-  }, [usedIds]);
+  }, [passengers]);
+
+  const selectable = useMemo(() => list.filter((x) => !x.disabled), [list]);
+  const selectableCount = selectable.length;
 
   const allChecked = useMemo(
     () => selectableCount > 0 && selectable.every((x) => x.checked),
@@ -49,8 +53,8 @@ export default function PassengerSelectCard({
     [selectable, allChecked]
   );
 
-  useEffect(() => {
-    const sel = list.filter((x) => !x.disabled && x.checked);
+  const emitChange = (nextList: typeof list) => {
+    const sel = nextList.filter((x) => !x.disabled && x.checked);
     const payload: OnChangePayload = {
       ids: sel.map((x) => x.id),
       names: sel.map((x) => x.name),
@@ -69,30 +73,38 @@ export default function PassengerSelectCard({
       "offer:selectedPassengerCount",
       String(payload.count)
     );
-  }, [list, onChange]);
+  };
 
   const toggleOne = (id: string, next?: boolean) =>
-    setList((prev) =>
-      prev.map((p) =>
+    setList((prev) => {
+      const updated = prev.map((p) =>
         p.id === id
           ? p.disabled
-            ? p // ห้ามแตะ
+            ? p
             : { ...p, checked: next ?? !p.checked }
           : p
-      )
-    );
+      );
+      emitChange(updated);
+      return updated;
+    });
 
   const toggleAll = (next: boolean) =>
-    setList((prev) =>
-      prev.map((p) => (p.disabled ? p : { ...p, checked: next }))
-    );
+    setList((prev) => {
+      const updated = prev.map((p) =>
+        p.disabled ? p : { ...p, checked: next }
+      );
+      emitChange(updated);
+      return updated;
+    });
 
   return (
     <article className="bg-gray-100 p-4 lg:p-5 rounded-2xl">
-      <h3 className="font-bold text-[24px]">เลือกผู้โดยสาร</h3>
+      <h3 className="font-bold text-[24px]">{t("title", "เลือกผู้โดยสาร")}</h3>
       <p className="mb-3 text-[16px] text-grey-700">
-        ผู้โดยสารแต่ละคนสามารถเลือกสิทธิ์ที่แตกต่างกันได้
-        และสามารถทำรายการได้ทีละคน หรือพร้อมกันทั้งหมดเพื่อรับสิทธิ์เดียวกัน
+        {t(
+          "subtitle",
+          "ผู้โดยสารแต่ละคนสามารถเลือกสิทธิ์ที่แตกต่างกันได้ และสามารถทำรายการได้ทีละคน หรือพร้อมกันทั้งหมดเพื่อรับสิทธิ์เดียวกัน"
+        )}
       </p>
       {selectableCount > 1 && (
         <div className="mb-3 flex items-center gap-3">
@@ -111,7 +123,7 @@ export default function PassengerSelectCard({
       "
           />
           <label htmlFor="all" className="text-[18px] font-medium">
-            เลือกทั้งหมด เพื่อรับสิทธิ์เดียวกัน
+            {t("selectAll", "เลือกทั้งหมด เพื่อรับสิทธิ์เดียวกัน")}
           </label>
         </div>
       )}

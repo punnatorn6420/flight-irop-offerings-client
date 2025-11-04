@@ -19,60 +19,65 @@ import {
   getSlotsForRoute,
 } from "@/data/offer_change_route.mock";
 import { Calendar } from "iconoir-react";
+import { Button } from "@/components/ui/button";
+import { useT, useLocale } from "@/lib/i18n";
 
-const AVAIL_MAP: Record<string, Record<string, string[]>> = {};
-
-// ——————————————————— util ———————————————————
-const TH_MONTHS = [
-  "มกราคม",
-  "กุมภาพันธ์",
-  "มีนาคม",
-  "เมษายน",
-  "พฤษภาคม",
-  "มิถุนายน",
-  "กรกฎาคม",
-  "สิงหาคม",
-  "กันยายน",
-  "ตุลาคม",
-  "พฤศจิกายน",
-  "ธันวาคม",
-];
-function ymLabel(ym: string) {
+function ymLabel(ym: string, locale: "th" | "en") {
   const [y, m] = ym.split("-").map(Number);
-  return `${TH_MONTHS[(m ?? 1) - 1]} ${y}`;
+  const dt = new Date(y, (m ?? 1) - 1, 1);
+  const fmt = new Intl.DateTimeFormat(locale === "th" ? "th-TH" : "en-US", {
+    month: "long",
+    year: "numeric",
+  });
+  return fmt.format(dt);
 }
+
 function getDaysInMonth(ym: string) {
   const [y, m] = ym.split("-").map(Number);
   return new Date(y, m, 0).getDate();
 }
 
 export default function ChangeFlightSameRoutePage() {
-  // ผู้โดยสาร
+  const t = useT("offer.changeRoute"); // เนมสเปซของหน้านี้
+  const locale = useLocale();
+
   const paxMax = offerMock.passengers.length;
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
-
-  const [count, setCount] = useState<string>(String(paxMax));
+  const [count] = useState<string>(String(paxMax));
 
   const primary =
     offerMock.passengers.find((p: any) => p.primary) ?? offerMock.passengers[0];
   const email = (primary as any)?.email || "";
 
   const ORIGINS = [
-    { code: "CNX", label: "เชียงใหม่ (เชียงใหม่)" },
-    { code: "KBV", label: "กระบี่ (กระบี่)" },
-    { code: "HDY", label: "หาดใหญ่ (สงขลา)" },
+    {
+      code: "CNX",
+      labelTh: "เชียงใหม่ (เชียงใหม่)",
+      labelEn: "Chiang Mai (CNX)",
+    },
+    { code: "KBV", labelTh: "กระบี่ (กระบี่)", labelEn: "Krabi (KBV)" },
+    { code: "HDY", labelTh: "หาดใหญ่ (สงขลา)", labelEn: "Hat Yai (HDY)" },
   ];
   const DESTS = [
-    { code: "DMK", label: "กรุงเทพฯ (ดอนเมือง)" },
-    { code: "UTH", label: "อุดรธานี (อุดรธานี)" },
-    { code: "URT", label: "สุราษฎร์ธานี (สุราษฎร์ฯ)" },
+    {
+      code: "DMK",
+      labelTh: "กรุงเทพฯ (ดอนเมือง)",
+      labelEn: "Bangkok (Don Mueang)",
+    },
+    {
+      code: "UTH",
+      labelTh: "อุดรธานี (อุดรธานี)",
+      labelEn: "Udon Thani (UTH)",
+    },
+    {
+      code: "URT",
+      labelTh: "สุราษฎร์ธานี (สุราษฎร์ฯ)",
+      labelEn: "Surat Thani (URT)",
+    },
   ];
 
   const [origin, setOrigin] = useState<string | undefined>(undefined);
   const [dest, setDest] = useState<string>("DMK");
-
-  const months = useMemo(() => Object.keys(AVAIL_MAP).sort(), []);
-  const defaultMonth = useMemo(() => months[0] ?? "", [months]);
   const [currentYM, setCurrentYM] = useState<string>("");
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
@@ -100,7 +105,6 @@ export default function ChangeFlightSameRoutePage() {
       : offerMock.passengers
           .filter((p) => p.selected)
           .map((p) => `${p.title} ${p.firstName} ${p.lastName}`.trim());
-
     setSelectedNames(initialNames);
   }, []);
 
@@ -115,8 +119,13 @@ export default function ChangeFlightSameRoutePage() {
     setSelectedSlot(null);
   }, [currentYM, selectedDay, origin, dest]);
 
-  const confirmDisabled =
-    !count || !origin || !dest || !selectedDay || !selectedSlot;
+  const confirmDisabled = !origin || !dest || !selectedSlot;
+
+  const monthOptions = useMemo(() => {
+    const rk = routeKey(origin, dest);
+    const ms = getMonthsForRoute(rk);
+    return ms.map((ym) => ({ value: ym, label: ymLabel(ym, locale) }));
+  }, [origin, dest, locale]);
 
   return (
     <section>
@@ -125,7 +134,10 @@ export default function ChangeFlightSameRoutePage() {
           <div className="relative aspect-361/200 lg:hidden">
             <Image
               src="/images/change_route_free_banner_m.svg"
-              alt="เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
+              alt={t(
+                "bannerAltMobile",
+                "เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
+              )}
               fill
               className="object-cover"
               priority
@@ -134,7 +146,10 @@ export default function ChangeFlightSameRoutePage() {
           <div className="relative aspect-3/5 hidden lg:block">
             <Image
               src="/images/change_route_free_banner.svg"
-              alt="เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
+              alt={t(
+                "bannerAltDesktop",
+                "เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
+              )}
               fill
               className="object-contain object-left lg:object-center"
               priority
@@ -149,11 +164,13 @@ export default function ChangeFlightSameRoutePage() {
           />
 
           <section>
-            <h3 className="mb-3 text-[24px] font-bold">เลือกเส้นทาง</h3>
+            <h3 className="mb-3 text-[24px] font-bold">
+              {t("pickRoute", "เลือกเส้นทาง")}
+            </h3>
             <div
               className="grid items-center gap-x-4 gap-y-6 min-w-0
                   grid-cols-[44px_1fr_auto]
-                  lg:grid-cols-[44px_128px_minmax(0,1fr)]"
+                  lg:grid-cols-[44px_180px_minmax(0,1fr)]"
             >
               <div className="relative col-start-1 row-span-2 min-h-24">
                 <div className="absolute left-1/2 -translate-x-1/2 top-3.5 bottom-3.5 w-1 rounded bg-[#F6C200]" />
@@ -162,16 +179,18 @@ export default function ChangeFlightSameRoutePage() {
               </div>
               <div className="col-start-2 row-start-1">
                 <div className="text-[20px] font-semibold text-[#1f2937]">
-                  ต้นทาง :
+                  {t("origin.label", "ต้นทาง :")}
                 </div>
                 <div className="text-[12px] lg:text-[16px] leading-4 text-grey-800 font-medium">
-                  (ในภูมิภาคเดียวกันเท่านั้น)
+                  {t("origin.note", "(ในภูมิภาคเดียวกันเท่านั้น)")}
                 </div>
               </div>
               <div className="lg:col-start-3 lg:row-start-1 justify-self-end min-w-0">
                 <Select value={origin} onValueChange={setOrigin}>
                   <SelectTrigger className="h-12! w-40 lg:w-50 min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium truncate data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40">
-                    <SelectValue placeholder="กรุณาเลือกจังหวัด" />
+                    <SelectValue
+                      placeholder={t("origin.placeholder", "กรุณาเลือกจังหวัด")}
+                    />
                   </SelectTrigger>
                   <SelectContent className="rounded-md">
                     {ORIGINS.map((o) => (
@@ -181,7 +200,7 @@ export default function ChangeFlightSameRoutePage() {
                         className="cursor-pointer"
                       >
                         <span className="text-lg cursor-pointer">
-                          {o.label}
+                          {locale === "en" ? o.labelEn : o.labelTh}
                         </span>
                       </SelectItem>
                     ))}
@@ -190,16 +209,18 @@ export default function ChangeFlightSameRoutePage() {
               </div>
               <div className="col-start-2 row-start-2">
                 <div className="text-[20px] font-semibold text-[#1f2937]">
-                  ปลายทาง :
+                  {t("dest.label", "ปลายทาง :")}
                 </div>
                 <div className="text-[12px] lg:text-[16px] leading-4 text-grey-800 font-medium">
-                  (สามารถเลือกได้)
+                  {t("dest.note", "(สามารถเลือกได้)")}
                 </div>
               </div>
               <div className="lg:col-start-3 lg:row-start-2 justify-self-end min-w-0">
                 <Select value={dest} onValueChange={setDest}>
                   <SelectTrigger className="h-12! w-40 lg:w-50 min-w-0 rounded-md border cursor-pointer border-grey-300 bg-white pl-3 text-[18px] font-medium data-[state=open]:ring-2 data-[state=open]:ring-[#F6C200]/40 truncate">
-                    <SelectValue placeholder="กรุณาเลือกจังหวัด" />
+                    <SelectValue
+                      placeholder={t("dest.placeholder", "กรุณาเลือกจังหวัด")}
+                    />
                   </SelectTrigger>
                   <SelectContent className="rounded-md ">
                     {DESTS.map((d) => (
@@ -208,7 +229,10 @@ export default function ChangeFlightSameRoutePage() {
                         value={d.code}
                         className="cursor-pointer"
                       >
-                        <span className="text-lg ">{d.label}</span>
+                        <span className="text-lg ">
+                          {" "}
+                          {locale === "en" ? d.labelEn : d.labelTh}
+                        </span>
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -218,34 +242,35 @@ export default function ChangeFlightSameRoutePage() {
           </section>
 
           <div className="mt-6">
-            <h3 className="mb-3 text-[24px] font-bold">เลือกเวลาเที่ยวบิน</h3>
+            <h3 className="mb-3 text-[24px] font-bold">
+              {t("pickTime", "เลือกเวลาเที่ยวบิน")}
+            </h3>
 
             <div role="radiogroup" className="grid gap-3 grid-cols-3">
               {slotsToday.length > 0 ? (
                 slotsToday.map((slot) => {
                   const active = selectedSlot === slot;
                   return (
-                    <button
+                    <Button
                       key={slot}
                       type="button"
                       onClick={() => setSelectedSlot(slot)}
                       aria-pressed={active}
                       className={[
-                        "h-12 w-full cursor-pointer rounded-lg border text-center text-[16px] font-bold",
+                        "h-12! w-full  border text-center text-[18px]! font-bold!",
                         active
-                          ? "border-yellow-500 bg-yellow-50 text-[#9A7B00]"
-                          : "border-yellow-500 bg-white text-yellow-700 hover:bg-yellow-50",
+                          ? "border-yellow-500! bg-yellow-100! text-yellow-800!"
+                          : "border-yellow-500! bg-white! text-yellow-700! hover:bg-yellow-50!",
                       ].join(" ")}
                     >
                       {slot}
-                    </button>
+                    </Button>
                   );
                 })
               ) : (
                 <div className="col-span-full">
                   <div className="mx-auto max-w-xl rounded-2xl border border-grey-200 bg-white p-8 text-center shadow-sm">
                     <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-grey-200">
-                      {/* <CalendarX2 className="h-6 w-6 text-grey-500" /> */}
                       <Calendar
                         width={24}
                         height={24}
@@ -254,7 +279,10 @@ export default function ChangeFlightSameRoutePage() {
                       />
                     </div>
                     <div className="text-[16px] text-grey-600">
-                      ไม่พบเที่ยวบิน กรุณาเลือกเส้นทาง (และวันเดินทาง)
+                      {t(
+                        "emptySlots",
+                        "ไม่พบเที่ยวบิน กรุณาเลือกเส้นทาง (และวันเดินทาง)"
+                      )}
                     </div>
                   </div>
                 </div>
@@ -267,12 +295,14 @@ export default function ChangeFlightSameRoutePage() {
             onBack={() => history.back()}
             onConfirm={async () => {}}
             confirmDialog={{
-              title: "ยืนยันการใช้สิทธิ์",
-              descriptionTop:
-                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
+              title: t("dialog.title", "ยืนยันการใช้สิทธิ์"),
+              descriptionTop: t(
+                "dialog.descriptionTop",
+                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+              ),
               email: email,
-              confirmText: "ยืนยันรับสิทธิ์",
-              cancelText: "ยกเลิก",
+              confirmText: t("dialog.confirmText", "ยืนยันรับสิทธิ์"),
+              cancelText: t("dialog.cancelText", "ยกเลิก"),
             }}
           />
         </section>

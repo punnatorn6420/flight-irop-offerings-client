@@ -245,6 +245,40 @@
       "copy": "Copy",
       "copied": "Copied",
       "goHome": "Go to Nok Air home"
+    },
+    "summary": {
+      "title": "Please review and confirm your selection",
+      "subtitle": "Check each passenger’s details carefully before confirming.",
+      "sectionTitle": "Benefit details — PNR:",
+      "pending": "Not yet selected (must complete at least 24 hours before departure).",
+      "choices": {
+        "sameRoute": "Free same-route flight change (1 time) (CNX–DMK 14:15–15:30)",
+        "refund": "Full refund"
+      },
+      "edit": "Edit selection",
+      "confirm": "Confirm"
+    }
+  },
+  "eligibility": {
+    "invalid": {
+      "title": "Not eligible for this benefit",
+      "line1": "Sorry, you are not eligible for this benefit under the specified conditions.",
+      "line2": "Please review the terms and try again.",
+      "back": "Back",
+      "home": "Home"
+    },
+    "timeout": {
+      "title": "Benefit redemption expired",
+      "line1": "Our system detected that the redemption window has expired.",
+      "line2": "(24 hours after the flight time) For more information, please contact Nok Air Customer Service at 1318.",
+      "back": "Back",
+      "home": "Home"
+    },
+    "error": {
+      "title": "We can't process your request right now",
+      "desc": "The system is temporarily unavailable. Please try again.",
+      "retry": "Try again",
+      "retrying": "Retrying..."
     }
   }
 }

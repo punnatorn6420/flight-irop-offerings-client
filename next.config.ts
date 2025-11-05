@@ -4,14 +4,11 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   experimental: {
-    optimizePackageImports: [
-      "date-fns",
-      "lodash",
-      "lucide-react",
-      "iconoir-react",
-    ],
+    optimizePackageImports: ["date-fns", "lodash", "iconoir-react"],
   },
-  devIndicators: false,
+  output: "standalone",
+  // devIndicators: false,
+  // turbopack: { root: __dirname },
 };
 
 export default nextConfig;

@@ -57,7 +57,7 @@ export default function OfferFooterActions({
 
   const runConfirm = async () => {
     if (!onConfirm) {
-      router.replace("/offer/success");
+      router.replace("/offer/summary");
       return;
     }
     try {
@@ -66,7 +66,7 @@ export default function OfferFooterActions({
         setInternalLoading(true);
         await ret;
       }
-      router.replace("/offer/success");
+      router.replace("/offer/summary");
     } finally {
       setInternalLoading(false);
     }
@@ -86,12 +86,6 @@ export default function OfferFooterActions({
   const backText = backLabel ?? t("back", "ย้อนกลับ");
   const confirmBtnText = confirmLabel ?? t("confirm", "ยืนยัน");
   const dialogTitle = title ?? t("dialog.title", "ยืนยันการใช้สิทธิ์");
-  const dialogDescTop =
-    descriptionTop ??
-    t(
-      "dialog.descriptionTop",
-      "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
-    );
   const dialogConfirmText =
     confirmText ?? t("dialog.confirmText", "ยืนยันรับสิทธิ์");
   const dialogCancelText = cancelText ?? t("dialog.cancelText", "ยกเลิก");

@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import localFont from "next/font/local";
 import "@/app/globals.css";
 import { I18nProvider } from "@/lib/i18n";
@@ -39,8 +38,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const ua = (await headers()).get("user-agent") || "";
-  const initialMode = /(?:Line\/|LIFF)/i.test(ua) ? "liff" : "web";
   const locale = (await getServerLocale()) ?? DEFAULT_LOCALE;
   const messages = await loadMessages(locale);
 

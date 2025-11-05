@@ -28,7 +28,7 @@ const BENEFIT_ROUTES: Record<string, string> = {
   "near-province": "/offer/change-route",
   "keep-credit": "/offer/credit-hold",
   refund: "/offer/refund",
-  "no-benefit": "/offer/success",
+  "no-benefit": "/offer/summary",
 };
 
 export default function BenefitList() {

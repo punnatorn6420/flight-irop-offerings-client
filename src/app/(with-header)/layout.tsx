@@ -25,7 +25,7 @@ export default async function WithHeaderLayout({
       <I18nProvider locale={locale} messages={messages}>
         <Header />
         <main className="flex-1">
-          <div className="max-w-6xl mx-auto px-4 lg:px-6 py-8 lg:pt-12">
+          <div className="max-w-6xl mx-auto px-4 lg:px-6 py-4 lg:py-8">
             {children}
           </div>
         </main>

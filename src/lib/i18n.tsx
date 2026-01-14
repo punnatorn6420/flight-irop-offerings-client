@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useMemo } from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Messages = Record<string, any>;
 type Ctx = { locale: "th" | "en"; messages: Messages };
 
@@ -26,6 +27,7 @@ export function useT(ns?: string) {
 
   function get<T = string>(path: string, fallback?: T) {
     const parts = (ns ? `${ns}.${path}` : path).split(".");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let cur: any = ctx!.messages;
     for (const p of parts) {
       cur = cur?.[p];

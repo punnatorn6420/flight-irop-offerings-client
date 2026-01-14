@@ -104,7 +104,7 @@ export default function OfferRedeemSuccessPage() {
         <span className="block">
           {t(
             "emailLine2",
-            "ภายใน 1–2 วันทำการ หากมีข้อสงสัยเพิ่มเติม สามารถติดต่อศูนย์บริการลูกค้านกแอร์ โทร.1318"
+            "ภายใน 1–2 วันทำการ หากมีข้อสงสัยเพิ่มเติม สามารถติดต่อศูนย์บริการลูกค้านกแอร์ โทร.1318",
           )}
         </span>
       </p>
@@ -126,7 +126,7 @@ export default function OfferRedeemSuccessPage() {
                 <div className="text-center text-gray-400">
                   {t(
                     "shareHint",
-                    "คัดลอกลิงก์ให้ผู้โดยสารท่านอื่นรับสิทธิ์ต่อ"
+                    "คัดลอกลิงก์ให้ผู้โดยสารท่านอื่นรับสิทธิ์ต่อ",
                   )}
                 </div>
               </div>

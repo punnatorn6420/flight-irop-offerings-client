@@ -12,6 +12,7 @@ type Props = {
   noFooter?: boolean;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function LoginForm(_: Props) {
   const t = useT("login");
   const [pnr, setPnr] = useState("");

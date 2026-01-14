@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Select,
@@ -22,31 +22,19 @@ import { Calendar } from "iconoir-react";
 import { Button } from "@/components/ui/button";
 import { useT, useLocale } from "@/lib/i18n";
 
-function ymLabel(ym: string, locale: "th" | "en") {
-  const [y, m] = ym.split("-").map(Number);
-  const dt = new Date(y, (m ?? 1) - 1, 1);
-  const fmt = new Intl.DateTimeFormat(locale === "th" ? "th-TH" : "en-US", {
-    month: "long",
-    year: "numeric",
-  });
-  return fmt.format(dt);
-}
-
-function getDaysInMonth(ym: string) {
-  const [y, m] = ym.split("-").map(Number);
-  return new Date(y, m, 0).getDate();
-}
-
 export default function ChangeFlightSameRoutePage() {
   const t = useT("offer.changeRoute"); // เนมสเปซของหน้านี้
   const locale = useLocale();
 
   const paxMax = offerMock.passengers.length;
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [count] = useState<string>(String(paxMax));
 
   const primary =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     offerMock.passengers.find((p: any) => p.primary) ?? offerMock.passengers[0];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const email = (primary as any)?.email || "";
 
   const ORIGINS = [
@@ -87,6 +75,7 @@ export default function ChangeFlightSameRoutePage() {
     const rk = routeKey(origin, dest);
     const months = getMonthsForRoute(rk);
     const firstYM = months[0] ?? "";
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentYM(firstYM);
 
     const days = firstYM ? getDaysForRoute(rk, firstYM) : [];
@@ -105,11 +94,13 @@ export default function ChangeFlightSameRoutePage() {
       : offerMock.passengers
           .filter((p) => p.selected)
           .map((p) => `${p.title} ${p.firstName} ${p.lastName}`.trim());
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedNames(initialNames);
   }, []);
 
   useEffect(() => {
     if (!currentYM || !selectedDay) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSlotsToday([]);
       setSelectedSlot(null);
       return;
@@ -118,14 +109,6 @@ export default function ChangeFlightSameRoutePage() {
     setSlotsToday(getSlotsForRoute(rk, currentYM, selectedDay));
     setSelectedSlot(null);
   }, [currentYM, selectedDay, origin, dest]);
-
-  const confirmDisabled = !origin || !dest || !selectedSlot;
-
-  const monthOptions = useMemo(() => {
-    const rk = routeKey(origin, dest);
-    const ms = getMonthsForRoute(rk);
-    return ms.map((ym) => ({ value: ym, label: ymLabel(ym, locale) }));
-  }, [origin, dest, locale]);
 
   return (
     <section>

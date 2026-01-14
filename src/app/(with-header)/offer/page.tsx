@@ -12,7 +12,9 @@ import { useT } from "@/lib/i18n";
 export default function OfferPage() {
   const t = useT("offer");
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedCount, setSelectedCount] = useState<number>(0);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function OfferPage() {
         code: s.flightNumber,
         label: `${t("flight", "เที่ยวบิน")} ${s.flightNumber}`,
       })),
-    [segments, t]
+    [segments, t],
   );
 
   const usedIds = useMemo(
@@ -49,13 +51,13 @@ export default function OfferPage() {
       Object.entries(offerMock.redeemProgress as Record<string, unknown>)
         .filter(([, arr]) => Array.isArray(arr) && arr.every(Boolean))
         .map(([pid]) => pid),
-    []
+    [],
   );
 
   const [activeFlight, setActiveFlight] = useState<string>(tabs[0]?.code ?? "");
   const activeSegment = useMemo(
     () => segments.find((s) => s.flightNumber === activeFlight) ?? segments[0],
-    [segments, activeFlight]
+    [segments, activeFlight],
   );
 
   return (

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,7 +22,9 @@ const LOCALES: { code: Locale; label: string; flagSrc: string }[] = [
 ];
 
 export default function LanguageSwitcher({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   value = "th",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChange,
 }: {
   value?: Locale;

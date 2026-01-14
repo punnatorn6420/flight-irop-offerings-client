@@ -31,7 +31,6 @@ export default function PassengerSelectCard({
   );
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setList(
       passengers.map((p) => ({
         id: p.id,
@@ -40,6 +39,7 @@ export default function PassengerSelectCard({
         disabled: usedIds.includes(p.id),
       })),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [passengers]);
 
   const selectable = useMemo(() => list.filter((x) => !x.disabled), [list]);

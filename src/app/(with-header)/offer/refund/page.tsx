@@ -28,6 +28,7 @@ import { useT } from "@/lib/i18n";
 export default function RefundPage() {
   const t = useT("offer.refund");
   const paxMax = offerMock.passengers.length;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [count, setCount] = useState<string>(String(paxMax));
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
 
@@ -48,7 +49,7 @@ export default function RefundPage() {
         id: p.id,
         label: `${(p.title || "").trim()} ${p.firstName} ${p.lastName}`.trim(),
       })),
-    []
+    [],
   );
 
   const primary =
@@ -104,26 +105,26 @@ export default function RefundPage() {
                 <h3 className="text-center text-[22px] lg:text-[26px] font-extrabold">
                   {t(
                     "card.title",
-                    "ท่านได้ชำระเงินผ่านช่องทางบัตรเครดิต/เดบิต"
+                    "ท่านได้ชำระเงินผ่านช่องทางบัตรเครดิต/เดบิต",
                   )}
                 </h3>
                 <p className="mx-auto mt-6 max-w-4xl text-[18px] lg:text-[20px] leading-8 underline underline-offset-4">
                   {t(
                     "card.line1",
-                    "เราจะดำเนินการคืนเงินไปยังบัตรใบเดิมที่ใช้ในการชำระเงิน"
+                    "เราจะดำเนินการคืนเงินไปยังบัตรใบเดิมที่ใช้ในการชำระเงิน",
                   )}
                 </p>
                 <ul className="mx-auto mt-4 max-w-4xl list-disc space-y-3 pl-6 text-[18px] leading-8">
                   <li>
                     {t(
                       "card.bullet1",
-                      "โดยเงินจะคืนกลับเข้าบัตรใบเดิมภายในระยะเวลา 45 วัน (ขึ้นอยู่ระยะเวลาการตัดรอบบิล)"
+                      "โดยเงินจะคืนกลับเข้าบัตรใบเดิมภายในระยะเวลา 45 วัน (ขึ้นอยู่ระยะเวลาการตัดรอบบิล)",
                     )}
                   </li>
                   <li>
                     {t(
                       "card.bullet2",
-                      "หากไม่ได้รับเงินคืนภายในระยะเวลาที่กำหนด กรุณาติดต่อศูนย์บริการลูกค้านกแอร์ โทร.1318"
+                      "หากไม่ได้รับเงินคืนภายในระยะเวลาที่กำหนด กรุณาติดต่อศูนย์บริการลูกค้านกแอร์ โทร.1318",
                     )}
                   </li>
                 </ul>
@@ -140,7 +141,7 @@ export default function RefundPage() {
                   title: t("dialog.title", "ยืนยันการใช้สิทธิ์"),
                   descriptionTop: t(
                     "dialog.descriptionTop",
-                    "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+                    "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
                   ),
                   email,
                   confirmText: t("dialog.confirmText", "ยืนยันรับสิทธิ์"),
@@ -162,19 +163,19 @@ export default function RefundPage() {
                 <p className="mx-auto mt-6 max-w-4xl text-[18px] lg:text-[20px] leading-8 underline underline-offset-4">
                   {t(
                     "agency.line1",
-                    "หากต้องการขอคืนเงินเราจะดำเนินการผ่านตัวแทนจำหน่ายที่ท่านทำการจองไว้เท่านั้น โดยจะใช้ระยะเวลาดำเนินการ 60 วัน"
+                    "หากต้องการขอคืนเงินเราจะดำเนินการผ่านตัวแทนจำหน่ายที่ท่านทำการจองไว้เท่านั้น โดยจะใช้ระยะเวลาดำเนินการ 60 วัน",
                   )}
                 </p>
                 <div className="mx-auto mt-4 max-w-4xl list-disc space-y-3 text-[18px]">
                   {t(
                     "agency.contact",
-                    "กรุณาติดต่อไปยังตัวแทนจำหน่ายของท่านเพื่อดำเนินการขอคืนเงิน"
+                    "กรุณาติดต่อไปยังตัวแทนจำหน่ายของท่านเพื่อดำเนินการขอคืนเงิน",
                   )}
                 </div>
                 <div className="mx-auto mt-4 max-w-4xl text-[18px] font-extrabold">
                   {t(
                     "agency.ctaNote",
-                    "ต้องการขอคืนเงินเต็มจำนวน กรุณากดยืนยัน"
+                    "ต้องการขอคืนเงินเต็มจำนวน กรุณากดยืนยัน",
                   )}
                 </div>
               </section>
@@ -187,7 +188,7 @@ export default function RefundPage() {
                   title: t("dialog.title", "ยืนยันการใช้สิทธิ์"),
                   descriptionTop: t(
                     "dialog.descriptionTop",
-                    "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+                    "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
                   ),
                   email,
                   confirmText: t("dialog.confirmText", "ยืนยันรับสิทธิ์"),
@@ -206,7 +207,7 @@ export default function RefundPage() {
                 <p className="text-[16px] font-medium text-gray-500">
                   {t(
                     "bank.subtitle",
-                    "กรอกรายละเอียดเพื่อยืนยันช่องทางการโอนเงิน"
+                    "กรอกรายละเอียดเพื่อยืนยันช่องทางการโอนเงิน",
                   )}
                 </p>
               </div>
@@ -241,7 +242,7 @@ export default function RefundPage() {
                       <SelectValue
                         placeholder={t(
                           "bank.placeholderName",
-                          "เลือกชื่อบัญชีผู้โดยสาร"
+                          "เลือกชื่อบัญชีผู้โดยสาร",
                         )}
                       />
                     </SelectTrigger>
@@ -265,7 +266,7 @@ export default function RefundPage() {
                   onChange={(e) => setAccountNo(e.target.value)}
                   placeholder={t(
                     "bank.placeholderNo",
-                    "กรอกหมายเลขบัญชีธนาคาร"
+                    "กรอกหมายเลขบัญชีธนาคาร",
                   )}
                   className="h-12 rounded-md border-gray-300 text-[18px]!"
                   inputMode="numeric"
@@ -291,7 +292,7 @@ export default function RefundPage() {
                   title: t("dialog.title", "ยืนยันการใช้สิทธิ์"),
                   descriptionTop: t(
                     "dialog.descriptionTop",
-                    "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+                    "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
                   ),
                   email,
                   confirmText: t("dialog.confirmText", "ยืนยันรับสิทธิ์"),

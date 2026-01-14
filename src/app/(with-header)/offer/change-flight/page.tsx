@@ -64,7 +64,7 @@ export default function ChangeFlightSameRoutePage() {
   const defaultMonth = useMemo(() => {
     for (const ym of months) {
       const hasAny = Object.values(AVAIL_MAP[ym] || {}).some(
-        (slots) => slots?.length > 0
+        (slots) => slots?.length > 0,
       );
       if (hasAny) return ym;
     }
@@ -120,7 +120,7 @@ export default function ChangeFlightSameRoutePage() {
         label: ymLabel(ym, locale),
         value: ym,
       })),
-    [months, locale]
+    [months, locale],
   );
 
   const visibleDays = daysArray.slice(winStart, winStart + WINDOW);
@@ -229,7 +229,7 @@ export default function ChangeFlightSameRoutePage() {
                   ? "-"
                   : t("dayCard.flights", "{n} เที่ยวบิน").replace(
                       "{n}",
-                      String(flights)
+                      String(flights),
                     );
 
                 return (
@@ -322,7 +322,7 @@ export default function ChangeFlightSameRoutePage() {
               title: t("dialog.title", "ยืนยันการใช้สิทธิ์"),
               descriptionTop: t(
                 "dialog.descriptionTop",
-                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
               ),
               email: email,
               confirmText: t("dialog.confirmText", "ยืนยันรับสิทธิ์"),

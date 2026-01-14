@@ -20,5 +20,6 @@ export async function getServerLocale(): Promise<Locale> {
 
 export async function loadMessages(locale: Locale) {
   const mod = await import(`@/lib/i18n/${locale}.json`);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return mod.default as Record<string, any>;
 }

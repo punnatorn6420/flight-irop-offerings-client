@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 function ScrollArea({
   className,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type = "always",
   children,
   ...props

@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { cn } from "@/lib/utils";
-import { Group, NavArrowDown } from "iconoir-react";
+import { Group } from "iconoir-react";
 import {
   Accordion,
   AccordionItem,
@@ -22,6 +22,7 @@ type Props = {
 export default function OfferPassengerCount({
   names,
   value,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   title,
   className,
   defaultOpen = true,
@@ -38,7 +39,7 @@ export default function OfferPassengerCount({
 
   const headerText = t(
     "header",
-    locale === "th" ? "จำนวน {count} ท่าน" : "Passengers selected: {count}"
+    locale === "th" ? "จำนวน {count} ท่าน" : "Passengers selected: {count}",
   ).replace("{count}", nf.format(count));
 
   return (
@@ -59,7 +60,7 @@ export default function OfferPassengerCount({
             <AccordionTrigger
               className={cn(
                 "px-4 lg:px-5 py-2 rounded-lg",
-                "hover:no-underline [&>svg]:ml-auto cursor-pointer"
+                "hover:no-underline [&>svg]:ml-auto cursor-pointer",
               )}
             >
               <div className="flex w-full items-center gap-3 text-left ">

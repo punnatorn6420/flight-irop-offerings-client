@@ -35,6 +35,7 @@ export default function LanguageSwitcher({
 
   function setCookie(next: Locale) {
     // ใส่ Secure เมื่อรันบน https จริง
+    // eslint-disable-next-line react-hooks/immutability
     document.cookie = `${COOKIE}=${next}; Path=/; Max-Age=31536000; SameSite=Lax`;
   }
 

@@ -7,7 +7,7 @@ export default function Terms() {
 
   const title = t(
     "title",
-    "ข้อกำหนดและเงื่อนไขการใช้บริการ ( Terms & Conditions )"
+    "ข้อกำหนดและเงื่อนไขการใช้บริการ ( Terms & Conditions )",
   );
   const sections = t<
     { heading: string; items?: string[]; paragraph?: string }[]

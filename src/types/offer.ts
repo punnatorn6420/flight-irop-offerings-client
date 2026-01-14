@@ -52,5 +52,5 @@ export interface OfferMock {
   trip: TripInfo;
   passengers: Passenger[];
   payment: Payment;
-  redeemProgress: any;
+  redeemProgress: unknown;
 }

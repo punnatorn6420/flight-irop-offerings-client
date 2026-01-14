@@ -33,7 +33,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 function Button({
@@ -53,7 +53,7 @@ function Button({
       data-slot="button"
       className={cn(
         buttonVariants({ variant, size, className }),
-        "h-14 font-medium text-[22px] bg-yellow-500 text-yellow-900 hover:bg-yellow-400 hover:text-yellow-800 cursor-pointer disabled:bg-gray-300 disabled:text-gray-700"
+        "h-14 font-medium text-[22px] bg-yellow-500 text-yellow-900 hover:bg-yellow-400 hover:text-yellow-800 cursor-pointer disabled:bg-gray-300 disabled:text-gray-700",
       )}
       {...props}
     />

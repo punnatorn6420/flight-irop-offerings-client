@@ -26,6 +26,7 @@ export default function OfferPage() {
           .filter((p) => p.selected)
           .map((p) => `${p.title} ${p.firstName} ${p.lastName}`.trim());
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedNames(initialNames);
     setSelectedCount(initialNames.length);
   }, []);
@@ -45,7 +46,7 @@ export default function OfferPage() {
 
   const usedIds = useMemo(
     () =>
-      Object.entries(offerMock.redeemProgress)
+      Object.entries(offerMock.redeemProgress as Record<string, unknown>)
         .filter(([, arr]) => Array.isArray(arr) && arr.every(Boolean))
         .map(([pid]) => pid),
     []

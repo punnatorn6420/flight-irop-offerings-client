@@ -16,7 +16,9 @@ export default function OfferRedeemSuccessPage() {
   const t = useT("offer.redeemSuccess");
 
   const primary =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     offerMock.passengers.find((p: any) => p.primary) ?? offerMock.passengers[0];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const email = (primary as any)?.email || "";
 
   const totalSegments = offerMock.trip.segments.length;
@@ -25,8 +27,11 @@ export default function OfferRedeemSuccessPage() {
 
   const doneTasks = useMemo(() => {
     let n = 0;
-    for (const pid of Object.keys(offerMock.redeemProgress || {})) {
-      const arr = offerMock.redeemProgress[pid] || [];
+    const redeemProgress = offerMock.redeemProgress as
+      | Record<string, boolean[]>
+      | undefined;
+    for (const pid of Object.keys(redeemProgress || {})) {
+      const arr = redeemProgress?.[pid] || [];
       n += arr.filter(Boolean).length;
     }
     return n;

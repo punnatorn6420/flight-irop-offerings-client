@@ -27,7 +27,7 @@ export default function OfferSummaryPage() {
         <p className="text-[16px] md:text-[20px] text-grey-900">
           {t(
             "subtitle",
-            "โปรดตรวจสอบรายละเอียดของผู้โดยสารแต่ละท่านให้ถูกต้องก่อนยืนยัน"
+            "โปรดตรวจสอบรายละเอียดของผู้โดยสารแต่ละท่านให้ถูกต้องก่อนยืนยัน",
           )}
         </p>
       </div>
@@ -41,11 +41,11 @@ export default function OfferSummaryPage() {
             const selectionTextByPid: Record<string, string> = {
               [offerMock.passengers[0]?.id ?? ""]: t(
                 "choices.sameRoute",
-                "เปลี่ยนเที่ยวบินเส้นทางเดิมฟรี 1 ครั้ง (เชียงใหม่-ดอนเมือง 14:15–15:30)"
+                "เปลี่ยนเที่ยวบินเส้นทางเดิมฟรี 1 ครั้ง (เชียงใหม่-ดอนเมือง 14:15–15:30)",
               ),
               [offerMock.passengers[1]?.id ?? ""]: t(
                 "choices.refund",
-                "ขอคืนเงิน"
+                "ขอคืนเงิน",
               ),
             };
 
@@ -77,7 +77,7 @@ export default function OfferSummaryPage() {
                             {isPending
                               ? t(
                                   "pending",
-                                  "ยังไม่รับสิทธิ์ (ต้องทำรายการ 24 ชั่วโมงก่อนการเดินทาง)"
+                                  "ยังไม่รับสิทธิ์ (ต้องทำรายการ 24 ชั่วโมงก่อนการเดินทาง)",
                                 )
                               : text}
                           </div>

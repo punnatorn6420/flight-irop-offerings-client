@@ -36,7 +36,7 @@ export default function CreditHoldPage() {
               src="/images/credit_hold_banner_m.svg"
               alt={t(
                 "bannerAltMobile",
-                "เก็บวงเงินไว้ใช้ภายใน 365 วัน (หากมีส่วนต่างค่โดยสารต้องชำระเพิ่ม)"
+                "เก็บวงเงินไว้ใช้ภายใน 365 วัน (หากมีส่วนต่างค่โดยสารต้องชำระเพิ่ม)",
               )}
               fill
               className="object-cover"
@@ -48,7 +48,7 @@ export default function CreditHoldPage() {
               src="/images/credit_hold_banner.svg"
               alt={t(
                 "bannerAltDesktop",
-                "เก็บวงเงินไว้ใช้ภายใน 365 วัน (หากมีส่วนต่างค่โดยสารต้องชำระเพิ่ม)"
+                "เก็บวงเงินไว้ใช้ภายใน 365 วัน (หากมีส่วนต่างค่โดยสารต้องชำระเพิ่ม)",
               )}
               fill
               className="object-contain object-left lg:object-center"
@@ -70,13 +70,13 @@ export default function CreditHoldPage() {
               <li>
                 {t(
                   "detail.1",
-                  "Nok Air จะเก็บมูลค่าตั๋วของคุณไว้ในบัญชี Credit Shell"
+                  "Nok Air จะเก็บมูลค่าตั๋วของคุณไว้ในบัญชี Credit Shell",
                 )}
               </li>
               <li>
                 {t(
                   "detail.2",
-                  "ใช้งานได้ภายใน 365 วัน นับจากวันที่ยกเลิกเที่ยวบิน"
+                  "ใช้งานได้ภายใน 365 วัน นับจากวันที่ยกเลิกเที่ยวบิน",
                 )}
               </li>
             </ul>
@@ -96,7 +96,7 @@ export default function CreditHoldPage() {
               <li>
                 {t(
                   "conditions.3",
-                  "หากตั๋วใหม่มีราคาสูงกว่า ต้องชำระส่วนต่างเพิ่ม"
+                  "หากตั๋วใหม่มีราคาสูงกว่า ต้องชำระส่วนต่างเพิ่ม",
                 )}
               </li>
               <li>
@@ -105,7 +105,7 @@ export default function CreditHoldPage() {
               <li>
                 {t(
                   "conditions.5",
-                  "หากซื้อช่องทางอื่น หรือจ่ายก่อนยกเลิกผ่านออนไลน์ ต้องดำเนินการผ่านตัวแทนต้นทางนั้น"
+                  "หากซื้อช่องทางอื่น หรือจ่ายก่อนยกเลิกผ่านออนไลน์ ต้องดำเนินการผ่านตัวแทนต้นทางนั้น",
                 )}
               </li>
             </ol>
@@ -116,7 +116,7 @@ export default function CreditHoldPage() {
             <p className="text-[18px] font-medium">
               {t(
                 "contact.line1",
-                "หากต้องการใช้สิทธิ์เก็บวงเงิน กรุณากดยืนยัน และสำเนาหน้าจอนี้ส่งเอกสารไปที่อีเมล"
+                "หากต้องการใช้สิทธิ์เก็บวงเงิน กรุณากดยืนยัน และสำเนาหน้าจอนี้ส่งเอกสารไปที่อีเมล",
               )}{" "}
               <a
                 href="mailto:Naomill69@noknoi.com"
@@ -135,7 +135,7 @@ export default function CreditHoldPage() {
               title: t("dialog.title", "ยืนยันการใช้สิทธิ์"),
               descriptionTop: t(
                 "dialog.descriptionTop",
-                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
               ),
               email: email,
               confirmText: t("dialog.confirmText", "ยืนยันรับสิทธิ์"),

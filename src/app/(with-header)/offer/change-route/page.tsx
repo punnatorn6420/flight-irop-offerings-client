@@ -136,7 +136,7 @@ export default function ChangeFlightSameRoutePage() {
               src="/images/change_route_free_banner_m.svg"
               alt={t(
                 "bannerAltMobile",
-                "เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
+                "เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)",
               )}
               fill
               className="object-cover"
@@ -148,7 +148,7 @@ export default function ChangeFlightSameRoutePage() {
               src="/images/change_route_free_banner.svg"
               alt={t(
                 "bannerAltDesktop",
-                "เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
+                "เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)",
               )}
               fill
               className="object-contain object-left lg:object-center"
@@ -281,7 +281,7 @@ export default function ChangeFlightSameRoutePage() {
                     <div className="text-[16px] text-grey-600">
                       {t(
                         "emptySlots",
-                        "ไม่พบเที่ยวบิน กรุณาเลือกเส้นทาง (และวันเดินทาง)"
+                        "ไม่พบเที่ยวบิน กรุณาเลือกเส้นทาง (และวันเดินทาง)",
                       )}
                     </div>
                   </div>
@@ -298,7 +298,7 @@ export default function ChangeFlightSameRoutePage() {
               title: t("dialog.title", "ยืนยันการใช้สิทธิ์"),
               descriptionTop: t(
                 "dialog.descriptionTop",
-                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+                "หากกดยืนยันรับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
               ),
               email: email,
               confirmText: t("dialog.confirmText", "ยืนยันรับสิทธิ์"),

@@ -58,7 +58,7 @@ export function getDaysForRoute(key: RouteKey | null, ym: string): string[] {
 export function getSlotsForRoute(
   key: RouteKey | null,
   ym: string,
-  dd: string
+  dd: string,
 ): string[] {
   if (!key) return [];
   return CHANGE_ROUTE_AVAIL[key]?.[ym]?.[dd] ?? [];

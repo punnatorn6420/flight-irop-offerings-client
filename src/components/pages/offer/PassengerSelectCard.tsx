@@ -27,17 +27,18 @@ export default function PassengerSelectCard({
       name: `${p.title} ${p.firstName} ${p.lastName}`.trim(),
       checked: !!p.selected,
       disabled: usedIds.includes(p.id),
-    }))
+    })),
   );
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setList(
       passengers.map((p) => ({
         id: p.id,
         name: `${p.title} ${p.firstName} ${p.lastName}`.trim(),
         checked: !!p.selected && !usedIds.includes(p.id),
         disabled: usedIds.includes(p.id),
-      }))
+      })),
     );
   }, [passengers]);
 
@@ -46,11 +47,11 @@ export default function PassengerSelectCard({
 
   const allChecked = useMemo(
     () => selectableCount > 0 && selectable.every((x) => x.checked),
-    [selectable, selectableCount]
+    [selectable, selectableCount],
   );
   const someChecked = useMemo(
     () => selectable.some((x) => x.checked) && !allChecked,
-    [selectable, allChecked]
+    [selectable, allChecked],
   );
 
   const emitChange = (nextList: typeof list) => {
@@ -63,15 +64,15 @@ export default function PassengerSelectCard({
     onChange?.(payload);
     sessionStorage.setItem(
       "offer:selectedPassengerIds",
-      JSON.stringify(payload.ids)
+      JSON.stringify(payload.ids),
     );
     sessionStorage.setItem(
       "offer:selectedPassengerNames",
-      JSON.stringify(payload.names)
+      JSON.stringify(payload.names),
     );
     sessionStorage.setItem(
       "offer:selectedPassengerCount",
-      String(payload.count)
+      String(payload.count),
     );
   };
 
@@ -82,7 +83,7 @@ export default function PassengerSelectCard({
           ? p.disabled
             ? p
             : { ...p, checked: next ?? !p.checked }
-          : p
+          : p,
       );
       emitChange(updated);
       return updated;
@@ -91,7 +92,7 @@ export default function PassengerSelectCard({
   const toggleAll = (next: boolean) =>
     setList((prev) => {
       const updated = prev.map((p) =>
-        p.disabled ? p : { ...p, checked: next }
+        p.disabled ? p : { ...p, checked: next },
       );
       emitChange(updated);
       return updated;
@@ -103,7 +104,7 @@ export default function PassengerSelectCard({
       <p className="mb-3 text-[16px] text-grey-700">
         {t(
           "subtitle",
-          "ผู้โดยสารแต่ละคนสามารถเลือกสิทธิ์ที่แตกต่างกันได้ และสามารถทำรายการได้ทีละคน หรือพร้อมกันทั้งหมดเพื่อรับสิทธิ์เดียวกัน"
+          "ผู้โดยสารแต่ละคนสามารถเลือกสิทธิ์ที่แตกต่างกันได้ และสามารถทำรายการได้ทีละคน หรือพร้อมกันทั้งหมดเพื่อรับสิทธิ์เดียวกัน",
         )}
       </p>
       {selectableCount > 1 && (
@@ -153,7 +154,7 @@ export default function PassengerSelectCard({
                   htmlFor={inputId}
                   className={cn(
                     "text-[18px] font-medium",
-                    p.disabled && "text-gray-400"
+                    p.disabled && "text-gray-400",
                   )}
                 >
                   {p.name}

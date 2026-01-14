@@ -98,7 +98,7 @@ export default function OfferFooterActions({
       <div
         className={clsx(
           "mt-20 grid gap-3 grid-cols-[1fr_1fr] bottom-0 left-0 right-0 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/60 lg:p-0 lg:bg-transparent lg:backdrop-blur-0 lg:supports-backdrop-filter:bg-transparent",
-          className
+          className,
         )}
       >
         <Button

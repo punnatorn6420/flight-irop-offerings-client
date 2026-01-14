@@ -47,7 +47,7 @@ export default function LoginForm(_: Props) {
         <p className="mt-1 text-center text-[20px] text-grey-600">
           {t(
             "subtitle",
-            "โปรดกรอกรหัสการจองและนามสกุลของท่าน เพื่อยืนยันตัวตน"
+            "โปรดกรอกรหัสการจองและนามสกุลของท่าน เพื่อยืนยันตัวตน",
           )}
         </p>
         <form onSubmit={onSubmit} className="mt-4 lg:mt-6 space-y-3">

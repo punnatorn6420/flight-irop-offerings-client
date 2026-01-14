@@ -25,6 +25,7 @@ export default function BankSelect({
   value,
   onChange,
   className,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   showIcon = false,
 }: Props) {
   const t = useT("offer.bankSelect");
@@ -54,7 +55,7 @@ export default function BankSelect({
           "flex items-center gap-3 ",
           "[&_[data-slot=select-value][data-placeholder]]:text-gray-400",
           className,
-          selected ?? "pl-12"
+          selected ?? "pl-12",
         )}
       >
         <div className="w-full flex items-center gap-3 min-w-0">

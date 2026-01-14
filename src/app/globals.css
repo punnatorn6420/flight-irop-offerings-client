@@ -3,18 +3,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
-body { 
+body {
   font-family: var(--font-db-ozone-x), "Noto Sans Thai", system-ui, sans-serif;
 }
 
-[class*="text-"] { letter-spacing: 0.01em; }
+[class*="text-"] {
+  letter-spacing: 0.01em;
+}
 
 :root {
   /* ...ของเดิมคงไว้ได้... */
 
   /* mapping ให้คอมโพเนนต์ shadcn ใช้เหลืองเป็นสีหลัก */
-  --primary: var(--color-yellow-500) !important;       /* ปุ่มหลัก (bg-primary) */
-  --ring: var(--color-yellow-500) !important;          /* focus ring เหลือง */
+  --primary: var(--color-yellow-500) !important; /* ปุ่มหลัก (bg-primary) */
+  --ring: var(--color-yellow-500) !important; /* focus ring เหลือง */
 
   /* optional: โทนพื้น/เส้นขอบ ให้ไปกับพาเลตของคุณ */
   --background: var(--color-background) !important;
@@ -25,11 +27,11 @@ body {
 
 @theme {
   --color-primary: var(--color-yellow-500);
-  --color-background: #fdfEec;      
+  --color-background: #fdfeec;
   --color-text-header: #5f3912;
   --color-text-body: #241f21;
 
-  --color-yellow-50:  #fffae6;
+  --color-yellow-50: #fffae6;
   --color-yellow-100: #fffeb2;
   --color-yellow-200: #ffef8d;
   --color-yellow-300: #ffdc5a;
@@ -40,7 +42,7 @@ body {
   --color-yellow-800: #8c7004;
   --color-yellow-900: #6b5503;
 
-  --color-grey-50:  #f8f8f8;
+  --color-grey-50: #f8f8f8;
   --color-grey-100: #eaeaea;
   --color-grey-200: #e0e0e0;
   --color-grey-300: #d2d2d2;
@@ -97,7 +99,8 @@ body {
 }
 
 :root {
-  --font-family: var(--font-db-ozone-x), "Noto Sans Thai", system-ui, sans-serif;
+  --font-family:
+    var(--font-db-ozone-x), "Noto Sans Thai", system-ui, sans-serif;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -179,8 +182,14 @@ body {
   }
 }
 
-.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 /* Firefox */
-.hide-scrollbar { scrollbar-width: none; }
+.hide-scrollbar {
+  scrollbar-width: none;
+}
 /* Edge/IE */
-.hide-scrollbar { -ms-overflow-style: none; }
+.hide-scrollbar {
+  -ms-overflow-style: none;
+}

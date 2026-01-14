@@ -41,21 +41,21 @@ export default function BenefitList() {
         id: "same-flight",
         title: t(
           "items.sameFlight.title",
-          "เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม (ไม่เสียค่าใช้จ่าย 1 ครั้ง)"
+          "เปลี่ยนเที่ยวบินฟรี เส้นทางเดิม (ไม่เสียค่าใช้จ่าย 1 ครั้ง)",
         ),
       },
       {
         id: "near-province",
         title: t(
           "items.nearProvince.title",
-          "เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)"
+          "เปลี่ยนเส้นทางไปจังหวัดใกล้เคียงฟรี (เดินทางภายในวันเดียวกัน)",
         ),
       },
       {
         id: "keep-credit",
         title: t(
           "items.keepCredit.title",
-          "เก็บวงเงินไว้ใช้ภายใน 365 วัน (หากมีส่วนต่างค่าโดยสาร ต้องชำระเพิ่ม)"
+          "เก็บวงเงินไว้ใช้ภายใน 365 วัน (หากมีส่วนต่างค่าโดยสาร ต้องชำระเพิ่ม)",
         ),
       },
       {
@@ -67,7 +67,7 @@ export default function BenefitList() {
         title: t("items.noBenefit.title", "ไม่รับสิทธิ์"),
       },
     ],
-    [t]
+    [t],
   );
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -82,7 +82,7 @@ export default function BenefitList() {
       }
       router.push(BENEFIT_ROUTES[id] ?? "/offer");
     },
-    [router]
+    [router],
   );
 
   const confirmDecline = async () => {
@@ -165,7 +165,7 @@ export default function BenefitList() {
               <div className="text-center text-[18px] leading-5 text-gray-800">
                 {t(
                   "decline.desc",
-                  "หากกดยืนยันไม่รับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้"
+                  "หากกดยืนยันไม่รับสิทธิ์จะไม่สามารถแก้ไข หรือยกเลิกได้",
                 )}
               </div>
             </AlertDialogDescription>

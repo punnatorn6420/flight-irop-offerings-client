@@ -18,7 +18,7 @@ function formatDateByLocale(iso: string, locale: "th" | "en") {
 function formatTimeRange(
   from: string,
   to: string,
-  locale: "th" | "en"
+  locale: "th" | "en",
 ): string {
   return locale === "th" ? `${from} - ${to} น.` : `${from} – ${to}`;
 }
@@ -58,7 +58,7 @@ export default function FlightInfoCard({
       formatTimeRange(
         originalSegment ? originalSegment.departTime : segment.departTime,
         originalSegment ? originalSegment.arriveTime : segment.arriveTime,
-        locale
+        locale,
       ),
     ],
     [
